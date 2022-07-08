@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{979E153D-34F8-45E0-A6A0-B12AE140734F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{442AD53F-C830-49AA-949D-E0285DBEE807}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PigeonBox.Web.UI", "src\UI\PigeonBox.Web.UI\", "{2333E626-3D02-4F2D-835C-32E1A65CD84C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_59055"
+		Debug.AspNetCompiler.PhysicalPath = "src\UI\PigeonBox.Web.UI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59055\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_59055"
+		Release.AspNetCompiler.PhysicalPath = "src\UI\PigeonBox.Web.UI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59055\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59055"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2333E626-3D02-4F2D-835C-32E1A65CD84C} = {442AD53F-C830-49AA-949D-E0285DBEE807}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7437FABF-033E-464E-94D5-1E82DF717025}
+	EndGlobalSection
+EndGlobal
