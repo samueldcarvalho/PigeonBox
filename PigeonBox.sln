@@ -25,21 +25,56 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PigeonBox.Web.UI", "src\UI\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "59055"
+		SlnRelativePath = "src\UI\PigeonBox.Web.UI\"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PigeonBox", "PigeonBox", "{76DBA5DE-3419-458A-B6F1-293042971806}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.API", "src\Services\PigeonBox\PigeonBox.API\PigeonBox.API.csproj", "{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Application", "src\Services\PigeonBox\PigeonBox.Application\PigeonBox.Application.csproj", "{77728FFA-6362-4656-90CA-DD375CECA89A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Domain", "src\Services\PigeonBox\PigeonBox.Domain\PigeonBox.Domain.csproj", "{77080C68-6714-413E-8E03-A3B8E51492D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Infrastructure", "src\Services\PigeonBox\PigeonBox.Infrastructure\PigeonBox.Infrastructure.csproj", "{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2333E626-3D02-4F2D-835C-32E1A65CD84C}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77728FFA-6362-4656-90CA-DD375CECA89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77728FFA-6362-4656-90CA-DD375CECA89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77728FFA-6362-4656-90CA-DD375CECA89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77728FFA-6362-4656-90CA-DD375CECA89A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77080C68-6714-413E-8E03-A3B8E51492D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77080C68-6714-413E-8E03-A3B8E51492D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77080C68-6714-413E-8E03-A3B8E51492D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77080C68-6714-413E-8E03-A3B8E51492D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2333E626-3D02-4F2D-835C-32E1A65CD84C} = {442AD53F-C830-49AA-949D-E0285DBEE807}
+		{76DBA5DE-3419-458A-B6F1-293042971806} = {979E153D-34F8-45E0-A6A0-B12AE140734F}
+		{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7} = {76DBA5DE-3419-458A-B6F1-293042971806}
+		{77728FFA-6362-4656-90CA-DD375CECA89A} = {76DBA5DE-3419-458A-B6F1-293042971806}
+		{77080C68-6714-413E-8E03-A3B8E51492D8} = {76DBA5DE-3419-458A-B6F1-293042971806}
+		{BBCC5E9A-33CC-4DEE-9A54-1207975E1416} = {76DBA5DE-3419-458A-B6F1-293042971806}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7437FABF-033E-464E-94D5-1E82DF717025}
