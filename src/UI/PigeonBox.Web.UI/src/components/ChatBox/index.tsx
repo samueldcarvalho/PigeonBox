@@ -17,28 +17,24 @@ const ChatBox = () => {
           <div className={styles.chatBoxBodyLateralMenu}>
             <div className={styles.lateralMenuTabButtons}>
               <button
-                className={
-                  tabActive == "chats"
-                    ? styles.activeTabButton
-                    : styles.tabButton
-                }
+                className={`${styles.tabButton} ${
+                  tabActive == "chats" ? styles.activeTabButton : ""
+                }`}
                 onClick={() => setTabActive("chats")}
               >
                 Chats
               </button>
               <button
-                className={
-                  tabActive == "contacts"
-                    ? styles.activeTabButton
-                    : styles.tabButton
-                }
+                className={`${styles.tabButton} ${
+                  tabActive == "contacts" ? styles.activeTabButton : ""
+                }`}
                 onClick={() => setTabActive("contacts")}
               >
                 Contacts
               </button>
             </div>
             <div>
-              {tabActive == "chats" ? <ContactsPanel /> : <ChatsPanel />}
+              {tabActive == "chats" ? <ChatsPanel /> : <ContactsPanel />}
             </div>
           </div>
           <div className={styles.chatBoxBodyChatContainer}></div>
