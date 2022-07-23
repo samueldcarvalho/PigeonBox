@@ -1,0 +1,6 @@
+.wrapperBackground{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(#2C388E,#192041);
+}
