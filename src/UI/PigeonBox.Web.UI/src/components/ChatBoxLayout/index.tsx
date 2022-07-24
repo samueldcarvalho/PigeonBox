@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
+import Chat from "../Chat";
 import styles from "./styles.module.css";
 
 export interface IContact {
@@ -9,6 +10,20 @@ export interface IContact {
   Name: string;
   IsOnline: boolean;
 }
+
+export interface IChatInfo {
+  Title: string;
+}
+
+export interface IUser {
+  Id: number;
+  Name: string;
+}
+
+const User: IUser = {
+  Id: 1,
+  Name: "Samuel de Carvalho",
+};
 
 const Contacts: IContact[] = [
   { Id: 1, Name: "Débora Pianezzer", IsOnline: true },
@@ -25,7 +40,7 @@ const ChatBox = () => {
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
-            <h2>Username</h2>
+            <h2>{User.Name}</h2>
           </span>
         </div>
         <div className={styles.chatBoxBody}>
@@ -50,7 +65,7 @@ const ChatBox = () => {
             </div>
             <div className={styles.search}>
               <label>
-                <input type="text" placeholder="search anything..." />
+                <input type="text" placeholder="Search chats or contacts..." />
                 <button>
                   <BiSearchAlt2 fill="#FFF" />
                 </button>
@@ -60,7 +75,7 @@ const ChatBox = () => {
               {tabActive == "chats" ? <ChatsPanel /> : <ContactsPanel />}
             </div>
           </div>
-          <div className={styles.chatBoxBodyChatContainer}></div>
+          <Chat />
         </div>
       </div>
     </div>

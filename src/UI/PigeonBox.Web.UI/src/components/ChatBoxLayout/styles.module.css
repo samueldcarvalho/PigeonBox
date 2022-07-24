@@ -36,7 +36,10 @@
 }
 
 .chatBoxHeader h2 {
-  text-shadow: 0 0 15px #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 7px rgba(255, 255, 255, 0.4);
 }
 
 .chatBoxBody {
