@@ -74,7 +74,9 @@ const ContactsPanel = () => {
         return (
           <div key={i} className={styles.lateralMenuItemContainer}>
             <div className={styles.lateralMenuItemName}>
-              {c.IsOnline && <div className={styles.statusConnectedCircle} />}
+              <div className={styles.statusConnectedCircleContainer}>
+                {c.IsOnline && <div className={styles.statusConnectedCircle} />}
+              </div>
               <p>{c.Name}</p>
             </div>
             <span>

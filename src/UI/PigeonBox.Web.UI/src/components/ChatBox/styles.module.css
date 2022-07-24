@@ -193,6 +193,14 @@
     align-items: center;
   }
 
+  .statusConnectedCircleContainer {
+    width: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
   .statusConnectedCircle {
     width: 7px;
     height: 7px;
