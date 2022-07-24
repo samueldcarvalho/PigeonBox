@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{979E153D-34F8-45E0-A6A0-B12AE140734F}"
 EndProject
@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{442AD53F-C830-
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PigeonBox.Web.UI", "src\UI\PigeonBox.Web.UI\", "{2333E626-3D02-4F2D-835C-32E1A65CD84C}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_59055"
 		Debug.AspNetCompiler.PhysicalPath = "src\UI\PigeonBox.Web.UI\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59055\"
@@ -30,13 +30,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PigeonBox.Web.UI", "src\UI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PigeonBox", "PigeonBox", "{76DBA5DE-3419-458A-B6F1-293042971806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.API", "src\Services\PigeonBox\PigeonBox.API\PigeonBox.API.csproj", "{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.API", "src\Services\PigeonBox\PigeonBox.API\PigeonBox.API.csproj", "{E5D9EB53-6B9F-480E-928A-DBD31BEE0CE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Application", "src\Services\PigeonBox\PigeonBox.Application\PigeonBox.Application.csproj", "{77728FFA-6362-4656-90CA-DD375CECA89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.Application", "src\Services\PigeonBox\PigeonBox.Application\PigeonBox.Application.csproj", "{77728FFA-6362-4656-90CA-DD375CECA89A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Domain", "src\Services\PigeonBox\PigeonBox.Domain\PigeonBox.Domain.csproj", "{77080C68-6714-413E-8E03-A3B8E51492D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.Domain", "src\Services\PigeonBox\PigeonBox.Domain\PigeonBox.Domain.csproj", "{77080C68-6714-413E-8E03-A3B8E51492D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Infrastructure", "src\Services\PigeonBox\PigeonBox.Infrastructure\PigeonBox.Infrastructure.csproj", "{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.Infrastructure", "src\Services\PigeonBox\PigeonBox.Infrastructure\PigeonBox.Infrastructure.csproj", "{BBCC5E9A-33CC-4DEE-9A54-1207975E1416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

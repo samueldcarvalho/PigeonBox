@@ -9,6 +9,10 @@
   user-select: none;
 }
 
+.formConduce {
+  overflow: hidden;
+}
+
 .form {
   background-color: var(--primary-main);
   border-radius: 24px;
@@ -55,10 +59,16 @@
   flex-flow: row nowrap;
   justify-content: center;
   box-shadow: 0 10px 12px rgba(0, 0, 0, 0.048);
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .formInputTextLabel:last-child {
   margin-bottom: 0px;
+}
+
+.formInputTextLabel:focus-within {
+  box-shadow: 0 10px 12px rgba(255, 187, 0, 0.048),
+    inset 0 0 8px rgba(255, 255, 255, 0.486);
 }
 
 .formInputTextLabel input {
@@ -68,10 +78,6 @@
   color: #fff;
   font-weight: bold;
   font-size: 14px;
-}
-
-.formInputTextLabel input:active .formInputTextLabel {
-  background-color: black;
 }
 
 .formInputTextLabel input::placeholder {
@@ -121,4 +127,20 @@
 
 .formFooter span .hrefAction:hover {
   color: var(--primary-A100);
+}
+
+.formInputSideBySide {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.formInputSideBySide:last-child label:first-child {
+  margin-bottom: 0;
+}
+
+.formInputSideBySide label:first-child {
+  margin-right: 12px;
+}
+
+.formInputSideBySide label:last-child {
+  margin-left: 12px;
 }
