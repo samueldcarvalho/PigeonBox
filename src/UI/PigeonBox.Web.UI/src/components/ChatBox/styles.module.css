@@ -163,11 +163,12 @@
   .lateralMenuItemContainer p {
     color: var(--primary-A100);
     font-size: small;
-    padding-top: 2px;
+    padding-left: 15px;
     transition: all 0.5 cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   .lateralMenuItemContainer svg {
+    transform: translateY(1px);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     fill: var(--primary-200);
   }
@@ -182,7 +183,20 @@
   }
 
   .lateralMenuItemContainer:hover svg {
-    transform: translateX(5px);
+    transform: translate(5px, 0px);
     fill: var(--primary-A100);
+  }
+
+  .lateralMenuItemName {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .statusConnectedCircle {
+    width: 7px;
+    height: 7px;
+    border-radius: 5px;
+    background-color: var(--secondary-light);
   }
 }

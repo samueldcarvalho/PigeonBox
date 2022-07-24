@@ -4,6 +4,19 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import styles from "./styles.module.css";
 
+export interface IContact {
+  Id: number;
+  Name: string;
+  IsOnline: boolean;
+}
+
+const Contacts: IContact[] = [
+  { Id: 1, Name: "Débora Pianezzer", IsOnline: true },
+  { Id: 2, Name: "Renata Figueira", IsOnline: true },
+  { Id: 3, Name: "Ailton Marques F.", IsOnline: false },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+];
+
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
 
@@ -57,24 +70,19 @@ const ChatBox = () => {
 const ContactsPanel = () => {
   return (
     <div>
-      <div className={styles.lateralMenuItemContainer}>
-        <p>Samuel de Carvalho</p>
-        <span>
-          <BsFillChatLeftDotsFill />
-        </span>
-      </div>
-      <div className={styles.lateralMenuItemContainer}>
-        <p>Débora Pianezzer</p>
-        <span>
-          <BsFillChatLeftDotsFill />
-        </span>
-      </div>
-      <div className={styles.lateralMenuItemContainer}>
-        <p>Ailton Lopes</p>
-        <span>
-          <BsFillChatLeftDotsFill />
-        </span>
-      </div>
+      {Contacts.map((c, i) => {
+        return (
+          <div key={i} className={styles.lateralMenuItemContainer}>
+            <div className={styles.lateralMenuItemName}>
+              {c.IsOnline && <div className={styles.statusConnectedCircle} />}
+              <p>{c.Name}</p>
+            </div>
+            <span>
+              <BsFillChatLeftDotsFill />
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 };
