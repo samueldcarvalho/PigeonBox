@@ -1,5 +1,4 @@
 import { IoMdSend } from "react-icons/io";
-import { IChatInfo } from "../ChatBoxLayout";
 import styles from "./styles.module.css";
 
 const Chat = () => {
