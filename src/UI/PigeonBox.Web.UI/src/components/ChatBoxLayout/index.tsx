@@ -4,6 +4,8 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import Chat from "../Chat";
 import styles from "./styles.module.css";
+import { motion } from "framer-motion";
+import { duration } from "@mui/material";
 
 export interface IContact {
   Id: number;
@@ -29,6 +31,15 @@ const Contacts: IContact[] = [
   { Id: 1, Name: "Débora Pianezzer", IsOnline: true },
   { Id: 2, Name: "Renata Figueira", IsOnline: true },
   { Id: 3, Name: "Ailton Marques F.", IsOnline: false },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
+  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
   { Id: 4, Name: "Charles Carvalho", IsOnline: true },
 ];
 
@@ -71,7 +82,7 @@ const ChatBox = () => {
                 </button>
               </label>
             </div>
-            <div>
+            <div className={styles.lateralMenuitemPanel}>
               {tabActive == "chats" ? <ChatsPanel /> : <ContactsPanel />}
             </div>
           </div>
@@ -84,10 +95,16 @@ const ChatBox = () => {
 
 const ContactsPanel = () => {
   return (
-    <div>
+    <>
       {Contacts.map((c, i) => {
         return (
-          <div key={i} className={styles.lateralMenuItemContainer}>
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: 25 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className={styles.lateralMenuItemContainer}
+          >
             <div className={styles.lateralMenuItemName}>
               <div className={styles.statusConnectedCircleContainer}>
                 {c.IsOnline && <div className={styles.statusConnectedCircle} />}
@@ -97,15 +114,32 @@ const ContactsPanel = () => {
             <span>
               <BsFillChatLeftDotsFill />
             </span>
-          </div>
+          </motion.div>
         );
       })}
-    </div>
+    </>
   );
 };
 
 const ChatsPanel = () => {
-  return <></>;
+  return (
+    <div>
+      <motion.div
+        initial={{ opacity: 0, x: -25 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ type: "spring", duration: 0.5 }}
+        className={styles.lateralMenuItemContainer}
+      >
+        <div className={styles.lateralMenuItemName}>
+          <div className={styles.statusConnectedCircleContainer}></div>
+          <p>Débora Piannezer</p>
+        </div>
+        <span>
+          <BsFillChatLeftDotsFill />
+        </span>
+      </motion.div>
+    </div>
+  );
 };
 
 export default ChatBox;

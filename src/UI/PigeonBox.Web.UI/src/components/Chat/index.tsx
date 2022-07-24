@@ -1,4 +1,5 @@
 import { IoMdSend } from "react-icons/io";
+
 import styles from "./styles.module.css";
 
 const Chat = () => {

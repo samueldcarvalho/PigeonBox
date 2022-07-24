@@ -196,6 +196,24 @@
     align-items: center;
   }
 
+  .lateralMenuitemPanel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    height: 508px;
+  }
+  .lateralMenuitemPanel::-webkit-scrollbar {
+    width: 6px;
+  }
+  .lateralMenuitemPanel::-webkit-scrollbar-thumb {
+    background-color: var(--primary-600);
+    border-radius: 0 0 4px 4px;
+  }
+
+  .lateralMenuitemPanel::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
   .statusConnectedCircleContainer {
     width: 10px;
     display: flex;
