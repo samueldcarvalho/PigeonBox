@@ -1,0 +1,124 @@
+.formContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer * {
+  user-select: none;
+}
+
+.form {
+  background-color: var(--primary-main);
+  border-radius: 24px;
+  width: 450px;
+  min-height: 450px;
+  display: flex;
+  flex-flow: column nowrap;
+  box-shadow: 0 0 60px 0px #2c388e;
+  padding-block: 42px;
+  padding-inline: 36px;
+  transition: all 2s;
+}
+
+.formHeader {
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  height: 52px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.formHeader h1 {
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.671);
+}
+
+.formBody {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin-block: 30px;
+}
+
+.formInputTextLabel {
+  margin-bottom: 35px;
+  background-color: var(--primary-300);
+  border-radius: 12px;
+  height: 52px;
+  display: flex;
+  padding-inline: 22px;
+  flex-flow: row nowrap;
+  justify-content: center;
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.048);
+}
+
+.formInputTextLabel:last-child {
+  margin-bottom: 0px;
+}
+
+.formInputTextLabel input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.formInputTextLabel input:active .formInputTextLabel {
+  background-color: black;
+}
+
+.formInputTextLabel input::placeholder {
+  color: var(--primary-100);
+}
+
+.formFooter {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonAction {
+  border: none;
+  background-color: var(--secondary-main);
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  height: 52px;
+  min-width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 0 35px var(--secondary-main);
+  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.buttonAction {
+  margin-bottom: 22px;
+}
+
+.buttonAction:hover {
+  background-color: var(--secondary-light);
+  box-shadow: 0 0 25px var(--secondary-light);
+}
+
+.formFooter span {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 14px;
+  align-items: center;
+  color: var(--primary-100);
+}
+
+.formFooter span .hrefAction {
+  font-weight: bold;
+}
+
+.formFooter span .hrefAction:hover {
+  color: var(--primary-A100);
+}

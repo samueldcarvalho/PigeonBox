@@ -48,9 +48,9 @@ const ChatBox = () => {
 
   return (
     <motion.div
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      transition={{ type: "spring", duration: 1, bounce: 0.5 }}
+      initial={{ y: 250, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ type: "spring", duration: 1.5, bounce: 0.2 }}
       className={styles.chatBoxFlexContainer}
     >
       <div className={styles.chatBoxContainer}>
