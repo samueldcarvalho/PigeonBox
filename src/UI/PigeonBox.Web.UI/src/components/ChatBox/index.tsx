@@ -1,5 +1,7 @@
 /** @format */
 import { useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
+import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import styles from "./styles.module.css";
 
 const ChatBox = () => {
@@ -17,7 +19,7 @@ const ChatBox = () => {
           <div className={styles.chatBoxBodyLateralMenu}>
             <div className={styles.lateralMenuTabButtons}>
               <button
-                className={`${styles.tabButton} ${
+                className={`${styles.tabButton} ${styles.left} ${
                   tabActive == "chats" ? styles.activeTabButton : ""
                 }`}
                 onClick={() => setTabActive("chats")}
@@ -25,13 +27,21 @@ const ChatBox = () => {
                 Chats
               </button>
               <button
-                className={`${styles.tabButton} ${
+                className={`${styles.tabButton} ${styles.right} ${
                   tabActive == "contacts" ? styles.activeTabButton : ""
                 }`}
                 onClick={() => setTabActive("contacts")}
               >
                 Contacts
               </button>
+            </div>
+            <div className={styles.search}>
+              <label>
+                <input type="text" placeholder="search anything..." />
+                <button>
+                  <BiSearchAlt2 fill="#FFF" />
+                </button>
+              </label>
             </div>
             <div>
               {tabActive == "chats" ? <ChatsPanel /> : <ContactsPanel />}
@@ -45,11 +55,32 @@ const ChatBox = () => {
 };
 
 const ContactsPanel = () => {
-  return <>Contacts</>;
+  return (
+    <div>
+      <div className={styles.lateralMenuItemContainer}>
+        <p>Samuel de Carvalho</p>
+        <span>
+          <BsFillChatLeftDotsFill />
+        </span>
+      </div>
+      <div className={styles.lateralMenuItemContainer}>
+        <p>Débora Pianezzer</p>
+        <span>
+          <BsFillChatLeftDotsFill />
+        </span>
+      </div>
+      <div className={styles.lateralMenuItemContainer}>
+        <p>Ailton Lopes</p>
+        <span>
+          <BsFillChatLeftDotsFill />
+        </span>
+      </div>
+    </div>
+  );
 };
 
 const ChatsPanel = () => {
-  return <>Chats</>;
+  return <></>;
 };
 
 export default ChatBox;
