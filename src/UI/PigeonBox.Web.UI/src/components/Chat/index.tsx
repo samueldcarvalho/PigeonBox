@@ -1,4 +1,5 @@
 import { IoMdSend } from "react-icons/io";
+import { motion } from "framer-motion";
 
 import styles from "./styles.module.css";
 
@@ -10,14 +11,14 @@ const Chat = () => {
       </span>
       <div className={styles.chatBody}></div>
       <div className={styles.chatFooter}>
-        <div className={styles.inputTextContainer}>
+        <motion.div className={styles.inputTextContainer}>
           <label className={styles.inputTextBackground}>
             <input type="text" placeholder="   Type your message here..." />
             <button>
               <IoMdSend fill="#FFF" />
             </button>
           </label>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

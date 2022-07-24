@@ -47,7 +47,12 @@ const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
 
   return (
-    <div className={styles.chatBoxFlexContainer}>
+    <motion.div
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", duration: 1, bounce: 0.5 }}
+      className={styles.chatBoxFlexContainer}
+    >
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
@@ -89,7 +94,7 @@ const ChatBox = () => {
           <Chat />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
