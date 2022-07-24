@@ -40,7 +40,7 @@ const ChatBox = () => {
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
-            <h2>{User.Name}</h2>
+            <h3>{User.Name}</h3>
           </span>
         </div>
         <div className={styles.chatBoxBody}>
