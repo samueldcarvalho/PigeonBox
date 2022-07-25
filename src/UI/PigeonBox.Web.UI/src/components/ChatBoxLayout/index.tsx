@@ -34,7 +34,7 @@ export interface IMessage {
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
-  const { User, Contacts, JoinChatHub } = useContext(ChatContext);
+  const { Chats, User, Contacts, JoinChatHub } = useContext(ChatContext);
 
   useEffect(() => {
     JoinChatHub();
@@ -82,7 +82,7 @@ const ChatBox = () => {
             </div>
             <div className={styles.lateralMenuitemPanel}>
               {tabActive == "chats" ? (
-                <ChatsPanel />
+                <ChatsPanel Chats={Chats} />
               ) : (
                 <ContactsPanel Contacts={Contacts} />
               )}
@@ -104,7 +104,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
             key={i}
             initial={{ opacity: 0, x: 25 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ type: "spring", duration: 0.5 }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0 }}
             className={styles.lateralMenuItemContainer}
           >
             <div className={styles.lateralMenuItemName}>
@@ -123,23 +123,30 @@ const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
   );
 };
 
-const ChatsPanel = () => {
+const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
   return (
     <div>
-      <motion.div
-        initial={{ opacity: 0, x: -25 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: "spring", duration: 0.5 }}
-        className={styles.lateralMenuItemContainer}
-      >
-        <div className={styles.lateralMenuItemName}>
-          <div className={styles.statusConnectedCircleContainer}></div>
-          <p>Débora Piannezer</p>
-        </div>
-        <span>
-          <BsFillChatLeftDotsFill />
-        </span>
-      </motion.div>
+      {Chats.map((c, i) => {
+        return (
+          <>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -25 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+              className={styles.lateralMenuItemContainer}
+            >
+              <div className={styles.lateralMenuItemName}>
+                <div className={styles.statusConnectedCircleContainer}></div>
+                <p>{c.Title}</p>
+              </div>
+              <span>
+                <BsFillChatLeftDotsFill />
+              </span>
+            </motion.div>
+          </>
+        );
+      })}
     </div>
   );
 };

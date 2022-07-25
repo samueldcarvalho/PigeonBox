@@ -22,8 +22,17 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
   const [user, setUser] = useState<IUser | null>({
     Name: "Samuel de Carvalho",
   });
-  const [contacts, setContacts] = useState<IContact[]>([]);
-  const [chats, setChats] = useState<IChatInfo[]>([]);
+  const [contacts, setContacts] = useState<IContact[]>([
+    { Id: 1, Name: "PigeonBox Bot", IsOnline: true },
+  ]);
+  const [chats, setChats] = useState<IChatInfo[]>([
+    {
+      Identifier: "1",
+      Messages: [],
+      Participants: [],
+      Title: "Welcome to PigeonBox!",
+    },
+  ]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
   const [connection, setConnection] = useState<HubConnection>();
 
