@@ -9,12 +9,13 @@ const SignUpForm = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
+        autoComplete="off"
         className={styles.form}
       >
         <motion.div
           initial={{ height: 400, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
-          transition={{ type: "spring", duration: 1, bounce: 0.6 }}
+          transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>
@@ -23,7 +24,12 @@ const SignUpForm = () => {
           <div className={styles.formBody}>
             <div className={styles.formInputSideBySide}>
               <label className={styles.formInputTextLabel}>
-                <input type="text" placeholder="First name..." />
+                <input
+                  type="text"
+                  autoComplete="false"
+                  name="hidden"
+                  placeholder="First name..."
+                />
               </label>
               <label className={styles.formInputTextLabel}>
                 <input type="text" placeholder="Last name..." />

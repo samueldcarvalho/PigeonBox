@@ -12,9 +12,9 @@ const LoginForm = () => {
         className={styles.form}
       >
         <motion.div
-          initial={{ marginBottom: 100, height: 400, opacity: 0 }}
+          initial={{ marginBottom: 50, height: 400, opacity: 0 }}
           animate={{ marginBottom: 0, height: 350, opacity: 1 }}
-          transition={{ type: "spring", duration: 1, bounce: 0.6 }}
+          transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>
@@ -29,7 +29,9 @@ const LoginForm = () => {
             </label>
           </div>
           <div className={styles.formFooter}>
-            <button className={styles.buttonAction}>Sign in</button>
+            <Link href={"/"}>
+              <button className={styles.buttonAction}>Sign in</button>
+            </Link>
             <span>
               <p>First time in our rocket?&nbsp;</p>
               <Link href="/signup">
