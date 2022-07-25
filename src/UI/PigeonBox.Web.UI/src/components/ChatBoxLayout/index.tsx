@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
+import { HiDotsHorizontal } from "react-icons/hi";
 import Chat from "../Chat";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
@@ -114,7 +115,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
               <p>{c.Name}</p>
             </div>
             <span>
-              <BsFillChatLeftDotsFill />
+              <HiDotsHorizontal />
             </span>
           </motion.div>
         );

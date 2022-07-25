@@ -48,6 +48,8 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
 
     await connection.start();
     await connection.invoke("JoinServerHub");
+
+    setConnection(connection);
   };
 
   return (
