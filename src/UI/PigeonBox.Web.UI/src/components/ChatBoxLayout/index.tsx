@@ -1,11 +1,11 @@
 /** @format */
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import Chat from "../Chat";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
-import { duration } from "@mui/material";
+import { ChatContext } from "../../shared/contexts/ChatProvider";
 
 export interface IContact {
   Id: number;
@@ -14,38 +14,31 @@ export interface IContact {
 }
 
 export interface IChatInfo {
+  Identifier: string;
   Title: string;
+  Messages: IMessage[];
+  Participants: IContact[];
 }
 
 export interface IUser {
-  Id: number;
   Name: string;
 }
 
-const User: IUser = {
-  Id: 1,
-  Name: "Samuel de Carvalho",
-};
-
-const Contacts: IContact[] = [
-  { Id: 1, Name: "Débora Pianezzer", IsOnline: true },
-  { Id: 2, Name: "Renata Figueira", IsOnline: true },
-  { Id: 3, Name: "Ailton Marques F.", IsOnline: false },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-  { Id: 4, Name: "Charles Carvalho", IsOnline: true },
-];
+export interface IMessage {
+  Id: string;
+  SendedByMe: boolean;
+  SendedBy: string;
+  SendedAt: Date;
+  Text: string;
+}
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
+  const { User, Contacts, JoinChatHub } = useContext(ChatContext);
 
+  useEffect(() => {
+    JoinChatHub();
+  }, []);
   return (
     <motion.div
       initial={{ y: 250, opacity: 0 }}
@@ -56,7 +49,7 @@ const ChatBox = () => {
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
-            <h3>{User.Name}</h3>
+            <h3>{User!.Name}</h3>
           </span>
         </div>
         <div className={styles.chatBoxBody}>
@@ -88,7 +81,11 @@ const ChatBox = () => {
               </label>
             </div>
             <div className={styles.lateralMenuitemPanel}>
-              {tabActive == "chats" ? <ChatsPanel /> : <ContactsPanel />}
+              {tabActive == "chats" ? (
+                <ChatsPanel />
+              ) : (
+                <ContactsPanel Contacts={Contacts} />
+              )}
             </div>
           </div>
           <Chat />
@@ -98,7 +95,7 @@ const ChatBox = () => {
   );
 };
 
-const ContactsPanel = () => {
+const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
   return (
     <>
       {Contacts.map((c, i) => {
