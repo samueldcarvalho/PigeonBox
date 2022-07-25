@@ -34,16 +34,16 @@ namespace PigeonBox.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PigeonBox.API", Version = "v1" });
             });
 
+            services.AddSignalR();
+
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder => builder
-                    .AllowAnyOrigin()
+                options.AddDefaultPolicy(builder => builder
+                    .WithOrigins("http://localhost:8080")
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials());
+                    .AllowAnyMethod().
+                    AllowCredentials());
             });
-
-            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +60,7 @@ namespace PigeonBox.API
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors();
 
             app.UseAuthorization();
 

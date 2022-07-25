@@ -8,10 +8,10 @@ namespace PigeonBox.API.HubConfiguration
 {
     public class ChatHub : Hub
     {
-        public async Task JoinServer(UserConnectionInputModel user, CancellationToken cancellationToken)
+        public async Task JoinServerHub()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, "Server", cancellationToken);
-            await Clients.All.SendAsync("JoinServer", new UserConnectionViewModel { Id = user.Id,  Name = user.Name }, cancellationToken);
+            await Groups.AddToGroupAsync(Context.ConnectionId, "Server");
+            await Clients.All.SendAsync("JoinedServer", "Admin", "Connected");
         }
     }
 }
