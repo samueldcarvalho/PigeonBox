@@ -1,4 +1,10 @@
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+/** @format */
+
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@microsoft/signalr";
 import { createContext, ReactElement, useState } from "react";
 import { IChatInfo, IContact, IUser } from "../../components/ChatBoxLayout";
 
@@ -19,9 +25,9 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
   const [contacts, setContacts] = useState<IContact[]>([]);
   const [chats, setChats] = useState<IChatInfo[]>([]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
+  const [connection, setConnection] = useState<HubConnection>();
 
   const JoinChatHub = async () => {
-    console.log("Entering ChatHub...");
     const connection = new HubConnectionBuilder()
       .withUrl("https://localhost:5001/chat")
       .configureLogging(LogLevel.Information)
