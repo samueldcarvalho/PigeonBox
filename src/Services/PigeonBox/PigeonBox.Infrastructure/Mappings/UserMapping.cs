@@ -13,20 +13,9 @@ namespace PigeonBox.Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x=> x.Id);
+            builder.HasKey(x => x.Id);
 
             builder.ToTable("user");
-
-            builder.Property(x => x.Username)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(30);
-
-            builder.Property(x => x.Password)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(30);
-
-            builder.Property(x => x.Email)
-                .HasColumnType("VARCHAR");
         }
     }
 }

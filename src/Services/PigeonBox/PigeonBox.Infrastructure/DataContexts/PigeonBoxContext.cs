@@ -24,6 +24,7 @@ namespace PigeonBox.Infrastructure.DataContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasCharSet("latin1", false);
             modelBuilder.SetDefaultLengths();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
@@ -32,7 +33,10 @@ namespace PigeonBox.Infrastructure.DataContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(_connectionString, ServerVersion.AutoDetect(_connectionString));
+            optionsBuilder
+                .UseMySql(_connectionString, ServerVersion.Parse("8.0"))
+                .UseSnakeCaseNamingConvention();
+
             base.OnConfiguring(optionsBuilder);
         }
 
