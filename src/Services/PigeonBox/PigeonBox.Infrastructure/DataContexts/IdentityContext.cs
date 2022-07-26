@@ -1,25 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using PigeonBox.Core.Infrastructure.Database;
-using PigeonBox.Domain.Users;
 using PigeonBox.Infrastructure.Extensions;
 using System;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace PigeonBox.Infrastructure.DataContexts
 {
-    public class PigeonBoxContext : DbContext, IUnitOfWork
+    public class IdentityContext : IdentityDbContext
     {
+        private readonly DbContextOptions _options;
         private readonly string _connectionString;
-        public PigeonBoxContext(DbContextOptions<PigeonBoxContext> options, IConfiguration configuration) : base(options) 
+
+        public IdentityContext(DbContextOptions options, IConfiguration configuration) : base(options)
         {
+            _options = options;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
 
             if (string.IsNullOrWhiteSpace(_connectionString))
-                throw new Exception("ConnectionString não foi declarada nas variáveis de ambiente");
+                throw new Exception("DefaultConnectionString não foi passada nas variáveis de ambiente.");
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasCharSet("latin1", false);
@@ -36,14 +36,6 @@ namespace PigeonBox.Infrastructure.DataContexts
                 .UseSnakeCaseNamingConvention();
 
             base.OnConfiguring(optionsBuilder);
-        }
-
-        public Task Commit()
-        {
-            if (!ChangeTracker.HasChanges())
-                return Task.CompletedTask;
-
-            return SaveChangesAsync();
         }
     }
 }
