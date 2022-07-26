@@ -8,6 +8,15 @@ namespace PigeonBox.Core.Domain
 {
     public abstract class Entity
     {
+        public int Id { get; set; }
+        public DateTime AlteredAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; }
+        public bool Removed { get; set; }
 
+        protected Entity()
+        {
+            CreatedAt = DateTime.Now;
+            Removed = false;
+        }
     }
 }

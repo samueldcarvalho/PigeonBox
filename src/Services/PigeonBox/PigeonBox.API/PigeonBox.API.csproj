@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PigeonBox.Application\PigeonBox.Application.csproj" />
+    <ProjectReference Include="..\PigeonBox.Infrastructure\PigeonBox.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
