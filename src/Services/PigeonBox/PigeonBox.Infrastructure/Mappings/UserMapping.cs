@@ -13,9 +13,22 @@ namespace PigeonBox.Infrastructure.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("user");
+
             builder.HasKey(x => x.Id);
 
-            builder.ToTable("user");
+            builder.HasIndex(x => x.Email)
+                .IsUnique()
+                .HasDatabaseName("ix_Unique_Email");
+
+            builder.HasIndex(x => x.Username)
+                .IsUnique()
+                .HasDatabaseName("ix_Unique_Username");
+
+            var user = new User("Administrador", "admin@admin.com.br", "admin", "@Asd123456789");
+            user.Id = 1;
+
+            builder.HasData(user);
         }
     }
 }

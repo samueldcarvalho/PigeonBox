@@ -11,6 +11,7 @@ namespace PigeonBox.API.Configurations
         public static void AddApiConfiguration(this IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddAuthentication("Authentication")
                 .AddScheme<AuthenticationSchemeOptions, AuthenticationHandler>("Authentication", null);
 

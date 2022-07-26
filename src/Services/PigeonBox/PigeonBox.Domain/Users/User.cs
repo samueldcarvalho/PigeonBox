@@ -14,5 +14,14 @@ namespace PigeonBox.Domain.Users
         public string Email { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
+
+        public User(string name, string email, string username, string password)
+        {
+            Name = name;
+            Email = email;
+            Username = username;
+            Password = password;
+        }
+        protected User() { }
     }
 }

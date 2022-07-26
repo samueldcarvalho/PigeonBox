@@ -13,8 +13,11 @@ namespace PigeonBox.API.Configurations
         public static void AddDependencyInjection(this IServiceCollection services)
         {
             services.AddDbContext<PigeonBoxContext>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserQuery, UserQuery>();
+
+            services.AddSignalR();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PigeonBox.Application.Models.View;
 using PigeonBox.Application.Queries;
 using System.Threading.Tasks;
@@ -15,16 +16,12 @@ namespace PigeonBox.API.Controllers
             _userQuery = userQuery;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult Register()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// Obtém o usuário a partir do e-mail extraído do HttpContext, que por sua vez, é obtido no middleware de Autenticação
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("/user/get")]
         public async Task<ActionResult<UserConnectionViewModel>> GetUser()
         {
             var email = HttpContext.User.Identity.Name;
