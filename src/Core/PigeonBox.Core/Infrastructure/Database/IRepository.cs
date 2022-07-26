@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Core.Infrastructure.Database
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : Entity, IAggregateRoot
     {
         Task<T> GetById(int id);
         Task<IEnumerable<T>> GetAll();

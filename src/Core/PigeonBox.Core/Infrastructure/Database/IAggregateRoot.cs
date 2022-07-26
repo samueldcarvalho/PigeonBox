@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Core.Infrastructure.Database
 {
-    public interface IAggregateRoot
-    {
-    }
+    public interface IAggregateRoot { }
 }
