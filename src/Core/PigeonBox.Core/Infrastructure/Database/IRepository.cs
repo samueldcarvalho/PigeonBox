@@ -10,7 +10,7 @@ namespace PigeonBox.Core.Infrastructure.Database
     public interface IRepository<T> where T : Entity, IAggregateRoot
     {
         Task<T> GetById(int id);
-        Task<IEnumerable<T>> GetAll();
+        Task<List<T>> GetAll();
         void Add(T entity);
         void Update(T entity);
     }
