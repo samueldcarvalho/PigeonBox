@@ -20,6 +20,8 @@ namespace PigeonBox.Infrastructure.DataContexts
                 throw new Exception("ConnectionString não foi declarada nas variáveis de ambiente");
         }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasCharSet("latin1", false);
