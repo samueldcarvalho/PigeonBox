@@ -11,5 +11,6 @@ namespace PigeonBox.Domain.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         Task<User> GetByUsernameAndPassword(string username, string password);
+        Task<User> GetByEmail(string email);
     }
 }

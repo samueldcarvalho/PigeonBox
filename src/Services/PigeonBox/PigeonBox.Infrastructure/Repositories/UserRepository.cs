@@ -46,5 +46,10 @@ namespace PigeonBox.Infrastructure.Repositories
         {
             return _context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
         }
+
+        public Task<User> GetByEmail(string email)
+        {
+            return _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }
