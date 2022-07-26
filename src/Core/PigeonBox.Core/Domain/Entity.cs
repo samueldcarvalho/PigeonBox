@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,9 @@ namespace PigeonBox.Core.Domain
         public DateTime AlteredAt { get; set; } = DateTime.Now;
         public DateTime CreatedAt { get; set; }
         public bool Removed { get; set; }
+        
+        [NotMapped]
+        public IEnumerable<INotification> Notifications { get; private set; }
 
         protected Entity()
         {

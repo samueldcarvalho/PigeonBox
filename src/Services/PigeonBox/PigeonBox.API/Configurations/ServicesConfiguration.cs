@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using PigeonBox.Application.Queries;
+using PigeonBox.Core.CQRS;
 using PigeonBox.Domain.Interfaces;
 using PigeonBox.Infrastructure.DataContexts;
 using PigeonBox.Infrastructure.Repositories;
+using System.Reflection;
 
 namespace PigeonBox.API.Configurations
 {
@@ -18,6 +21,8 @@ namespace PigeonBox.API.Configurations
             services.AddScoped<IUserQuery, UserQuery>();
 
             services.AddSignalR();
+            services.AddMediatR(Assembly.Load("PiegonBox.Application"));
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
         }
     }
 }
