@@ -23,7 +23,9 @@ const SignUpForm = () => {
           </span>
           <div className={styles.formBody}>
             <div className={styles.formInputSideBySide}>
-              <label className={styles.formInputTextLabel}>
+              <label
+                className={styles.formInputTextLabel + " formInputTextLabel"}
+              >
                 <input
                   type="text"
                   autoComplete="false"
@@ -31,21 +33,31 @@ const SignUpForm = () => {
                   placeholder="First name..."
                 />
               </label>
-              <label className={styles.formInputTextLabel}>
+              <label
+                className={styles.formInputTextLabel + " formInputTextLabel"}
+              >
                 <input type="text" placeholder="Last name..." />
               </label>
             </div>
-            <label className={styles.formInputTextLabel}>
+            <label
+              className={styles.formInputTextLabel + " formInputTextLabel"}
+            >
               <input type="text" placeholder="E-mail..." />
             </label>
-            <label className={styles.formInputTextLabel}>
+            <label
+              className={styles.formInputTextLabel + " formInputTextLabel"}
+            >
               <input type="text" placeholder="Username..." />
             </label>
             <div className={styles.formInputSideBySide}>
-              <label className={styles.formInputTextLabel}>
+              <label
+                className={styles.formInputTextLabel + " formInputTextLabel"}
+              >
                 <input type="password" placeholder="Password..." />
               </label>
-              <label className={styles.formInputTextLabel}>
+              <label
+                className={styles.formInputTextLabel + " formInputTextLabel"}
+              >
                 <input type="password" placeholder="Repeat Password..." />
               </label>
             </div>

@@ -50,35 +50,7 @@
 }
 
 .formInputTextLabel:first-child {
-  margin-bottom: 35px;
-}
-
-.formInputTextLabel {
-  background-color: var(--primary-300);
-  border-radius: 12px;
-  height: 52px;
-  display: flex;
-  padding-inline: 22px;
-  flex-flow: row nowrap;
-  justify-content: center;
-  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.048);
-}
-
-.formInputTextLabel input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.formInputTextLabel input:active .formInputTextLabel {
-  background-color: black;
-}
-
-.formInputTextLabel input::placeholder {
-  color: var(--primary-100);
+  margin-bottom: 24px;
 }
 
 .formFooter {

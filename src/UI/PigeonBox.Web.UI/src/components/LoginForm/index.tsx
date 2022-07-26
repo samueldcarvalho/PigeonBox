@@ -21,10 +21,14 @@ const LoginForm = () => {
             <h1>Sign in with</h1>
           </span>
           <div className={styles.formBody}>
-            <label className={styles.formInputTextLabel}>
+            <label
+              className={styles.formInputTextLabel + " formInputTextLabel"}
+            >
               <input type="text" placeholder="Your username..." />
             </label>
-            <label className={styles.formInputTextLabel}>
+            <label
+              className={styles.formInputTextLabel + " formInputTextLabel"}
+            >
               <input type="password" placeholder="Your password..." />
             </label>
           </div>

@@ -29,3 +29,37 @@ body {
   font-family: "Roboto";
   outline: none;
 }
+
+.formInputTextLabel {
+  background-color: var(--primary-300);
+  border-radius: 12px;
+  height: 52px;
+  display: flex;
+  padding-inline: 22px;
+  flex-flow: row nowrap;
+  justify-content: center;
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.048);
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.formInputTextLabel:focus-within {
+  box-shadow: 0 0px 5px 2px rgba(255, 255, 255, 0.1),
+    inset 0 0 1px 4px rgba(255, 255, 255, 0.3);
+}
+
+.formInputTextLabel input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.formInputTextLabel input:active .formInputTextLabel {
+  background-color: black;
+}
+
+.formInputTextLabel input::placeholder {
+  color: var(--primary-100);
+}

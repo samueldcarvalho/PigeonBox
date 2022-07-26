@@ -51,37 +51,10 @@
 
 .formInputTextLabel {
   margin-bottom: 35px;
-  background-color: var(--primary-300);
-  border-radius: 12px;
-  height: 52px;
-  display: flex;
-  padding-inline: 22px;
-  flex-flow: row nowrap;
-  justify-content: center;
-  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.048);
-  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .formInputTextLabel:last-child {
   margin-bottom: 0px;
-}
-
-.formInputTextLabel:focus-within {
-  box-shadow: 0 10px 12px rgba(255, 187, 0, 0.048),
-    inset 0 0 8px rgba(255, 255, 255, 0.486);
-}
-
-.formInputTextLabel input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.formInputTextLabel input::placeholder {
-  color: var(--primary-100);
 }
 
 .formFooter {
