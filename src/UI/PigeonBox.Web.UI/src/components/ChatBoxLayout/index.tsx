@@ -1,5 +1,5 @@
 /** @format */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -13,7 +13,6 @@ export interface IContact {
   Name: string;
   IsOnline: boolean;
 }
-
 export interface IChatInfo {
   Identifier: string;
   Title: string;
@@ -24,7 +23,6 @@ export interface IChatInfo {
 export interface IUser {
   Name: string;
 }
-
 export interface IMessage {
   Id: string;
   SendedByMe: boolean;
@@ -37,7 +35,7 @@ const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, User, Contacts, JoinChatHub } = useContext(ChatContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     JoinChatHub();
   }, []);
   return (
