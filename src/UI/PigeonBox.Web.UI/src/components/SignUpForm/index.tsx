@@ -1,14 +1,19 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 
 const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   return (
     <div className={styles.formContainer}>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
+        onSubmit={handleSubmit((data) => console.log(data))}
         autoComplete="off"
         className={styles.form}
       >
@@ -24,9 +29,10 @@ const SignUpForm = () => {
           <div className={styles.formBody}>
             <div className={styles.formInputSideBySide}>
               <label
-                className={styles.formInputTextLabel + " formInputTextLabel"}
+                className={`${styles.formInputTextLabel} formInputTextLabel formInputTextLabelError`}
               >
                 <input
+                  {...register("firstName", { required: true, minLength: 4 })}
                   type="text"
                   autoComplete="false"
                   name="hidden"
@@ -36,34 +42,56 @@ const SignUpForm = () => {
               <label
                 className={styles.formInputTextLabel + " formInputTextLabel"}
               >
-                <input type="text" placeholder="Last name..." />
+                <input
+                  {...register("lastName", {})}
+                  type="text"
+                  placeholder="Last name..."
+                />
               </label>
             </div>
             <label
               className={styles.formInputTextLabel + " formInputTextLabel"}
             >
-              <input type="text" placeholder="E-mail..." />
+              <input
+                {...register("email", {})}
+                type="text"
+                placeholder="E-mail..."
+              />
             </label>
             <label
               className={styles.formInputTextLabel + " formInputTextLabel"}
             >
-              <input type="text" placeholder="Username..." />
+              <input
+                {...register("username", {})}
+                type="text"
+                placeholder="Username..."
+              />
             </label>
             <div className={styles.formInputSideBySide}>
               <label
                 className={styles.formInputTextLabel + " formInputTextLabel"}
               >
-                <input type="password" placeholder="Password..." />
+                <input
+                  {...register("password", {})}
+                  type="password"
+                  placeholder="Password..."
+                />
               </label>
               <label
                 className={styles.formInputTextLabel + " formInputTextLabel"}
               >
-                <input type="password" placeholder="Repeat Password..." />
+                <input
+                  {...register("repeatPassword", {})}
+                  type="password"
+                  placeholder="Repeat Password..."
+                />
               </label>
             </div>
           </div>
           <div className={styles.formFooter}>
-            <button className={styles.buttonAction}>Sign up</button>
+            <button type="submit" className={styles.buttonAction}>
+              Sign up
+            </button>
             <span>
               <p>Already have an account?&nbsp;</p>
               <Link href="/authentication">

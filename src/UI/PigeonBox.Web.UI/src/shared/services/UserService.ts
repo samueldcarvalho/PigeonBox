@@ -6,7 +6,7 @@ async function SignInAsync(username: string, password: string) {
     "binary"
   ).toString("base64");
 
-  return await Api.get("/users/get", {
+  return await Api.get("/user/get", {
     headers: { Authorization: `Basic ${base64Credentials}` },
   }).then();
 }

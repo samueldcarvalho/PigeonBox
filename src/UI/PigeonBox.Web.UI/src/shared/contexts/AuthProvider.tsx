@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   async function SignIn(username: string, password: string) {
-    const user = UserService.SignInAsync(username, password);
+    const user = await UserService.SignInAsync(username, password);
 
     console.log(user);
   }

@@ -40,7 +40,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.Infrastructure", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5C3B1BB2-511A-43AE-B290-CBE1BF149741}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PigeonBox.Core", "src\Core\PigeonBox.Core\PigeonBox.Core.csproj", "{662E53DE-8B94-4A79-ABCD-96C6CEE558D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PigeonBox.Core", "src\Core\PigeonBox.Core\PigeonBox.Core.csproj", "{662E53DE-8B94-4A79-ABCD-96C6CEE558D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CD3308F-ABD4-4E3D-B794-519D99786AFD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

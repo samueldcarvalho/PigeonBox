@@ -10,8 +10,18 @@ namespace PigeonBox.API.Configurations
     {
         public static void AddApiConfiguration(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowAllOrigins", options =>
+                {
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                    options.WithOrigins("http://localhost:8080");
+                    options.AllowCredentials();
+                });
+            });
 
+            services.AddControllers();
             services.AddAuthentication("Authentication")
                 .AddScheme<AuthenticationSchemeOptions, AuthenticationHandler>("Authentication", null);
 

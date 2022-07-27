@@ -46,15 +46,13 @@ namespace PigeonBox.Domain.Users.Services
                     var principal = new ClaimsPrincipal(identity);
                     var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-                    AuthenticateResult.Success(ticket);
+                    return AuthenticateResult.Success(ticket);
                 }
             }
             catch (Exception ex)
             {
                 return AuthenticateResult.Fail("Error: " + ex.Message);
             }
-
-            return AuthenticateResult.Fail("Need to implement");
         }
     }
 }
