@@ -1,8 +1,14 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../shared/contexts/AuthProvider";
 
 const LoginForm = () => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { SignIn } = useContext(AuthContext);
+
   return (
     <div className={styles.formContainer}>
       <form
@@ -24,18 +30,31 @@ const LoginForm = () => {
             <label
               className={styles.formInputTextLabel + " formInputTextLabel"}
             >
-              <input type="text" placeholder="Your username..." />
+              <input
+                type="text"
+                placeholder="Your username..."
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </label>
             <label
               className={styles.formInputTextLabel + " formInputTextLabel"}
             >
-              <input type="password" placeholder="Your password..." />
+              <input
+                type="password"
+                placeholder="Your password..."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </label>
           </div>
           <div className={styles.formFooter}>
-            <Link href={"/"}>
-              <button className={styles.buttonAction}>Sign in</button>
-            </Link>
+            <button
+              className={styles.buttonAction}
+              onClick={() => SignIn(username, password)}
+            >
+              Sign in
+            </button>
             <span>
               <p>First time in our rocket?&nbsp;</p>
               <Link href="/signup">

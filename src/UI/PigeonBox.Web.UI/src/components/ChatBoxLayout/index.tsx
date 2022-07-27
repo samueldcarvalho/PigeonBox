@@ -35,7 +35,7 @@ const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, User, Contacts, JoinChatHub } = useContext(ChatContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     JoinChatHub();
   }, []);
   return (

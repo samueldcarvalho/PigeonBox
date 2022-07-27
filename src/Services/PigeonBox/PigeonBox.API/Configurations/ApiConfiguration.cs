@@ -15,14 +15,6 @@ namespace PigeonBox.API.Configurations
             services.AddAuthentication("Authentication")
                 .AddScheme<AuthenticationSchemeOptions, AuthenticationHandler>("Authentication", null);
 
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder => builder
-                    .WithOrigins("http://localhost:8080")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod().
-                    AllowCredentials());
-            });
         }
     }
 }
