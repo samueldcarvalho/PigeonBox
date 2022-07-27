@@ -14,12 +14,12 @@ namespace PigeonBox.Infrastructure.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly PigeonBoxContext _context;
-        public readonly IUnitOfWork _unitOfWork;
+        public IUnitOfWork UnitOfWork { get; set; }
 
         public UserRepository(PigeonBoxContext context)
         {
             _context = context;
-            _unitOfWork = _context;
+            UnitOfWork = _context;
         }
 
         public void Add(User entity)

@@ -16,7 +16,7 @@ namespace PigeonBox.Core.CQRS
             _mediator = mediator;
         }
 
-        public Task SendCommand<TResponse>(Command<TResponse> command)
+        public Task<CommandResponse<TResponse>> SendCommand<TResponse>(Command<CommandResponse<TResponse>> command)
         {
             return _mediator.Send(command);
         }

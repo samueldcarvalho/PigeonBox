@@ -9,6 +9,6 @@ namespace PigeonBox.Core.CQRS
 {
     public interface IMediatorHandler
     {
-        Task SendCommand<TResponse>(Command<TResponse> command);
+        Task<CommandResponse<TResponse>> SendCommand<TResponse>(Command<CommandResponse<TResponse>> command);
     }
 }

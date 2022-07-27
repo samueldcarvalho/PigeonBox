@@ -27,8 +27,8 @@ namespace PigeonBox.API.Configurations
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/api/v1/websocket/chat");
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

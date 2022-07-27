@@ -21,7 +21,7 @@ namespace PigeonBox.API.Configurations
             services.AddScoped<IUserQuery, UserQuery>();
 
             services.AddSignalR();
-            services.AddMediatR(Assembly.Load("PiegonBox.Application"));
+            services.AddMediatR(Assembly.Load("PigeonBox.Application"));
             services.AddScoped<IMediatorHandler, MediatorHandler>();
         }
     }

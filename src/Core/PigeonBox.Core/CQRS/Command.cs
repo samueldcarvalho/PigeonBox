@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Core.CQRS
 {
-    public abstract class Command<TResponse> : IRequest<CommandResponse<TResponse>>
+    public abstract class Command<TResponse> : IRequest<TResponse>
     {
         public ValidationResult ValidationResult { get; set; }
         abstract public bool Validate();
