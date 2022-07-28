@@ -20,10 +20,10 @@ namespace PigeonBox.API.Configurations
 
             app.UseRouting();
 
+            app.UseCors("AllowAllOrigins");
+
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseCors("AllowAllOrigins");
 
             app.UseEndpoints(endpoints =>
             {

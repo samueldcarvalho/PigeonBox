@@ -1,26 +1,38 @@
 import { createContext, ReactNode, useState } from "react";
+import { IUser } from "../../components/ChatBoxLayout";
+import { CookiesService } from "../services/CookiesService";
 import { UserService } from "../services/UserService";
 
 interface IAuthContextProps {
-  IsAuthenticated: boolean;
-  SignIn: (username: string, password: string) => void;
+  User: IUser;
+  SignIn: (username: string, password: string) => Promise<boolean>;
 }
 
 export const AuthContext = createContext({} as IAuthContextProps);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser | null>(null);
 
-  async function SignIn(username: string, password: string) {
-    const user = await UserService.SignInAsync(username, password);
+  async function SignIn(username: string, password: string): Promise<boolean> {
+    const credentials = Buffer.from(
+      `${username}:${password}`,
+      "binary"
+    ).toString("base64");
 
-    console.log(user);
+    const user = await UserService.SignInAsync(credentials);
+
+    if (!user) return false;
+
+    CookiesService.SetUserTokenCookie(credentials);
+
+    setUser(user);
+    return true;
   }
 
   return (
     <AuthContext.Provider
       value={{
-        IsAuthenticated: isAuthenticated,
+        User: user!,
         SignIn,
       }}
     >

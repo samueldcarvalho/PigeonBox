@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Router from "next/router";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
@@ -19,8 +20,12 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormProps>();
 
-  const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data));
+  const onSubmit = handleSubmit(async (data) => {
+    const logged = await SignIn(data.username, data.password);
+
+    if (!logged) return;
+
+    Router.push("/");
   });
 
   return (

@@ -1,14 +1,14 @@
+import { IUser } from "../../components/ChatBoxLayout";
 import { Api } from "./Api";
 
-async function SignInAsync(username: string, password: string) {
-  const base64Credentials = Buffer.from(
-    `${username}:${password}`,
-    "binary"
-  ).toString("base64");
-
+async function SignInAsync(credentialToken: string): Promise<IUser | null> {
   return await Api.get("/user/get", {
-    headers: { Authorization: `Basic ${base64Credentials}` },
-  }).then();
+    headers: { Authorization: `Basic ${credentialToken}` },
+  })
+    .then((res) => res.data as IUser)
+    .catch(() => {
+      return null;
+    });
 }
 
 export const UserService = {

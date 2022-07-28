@@ -9,7 +9,6 @@ import { createContext, ReactElement, useState } from "react";
 import { IChatInfo, IContact, IUser } from "../../components/ChatBoxLayout";
 
 interface IChatContextProps {
-  User: IUser | null;
   Contacts: IContact[];
   Chats: IChatInfo[];
   ActualChat: IChatInfo | null;
@@ -19,9 +18,6 @@ interface IChatContextProps {
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = ({ children }: { children: ReactElement }) => {
-  const [user, setUser] = useState<IUser | null>({
-    Name: "Samuel de Carvalho",
-  });
   const [contacts, setContacts] = useState<IContact[]>([
     { Id: 1, Name: "PigeonBox Bot", IsOnline: true },
   ]);
@@ -38,7 +34,7 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
 
   const JoinChatHub = async () => {
     const connection = new HubConnectionBuilder()
-      .withUrl("https://localhost:5001/chat")
+      .withUrl(`${process.env.BASEURL_API}/chat`)
       .configureLogging(LogLevel.Information)
       .build();
 
@@ -55,7 +51,6 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
   return (
     <ChatContext.Provider
       value={{
-        User: user,
         Contacts: contacts,
         Chats: chats,
         ActualChat: actualChat,

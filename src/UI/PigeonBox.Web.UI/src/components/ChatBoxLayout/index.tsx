@@ -7,6 +7,7 @@ import Chat from "../Chat";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
+import { AuthContext } from "../../shared/contexts/AuthProvider";
 
 export interface IContact {
   Id: number;
@@ -21,8 +22,12 @@ export interface IChatInfo {
 }
 
 export interface IUser {
-  Name: string;
+  id: number;
+  name: string;
+  username: string;
+  email: string;
 }
+
 export interface IMessage {
   Id: string;
   SendedByMe: boolean;
@@ -33,10 +38,12 @@ export interface IMessage {
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
-  const { Chats, User, Contacts, JoinChatHub } = useContext(ChatContext);
+  const { User } = useContext(AuthContext);
+  const { Chats, Contacts, JoinChatHub } = useContext(ChatContext);
 
   useEffect(() => {
     JoinChatHub();
+    console.log(User);
   }, []);
   return (
     <motion.div
@@ -48,7 +55,7 @@ const ChatBox = () => {
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
-            <h3>{User!.Name}</h3>
+            <h3>{User.name}</h3>
           </span>
         </div>
         <div className={styles.chatBoxBody}>

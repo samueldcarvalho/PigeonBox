@@ -3,8 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    BASEURL_API:"http://localhost:33406"
-  }
-}
+    BASEURL_API: "https://localhost:44387",
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
