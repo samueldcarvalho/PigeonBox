@@ -12,7 +12,7 @@ interface LoginFormProps {
 }
 
 const LoginForm = () => {
-  const { SignIn } = useContext(AuthContext);
+  const { Login } = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -21,7 +21,7 @@ const LoginForm = () => {
   } = useForm<LoginFormProps>();
 
   const onSubmit = handleSubmit(async (data) => {
-    const logged = await SignIn(data.username, data.password);
+    const logged = await Login(data.username, data.password);
 
     if (!logged) return;
 
