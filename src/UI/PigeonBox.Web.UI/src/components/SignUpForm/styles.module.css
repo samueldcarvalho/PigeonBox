@@ -11,6 +11,7 @@
 
 .formConduce {
   overflow: hidden;
+  padding-inline: 10px;
 }
 
 .form {
@@ -21,8 +22,8 @@
   display: flex;
   flex-flow: column nowrap;
   box-shadow: 0 0 60px 0px #2c388e;
-  padding-block: 42px;
-  padding-inline: 36px;
+  padding-block: 36px;
+  padding-inline: 24px;
   transition: all 2s;
 }
 

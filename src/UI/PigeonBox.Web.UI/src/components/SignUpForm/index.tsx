@@ -3,24 +3,37 @@ import styles from "./styles.module.css";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 
+interface IRegisterProps {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  repeatPassword: string;
+  email: string;
+}
+
 const SignUpForm = () => {
   const {
-    register,
     handleSubmit,
+    register,
     formState: { errors },
-  } = useForm();
+  } = useForm<IRegisterProps>();
+
+  const onSubmit = handleSubmit((data) => {
+    alert(JSON.stringify(data));
+  });
 
   return (
     <div className={styles.formContainer}>
-      <form
-        onSubmit={handleSubmit((data) => console.log(data))}
-        autoComplete="off"
-        className={styles.form}
-      >
+      <form autoComplete="off" onSubmit={onSubmit} className={styles.form}>
         <motion.div
           initial={{ height: 400, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
-          transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
+          transition={{
+            type: "spring",
+            duration: 0.4,
+            bounce: 0.3,
+          }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>
@@ -29,59 +42,76 @@ const SignUpForm = () => {
           <div className={styles.formBody}>
             <div className={styles.formInputSideBySide}>
               <label
-                className={`${styles.formInputTextLabel} formInputTextLabel formInputTextLabelError`}
+                className={`${styles.formInputTextLabel} ${
+                  errors.firstName ? "formInputTextLabelError" : ""
+                } formInputTextLabel`}
               >
                 <input
-                  {...register("firstName", { required: true, minLength: 4 })}
+                  {...register("firstName", { required: true })}
+                  name="firstName"
                   type="text"
                   autoComplete="false"
-                  name="hidden"
                   placeholder="First name..."
                 />
               </label>
               <label
-                className={styles.formInputTextLabel + " formInputTextLabel"}
+                className={`${styles.formInputTextLabel} ${
+                  errors.lastName ? "formInputTextLabelError" : ""
+                } formInputTextLabel`}
               >
                 <input
-                  {...register("lastName", {})}
+                  {...register("lastName", { required: true })}
+                  name="lastName"
                   type="text"
                   placeholder="Last name..."
                 />
               </label>
             </div>
             <label
-              className={styles.formInputTextLabel + " formInputTextLabel"}
+              className={`${styles.formInputTextLabel} ${
+                errors.email ? "formInputTextLabelError" : ""
+              } formInputTextLabel`}
             >
               <input
-                {...register("email", {})}
+                {...register("email", { required: true })}
+                name="email"
                 type="text"
                 placeholder="E-mail..."
               />
             </label>
             <label
-              className={styles.formInputTextLabel + " formInputTextLabel"}
+              className={`${styles.formInputTextLabel} ${
+                errors.username ? "formInputTextLabelError" : ""
+              } formInputTextLabel`}
             >
               <input
-                {...register("username", {})}
+                {...register("username", { required: true })}
+                name="username"
                 type="text"
                 placeholder="Username..."
               />
             </label>
             <div className={styles.formInputSideBySide}>
               <label
-                className={styles.formInputTextLabel + " formInputTextLabel"}
+                className={`${styles.formInputTextLabel} ${
+                  errors.password ? "formInputTextLabelError" : ""
+                } formInputTextLabel`}
               >
                 <input
-                  {...register("password", {})}
+                  {...register("password", { required: true })}
+                  name="password"
                   type="password"
                   placeholder="Password..."
                 />
               </label>
               <label
-                className={styles.formInputTextLabel + " formInputTextLabel"}
+                className={`${styles.formInputTextLabel} ${
+                  errors.repeatPassword ? "formInputTextLabelError" : ""
+                } formInputTextLabel`}
               >
                 <input
-                  {...register("repeatPassword", {})}
+                  {...register("repeatPassword", { required: true })}
+                  name="repeatPassword"
                   type="password"
                   placeholder="Repeat Password..."
                 />

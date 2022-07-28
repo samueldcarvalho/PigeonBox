@@ -18,13 +18,14 @@
   flex-flow: column nowrap;
   box-shadow: 0 0 60px 0px #2c388e;
   padding-block: 42px;
-  padding-inline: 36px;
+  padding-inline: 24px;
 }
 
 .formConduce {
   overflow: hidden;
   display: flex;
   flex-flow: column nowrap;
+  padding-inline: 10px;
 }
 
 .formHeader {
