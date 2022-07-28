@@ -9,33 +9,8 @@ import { motion } from "framer-motion";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import Router from "next/router";
-
-export interface IContact {
-  Id: number;
-  Name: string;
-  IsOnline: boolean;
-}
-export interface IChatInfo {
-  Identifier: string;
-  Title: string;
-  Messages: IMessage[];
-  Participants: IContact[];
-}
-
-export interface IUser {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-}
-
-export interface IMessage {
-  Id: string;
-  SendedByMe: boolean;
-  SendedBy: string;
-  SendedAt: Date;
-  Text: string;
-}
+import { IContact } from "../../shared/models/Contact";
+import { IChatInfo } from "../../shared/models/Chat";
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");

@@ -4,11 +4,14 @@ import { Container } from "@mui/material";
 import { GetServerSideProps, NextPage } from "next";
 import nookies from "nookies";
 import ChatBox from "../src/components/ChatBoxLayout";
+import { ChatProvider } from "../src/shared/contexts/ChatProvider";
 
 const Chat: NextPage = () => {
   return (
     <Container>
-      <ChatBox />
+      <ChatProvider>
+        <ChatBox />
+      </ChatProvider>
     </Container>
   );
 };

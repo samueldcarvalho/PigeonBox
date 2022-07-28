@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { IUser } from "../../components/ChatBoxLayout";
+import { IUser } from "../models/User";
 import { CookiesService } from "../services/CookiesService";
 import { UserService } from "../services/UserService";
 

@@ -6,7 +6,8 @@ import {
   LogLevel,
 } from "@microsoft/signalr";
 import { createContext, ReactElement, useState } from "react";
-import { IChatInfo, IContact, IUser } from "../../components/ChatBoxLayout";
+import { IChatInfo } from "../models/Chat";
+import { IContact } from "../models/Contact";
 
 interface IChatContextProps {
   Contacts: IContact[];
