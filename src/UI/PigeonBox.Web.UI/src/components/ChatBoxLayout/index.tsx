@@ -1,5 +1,5 @@
 /** @format */
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -9,31 +9,33 @@ import { motion } from "framer-motion";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import Router from "next/router";
-import { IContact } from "../../shared/models/Contact";
 import { IChatInfo } from "../../shared/models/Chat";
+import { IUser } from "../../shared/models/User";
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
-  const { Chats, Contacts, JoinChatHub } = useContext(ChatContext);
+  const { Chats, Contacts } = useContext(ChatContext);
   const { User, GetUser } = useContext(AuthContext);
 
   const ValidateUser = async () => {
     if (!User) {
       const logged = await GetUser();
-      if (!logged) Router.push("/authentication");
+      console.log(logged);
+      if (!logged) {
+        Router.push("/authentication");
+      }
     }
   };
 
   useEffect(() => {
-    JoinChatHub();
     ValidateUser();
-  }, []);
+  }, [ValidateUser]);
 
   return (
     <motion.div
       initial={{ y: 250, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", duration: 1.5, bounce: 0.2 }}
+      transition={{ type: "spring", duration: 1, bounce: 0.4 }}
       className={styles.chatBoxFlexContainer}
     >
       <div className={styles.chatBoxContainer}>
@@ -85,7 +87,7 @@ const ChatBox = () => {
   );
 };
 
-const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
+const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
   return (
     <>
       {Contacts.map((c, i) => {
@@ -99,9 +101,9 @@ const ContactsPanel = ({ Contacts }: { Contacts: IContact[] }) => {
           >
             <div className={styles.lateralMenuItemName}>
               <div className={styles.statusConnectedCircleContainer}>
-                {c.IsOnline && <div className={styles.statusConnectedCircle} />}
+                {c.isOnline && <div className={styles.statusConnectedCircle} />}
               </div>
-              <p>{c.Name}</p>
+              <p>{c.name}</p>
             </div>
             <span>
               <HiDotsHorizontal />
@@ -141,4 +143,4 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
   );
 };
 
-export default ChatBox;
+export default memo(ChatBox);

@@ -5,23 +5,31 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from "@microsoft/signalr";
-import { createContext, ReactElement, useState } from "react";
+import { TryTwoTone } from "@mui/icons-material";
+import {
+  createContext,
+  memo,
+  ReactElement,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { IChatInfo } from "../models/Chat";
 import { IContact } from "../models/Contact";
+import { IUser } from "../models/User";
+import { AuthContext } from "./AuthProvider";
 
 interface IChatContextProps {
-  Contacts: IContact[];
+  Contacts: IUser[];
   Chats: IChatInfo[];
   ActualChat: IChatInfo | null;
-  JoinChatHub: () => void;
+  JoinChatHub: () => Promise<boolean>;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
 
-export const ChatProvider = ({ children }: { children: ReactElement }) => {
-  const [contacts, setContacts] = useState<IContact[]>([
-    { Id: 1, Name: "PigeonBox Bot", IsOnline: true },
-  ]);
+export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
+  const [contacts, setContacts] = useState<IUser[]>([]);
   const [chats, setChats] = useState<IChatInfo[]>([
     {
       Identifier: "1",
@@ -31,22 +39,35 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
     },
   ]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
-  const [connection, setConnection] = useState<HubConnection>();
+  const [connection, setConnection] = useState<HubConnection | null>(null);
+  const { User } = useContext(AuthContext);
 
-  const JoinChatHub = async () => {
-    const connection = new HubConnectionBuilder()
+  const JoinChatHub = async (): Promise<boolean> => {
+    const con = new HubConnectionBuilder()
       .withUrl(`${process.env.BASEURL_API}/chat`)
       .configureLogging(LogLevel.Information)
       .build();
 
-    connection.on("JoinedServer", (user: string, message: string) => {
-      console.log(message);
+    con.on("JoinedServer", (user: string) => {
+      console.log("CONECTANDO", user);
+      const userContact = JSON.parse(user) as IUser;
+      userContact.isOnline = true;
+      setContacts([...contacts, userContact]);
     });
-
-    await connection.start();
-    await connection.invoke("JoinServerHub");
-
-    setConnection(connection);
+    try {
+      await con.start();
+      await con.invoke(
+        "JoinServerHub",
+        JSON.stringify(() => {
+          User.isOnline = true;
+          return User;
+        })
+      );
+      setConnection(con);
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   return (
@@ -61,4 +82,4 @@ export const ChatProvider = ({ children }: { children: ReactElement }) => {
       {children}
     </ChatContext.Provider>
   );
-};
+});
