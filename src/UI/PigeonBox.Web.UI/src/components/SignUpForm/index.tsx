@@ -31,8 +31,8 @@ const SignUpForm = () => {
           animate={{ height: "auto", opacity: 1 }}
           transition={{
             type: "spring",
-            duration: 0.4,
-            bounce: 0.3,
+            duration: 0.5,
+            bounce: 0.4,
           }}
           className={styles.formConduce}
         >
