@@ -29,11 +29,7 @@ const SignUpForm = () => {
         <motion.div
           initial={{ height: 400, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
-          transition={{
-            type: "spring",
-            duration: 0.5,
-            bounce: 0.4,
-          }}
+          transition={{ type: "spring", duration: 0.3 }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>
