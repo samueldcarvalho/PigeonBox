@@ -1,7 +1,7 @@
 /** @format */
 
 import { Container } from "@mui/material";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import nookies from "nookies";
 import ChatBox from "../src/components/ChatBoxLayout";
 import { ChatProvider } from "../src/shared/contexts/ChatProvider";
@@ -18,7 +18,7 @@ const Chat: NextPage = () => {
 
 export default Chat;
 
-export const getServerSideProps = (ctx: any) => {
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   const cookies = nookies.get(ctx)["TkCredUsr"];
 
   if (!cookies)
