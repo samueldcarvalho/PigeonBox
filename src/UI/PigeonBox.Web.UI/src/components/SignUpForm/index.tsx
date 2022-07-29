@@ -2,6 +2,9 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { useContext, useRef } from "react";
+import { AuthContext } from "../../shared/contexts/AuthProvider";
+import Router from "next/router";
 
 interface IRegisterProps {
   firstName: string;
@@ -13,14 +16,33 @@ interface IRegisterProps {
 }
 
 const SignUpForm = () => {
+  const { Register, Login } = useContext(AuthContext);
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm<IRegisterProps>();
 
-  const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data));
+  const password = useRef({});
+  password.current = watch("password", "");
+
+  const onSubmit = handleSubmit(async (data) => {
+    const success = await Register({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      username: data.username,
+      password: data.password,
+    });
+
+    if (!success) return;
+
+    const logged = await Login(data.username, data.password);
+
+    if (!logged) return;
+
+    Router.push("/");
   });
 
   return (
@@ -43,7 +65,18 @@ const SignUpForm = () => {
                 } formInputTextLabel`}
               >
                 <input
-                  {...register("firstName", { required: true })}
+                  {...register("firstName", {
+                    required: { value: true, message: "Required" },
+                    minLength: {
+                      value: 3,
+                      message: "First name must be have 3 characters",
+                    },
+                    maxLength: { value: 17, message: "Max length is 17" },
+                    pattern: {
+                      value: RegExp(/^[a-zA-Z]*$/),
+                      message: "Invalid name",
+                    },
+                  })}
                   name="firstName"
                   type="text"
                   autoComplete="false"
@@ -56,7 +89,18 @@ const SignUpForm = () => {
                 } formInputTextLabel`}
               >
                 <input
-                  {...register("lastName", { required: true })}
+                  {...register("lastName", {
+                    required: { value: true, message: "Required" },
+                    minLength: {
+                      value: 3,
+                      message: "Last name must be have 3 characters",
+                    },
+                    maxLength: { value: 25, message: "Max length is 25" },
+                    pattern: {
+                      value: RegExp(/^[a-zA-Z]*$/),
+                      message: "Invalid last name",
+                    },
+                  })}
                   name="lastName"
                   type="text"
                   placeholder="Last name..."
@@ -69,7 +113,13 @@ const SignUpForm = () => {
               } formInputTextLabel`}
             >
               <input
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: { value: true, message: "Required" },
+                  pattern: {
+                    value: RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i),
+                    message: "Invalid e-mail",
+                  },
+                })}
                 name="email"
                 type="text"
                 placeholder="E-mail..."
@@ -81,7 +131,18 @@ const SignUpForm = () => {
               } formInputTextLabel`}
             >
               <input
-                {...register("username", { required: true })}
+                {...register("username", {
+                  required: { value: true, message: "Required" },
+                  minLength: {
+                    value: 5,
+                    message: "Username must be have 5 characters",
+                  },
+                  maxLength: { value: 20, message: "Max length is 20" },
+                  pattern: {
+                    value: RegExp(/^[A-Za-z0-9_-]*$/),
+                    message: "Invalid username",
+                  },
+                })}
                 name="username"
                 type="text"
                 placeholder="Username..."
@@ -94,7 +155,13 @@ const SignUpForm = () => {
                 } formInputTextLabel`}
               >
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: { value: true, message: "Required" },
+                    minLength: {
+                      value: 6,
+                      message: "Password must be have 6 characters",
+                    },
+                  })}
                   name="password"
                   type="password"
                   placeholder="Password..."
@@ -106,7 +173,11 @@ const SignUpForm = () => {
                 } formInputTextLabel`}
               >
                 <input
-                  {...register("repeatPassword", { required: true })}
+                  {...register("repeatPassword", {
+                    required: true,
+                    validate: (value) =>
+                      value === password.current || "The passwords don't match",
+                  })}
                   name="repeatPassword"
                   type="password"
                   placeholder="Repeat Password..."

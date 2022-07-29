@@ -28,7 +28,7 @@ namespace PigeonBox.API.Controllers
         /// <summary>
         /// Registra o usuário a partir dos dados de input
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("/user/register")]

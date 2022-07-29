@@ -45,13 +45,13 @@ namespace PigeonBox.Application.Commands.Users
                     .WithMessage("Last name cannot be empty");
 
                 RuleFor(x => x.FirstName)
-                    .Must(x => new Regex(@"^[A-Z][a-zA-Z]*$").IsMatch(x));
+                    .Must(x => new Regex(@"^[a-zA-Z]*$").IsMatch(x));
 
                 RuleFor(x => x.LastName)
-                    .Must(x => new Regex(@"^[A-Z][a-zA-Z]*$").IsMatch(x));
+                    .Must(x => new Regex(@"^[a-zA-Z]*$").IsMatch(x));
 
-                RuleFor(x => x.Email)
-                    .Must(x => new Regex(@"^((\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)\s*[;]{0,1}\s*)+$").IsMatch(x));
+                //RuleFor(x => x.Email)
+                //    .Must(x => new Regex(@"/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i").IsMatch(x));
 
                 RuleFor(x => x.Email)
                     .NotEmpty()

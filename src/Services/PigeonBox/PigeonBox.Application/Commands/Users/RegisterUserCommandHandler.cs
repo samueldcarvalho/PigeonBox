@@ -36,7 +36,7 @@ namespace PigeonBox.Application.Commands.Users
             _userRepository.Add(new User(name, request.Email, request.Username, request.Password));
 
             await _userRepository.UnitOfWork.Commit();
-
+  
             return new CommandResponse<bool>(ValidationResult, true);
         }
     }
