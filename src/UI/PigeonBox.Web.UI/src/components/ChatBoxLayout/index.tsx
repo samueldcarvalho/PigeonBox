@@ -17,13 +17,33 @@ const ChatBox = () => {
   const { User } = useContext(AuthContext);
 
   return (
-    <motion.div
-      initial={{ y: 250, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", duration: 1, bounce: 0.4 }}
-      className={styles.chatBoxFlexContainer}
-    >
-      <div className={styles.chatBoxContainer}>
+    <motion.div className={styles.chatBoxFlexContainer}>
+      <motion.div
+        initial={{
+          y: 150,
+          scale: 0.9,
+          width: "360px",
+          opacity: 0,
+          borderRadius: 240,
+          filter: "",
+        }}
+        animate={{
+          scale: 1,
+          y: 0,
+          width: "100%",
+          opacity: 1,
+          borderRadius: 24,
+        }}
+        transition={{
+          duration: 1.5,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        style={{
+          overflow: "hidden",
+        }}
+        className={styles.chatBoxContainer}
+      >
         <div className={styles.chatBoxHeader}>
           <span>
             <h1>{User?.name}</h1>
@@ -67,7 +87,7 @@ const ChatBox = () => {
           </div>
           <Chat />
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

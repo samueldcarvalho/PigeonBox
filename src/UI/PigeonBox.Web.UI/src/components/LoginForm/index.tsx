@@ -35,7 +35,7 @@ const LoginForm = () => {
         <motion.div
           initial={{ marginBottom: 40, height: 400, opacity: 0 }}
           animate={{ marginBottom: 0, height: 350, opacity: 1 }}
-          transition={{ type: "spring", duration: 0.3 }}
+          transition={{ type: "spring", duration: 0.7, bounce: 0.6 }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>

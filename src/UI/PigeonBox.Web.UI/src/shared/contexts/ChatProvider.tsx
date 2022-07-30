@@ -31,6 +31,65 @@ interface IChatContextProps {
   JoinChatHub: () => void;
 }
 
+const messag = [
+  {
+    Id: "1",
+    SendedAt: new Date(),
+    SendedByMe: false,
+    Text: "Envio Visitante",
+    UserId: -1,
+  },
+  {
+    Id: "2",
+    SendedAt: new Date(),
+    SendedByMe: true,
+    Text: "Envio Meu mesmo",
+    UserId: 10,
+  },
+  {
+    Id: "1",
+    SendedAt: new Date(),
+    SendedByMe: false,
+    Text: "Envio Visitante",
+    UserId: -1,
+  },
+  {
+    Id: "2",
+    SendedAt: new Date(),
+    SendedByMe: true,
+    Text: "Envio Meu mesmo",
+    UserId: 10,
+  },
+  {
+    Id: "1",
+    SendedAt: new Date(),
+    SendedByMe: false,
+    Text: "Envio Visitante",
+    UserId: -1,
+  },
+  {
+    Id: "2",
+    SendedAt: new Date(),
+    SendedByMe: true,
+    Text: "Envio Meu mesmo",
+    UserId: 10,
+  },
+  {
+    Id: "1",
+    SendedAt: new Date(),
+    SendedByMe: false,
+    Text: "Envio Visitante",
+    UserId: -1,
+  },
+  {
+    Id: "2",
+    SendedAt: new Date(),
+    SendedByMe: true,
+    Text: "Envio Meu mesmo",
+    UserId: 10,
+  },
+];
+
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
@@ -46,22 +105,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   const [chats, setChats] = useState<IChatInfo[]>([
     {
       Identifier: "A123HelloWorld",
-      Messages: [
-        {
-          Id: "1",
-          SendedAt: new Date(),
-          SendedByMe: false,
-          Text: "Envio Visitante",
-          UserId: -1,
-        },
-        {
-          Id: "2",
-          SendedAt: new Date(),
-          SendedByMe: true,
-          Text: "Envio Meu mesmo",
-          UserId: 10,
-        },
-      ],
+      Messages: [...messag],
       Participants: [],
       Title: "#Everyone",
     },
