@@ -104,7 +104,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
 };
 
 const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
-  const { SetActualChat } = useContext(ChatContext);
+  const { ActualChat, SetActualChat } = useContext(ChatContext);
 
   return (
     <>
@@ -116,7 +116,10 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
                 initial={{ opacity: 0, x: -25 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ type: "spring", duration: 0.5, bounce: 0 }}
-                className={styles.lateralMenuItemContainer}
+                className={`${styles.lateralMenuItemContainer} ${
+                  ActualChat?.Identifier == c.Identifier &&
+                  styles.lateralMenuItemSelected
+                }`}
                 onClick={() => SetActualChat(c)}
               >
                 <div className={styles.lateralMenuItemName}>

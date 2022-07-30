@@ -8,7 +8,7 @@ const HomeChatBoxLayout = () => {
     <div className={styles.layoutContainer}>
       <motion.div
         initial={{
-          y: 25,
+          y: 15,
           opacity: 0,
         }}
         animate={{

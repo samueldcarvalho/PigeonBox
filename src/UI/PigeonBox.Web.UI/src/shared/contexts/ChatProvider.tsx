@@ -46,7 +46,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       Identifier: "A123HelloWorld",
       Messages: [],
       Participants: [],
-      Title: "Welcome to PigeonBox!",
+      Title: "#Everyone",
     },
     {
       Identifier: "1",
