@@ -43,7 +43,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/authentication",
+        destination: "/login",
       },
       props: {},
     };

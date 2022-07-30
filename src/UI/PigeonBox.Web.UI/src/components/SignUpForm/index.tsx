@@ -192,7 +192,7 @@ const SignUpForm = () => {
             </button>
             <span>
               <p>Already have an account?&nbsp;</p>
-              <Link href="/authentication">
+              <Link href="/login">
                 <p className={styles.hrefAction}>Sign In now!</p>
               </Link>
             </span>
