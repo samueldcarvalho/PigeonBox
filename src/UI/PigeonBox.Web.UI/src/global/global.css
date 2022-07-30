@@ -4,7 +4,7 @@
   --primary-main: #3b4fc3;
   --primary-light: #4c66fc;
   --primary-darker: #192041;
-  --primary-700: #1f2e80;
+  --primary-700: #2a3885;
   --primary-600: #3445a8;
   --primary-500: #3b4fc3;
   --primary-400: #3f54d1;
@@ -19,10 +19,10 @@
   --secondary-darker: #00a650;
   --secondary-100: #8affc3;
 
-  --danger-main: #fa1635;
+  --danger-main: #c52f2f;
   --danger-light: #ff334f;
-  --danger-darker: #b00b20;
-  --danger-100: #ff798b;
+  --danger-darker: #8b0618;
+  --danger-100: #ff5c71;
 }
 
 body {
@@ -56,12 +56,12 @@ body {
 
 .formInputTextLabelError {
   box-shadow: 0 0px 5px 2px rgba(181, 11, 33, 0.4),
-    inset 0 0 1px 3px var(--danger-main);
+    inset 0 0 3px 1px var(--danger-main);
 }
 
 .formInputTextLabelError:focus-within {
   box-shadow: 0 0px 10px 2px rgba(255, 0, 34, 0.5),
-    inset 0 0 1px 3px var(--danger-100);
+    inset 0 0 3px 3px var(--danger-100);
 }
 
 .formInputTextLabel input {
@@ -87,4 +87,17 @@ input:-webkit-autofill:active {
 
 .formInputTextLabel input::placeholder {
   color: var(--primary-100);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary-700);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--primary-400);
+  border-radius: 4px;
 }

@@ -12,3 +12,20 @@ const AuthenticationPage: NextPage = () => {
 };
 
 export default AuthenticationPage;
+
+export const getServerSideProps = (ctx: any) => {
+  const cookies = nookies.get(ctx)["TkCredUsr"];
+
+  if (cookies)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+
+  return {
+    props: {},
+  };
+};

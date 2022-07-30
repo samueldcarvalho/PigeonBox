@@ -1,0 +1,41 @@
+.messageBackground {
+  display: table;
+  background-color: black;
+  padding: 15px;
+  border-radius: 12px;
+  max-width: 320px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.messageBackgroundVisit {
+  background-color: var(--primary-light);
+  border-radius: 0px 12px 12px 12px;
+  align-self: flex-start;
+}
+
+.messageBackgroundByMe {
+  background-color: var(--primary-700);
+  border-radius: 12px 12px 0px 12px;
+  align-self: flex-end;
+}
+
+.messageHeader {
+  font-weight: bold;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.messageBody {
+  display: block;
+}
+
+.messageTime {
+  font-size: 11px;
+  color: var(--primary-A100);
+  padding-right: 10px;
+}
+
+.messageText {
+  font-size: 12px;
+}

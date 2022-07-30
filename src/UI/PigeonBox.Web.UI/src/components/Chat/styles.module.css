@@ -87,3 +87,14 @@
 .inputTextBackground button svg {
   transform: translateX(2px);
 }
+
+.chatBody {
+  height: 480px;
+  width: 100%;
+  padding: 15px 75px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+
+  overflow-y: auto;
+}

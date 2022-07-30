@@ -76,12 +76,17 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
   return (
     <>
       {React.Children.toArray(
-        Contacts.map((c) => {
+        Contacts.map((c, i) => {
           return (
             <motion.button
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+              transition={{
+                type: "spring",
+                duration: 0.5,
+                bounce: 0,
+                delay: i * 0.1,
+              }}
               className={styles.lateralMenuItemContainer}
             >
               <div className={styles.lateralMenuItemName}>
@@ -109,13 +114,18 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
   return (
     <>
       {React.Children.toArray(
-        Chats.map((c) => {
+        Chats.map((c, i) => {
           return (
             <>
               <motion.button
                 initial={{ opacity: 0, x: -25 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+                transition={{
+                  type: "spring",
+                  duration: 0.5,
+                  bounce: 0,
+                  delay: i * 0.1,
+                }}
                 className={`${styles.lateralMenuItemContainer} ${
                   ActualChat?.Identifier == c.Identifier &&
                   styles.lateralMenuItemSelected

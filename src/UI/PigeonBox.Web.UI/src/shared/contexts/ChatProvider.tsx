@@ -6,6 +6,7 @@ import {
   LogLevel,
 } from "@microsoft/signalr";
 import { TryTwoTone } from "@mui/icons-material";
+import { randomUUID } from "crypto";
 import {
   createContext,
   memo,
@@ -18,6 +19,7 @@ import {
 import { isKeyObject } from "util/types";
 import { IChatInfo } from "../models/Chat";
 import { IContact } from "../models/Contact";
+import { IMessage } from "../models/Message";
 import { IUser } from "../models/User";
 import { AuthContext } from "./AuthProvider";
 
@@ -44,27 +46,24 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   const [chats, setChats] = useState<IChatInfo[]>([
     {
       Identifier: "A123HelloWorld",
-      Messages: [],
+      Messages: [
+        {
+          Id: "1",
+          SendedAt: new Date(),
+          SendedByMe: false,
+          Text: "Envio Visitante",
+          UserId: -1,
+        },
+        {
+          Id: "2",
+          SendedAt: new Date(),
+          SendedByMe: true,
+          Text: "Envio Meu mesmo",
+          UserId: 10,
+        },
+      ],
       Participants: [],
       Title: "#Everyone",
-    },
-    {
-      Identifier: "1",
-      Messages: [],
-      Participants: [],
-      Title: "Jorge Mattaza",
-    },
-    {
-      Identifier: "2",
-      Messages: [],
-      Participants: [],
-      Title: "Débora Pianezzer",
-    },
-    {
-      Identifier: "3",
-      Messages: [],
-      Participants: [],
-      Title: "Chat Teste",
     },
   ]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
@@ -81,9 +80,8 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     const con = new HubConnectionBuilder()
       .withUrl(`${process.env.BASEURL_API}/chat`)
       .configureLogging(LogLevel.Information)
+      .withAutomaticReconnect()
       .build();
-
-    console.log("Executada");
 
     con.on("JoinedServer", (userId: number) => {
       console.log("CONECTANDO", userId);
@@ -92,7 +90,24 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     con.on(
       "MessageReceived",
       (chatId: string, contactId: number, message: string) => {
-        console.log(chatId, contactId, message);
+        const chat = chats.find((c) => c.Identifier == chatId);
+
+        console.log(chat);
+
+        if (chat != null) {
+          chat.Messages.push({
+            Id: crypto.randomUUID(),
+            SendedByMe: false,
+            Text: message,
+            SendedAt: new Date(),
+            UserId: contactId,
+          });
+
+          setChats([
+            chat,
+            ...chats.filter((c) => c.Identifier != chat.Identifier),
+          ]);
+        }
       }
     );
 

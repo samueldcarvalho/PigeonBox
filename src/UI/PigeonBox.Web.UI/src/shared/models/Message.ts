@@ -1,7 +1,7 @@
 export interface IMessage {
   Id: string;
   SendedByMe: boolean;
-  SendedBy: string;
+  UserId: number;
   SendedAt: Date;
   Text: string;
 }

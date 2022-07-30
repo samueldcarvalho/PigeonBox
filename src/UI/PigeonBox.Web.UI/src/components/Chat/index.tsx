@@ -7,6 +7,8 @@ import styles from "./styles.module.css";
 import { memo, useContext } from "react";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
 import HomeChatBoxLayout from "../HomeChatBoxLayout";
+import { IMessage } from "../../shared/models/Message";
+import Message from "../Message/Message";
 
 const Chat = () => {
   const { ActualChat } = useContext(ChatContext);
@@ -35,7 +37,40 @@ const Chat = () => {
           >
             <p>{ActualChat.Title}</p>
           </motion.span>
-          <div className={styles.chatBody}></div>
+          <motion.div className={styles.chatBody}>
+            {ActualChat.Messages.map((m, i) => {
+              return (
+                <motion.div
+                  initial={{
+                    x: m.SendedByMe ? 25 : -25,
+                    opacity: 0,
+                  }}
+                  animate={{
+                    x: 0,
+                    opacity: 1,
+                  }}
+                  transition={{
+                    type: "spring",
+                    bounce: 0.5,
+                    delay: i * 0.03,
+                  }}
+                  style={{
+                    display: "flex",
+                    flexFlow: "column nowrap",
+                    width: "100%",
+                  }}
+                >
+                  <Message
+                    UserId={m.UserId}
+                    Id={m.Id}
+                    Text={m.Text}
+                    SendedAt={m.SendedAt}
+                    SendedByMe={m.SendedByMe}
+                  />
+                </motion.div>
+              );
+            })}
+          </motion.div>
           <div className={styles.chatFooter}>
             <AnimatePresence>
               <motion.div
