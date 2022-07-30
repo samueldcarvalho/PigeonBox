@@ -12,6 +12,7 @@ import {
   ReactElement,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { IChatInfo } from "../models/Chat";
@@ -23,16 +24,24 @@ interface IChatContextProps {
   Contacts: IUser[];
   Chats: IChatInfo[];
   ActualChat: IChatInfo | null;
-  JoinChatHub: () => Promise<boolean>;
+  JoinChatHub: () => void;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
-  const [contacts, setContacts] = useState<IUser[]>([]);
+  const [contacts, setContacts] = useState<IUser[]>([
+    {
+      id: -1,
+      email: "bot@pigeonbox.com.br",
+      isOnline: true,
+      name: "PigeonBot",
+      username: "pigeonBotuuix132400-xx#",
+    },
+  ]);
   const [chats, setChats] = useState<IChatInfo[]>([
     {
-      Identifier: "1",
+      Identifier: "A123HelloWorld",
       Messages: [],
       Participants: [],
       Title: "Welcome to PigeonBox!",
@@ -42,32 +51,35 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const { User } = useContext(AuthContext);
 
-  const JoinChatHub = async (): Promise<boolean> => {
+  useEffect(() => {
+    if (User != null && connection == null) {
+      JoinChatHub();
+    }
+  }, [User]);
+
+  const JoinChatHub = async () => {
     const con = new HubConnectionBuilder()
       .withUrl(`${process.env.BASEURL_API}/chat`)
       .configureLogging(LogLevel.Information)
       .build();
 
-    con.on("JoinedServer", (user: string) => {
-      console.log("CONECTANDO", user);
-      const userContact = JSON.parse(user) as IUser;
-      userContact.isOnline = true;
-      setContacts([...contacts, userContact]);
+    console.log("Executada");
+
+    con.on("JoinedServer", (userId: number) => {
+      console.log("CONECTANDO", userId);
     });
-    try {
-      await con.start();
-      await con.invoke(
-        "JoinServerHub",
-        JSON.stringify(() => {
-          User.isOnline = true;
-          return User;
-        })
-      );
-      setConnection(con);
-      return true;
-    } catch {
-      return false;
-    }
+
+    con.on(
+      "MessageReceived",
+      (chatId: string, contactId: number, message: string) => {
+        console.log(chatId, contactId, message);
+      }
+    );
+
+    await con.start();
+    await con.invoke("JoinServerHub", User?.id);
+
+    setConnection(con);
   };
 
   return (

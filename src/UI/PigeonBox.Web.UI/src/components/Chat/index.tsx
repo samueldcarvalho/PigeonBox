@@ -18,7 +18,7 @@ const Chat = () => {
       ) : (
         <>
           <span className={styles.chatHeader}>
-            <p>Débora Piannezer</p>
+            <p>{ActualChat.Title}</p>
           </span>
           <div className={styles.chatBody}></div>
           <div className={styles.chatFooter}>

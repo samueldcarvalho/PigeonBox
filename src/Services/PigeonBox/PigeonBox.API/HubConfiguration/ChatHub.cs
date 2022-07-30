@@ -8,16 +8,16 @@ namespace PigeonBox.API.HubConfiguration
 {
     public class ChatHub : Hub
     {
-        public async Task JoinServerHub(string admin)
+        public async Task JoinServerHub(int userId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, "Server");
-            await Clients.All.SendAsync("JoinedServer", admin);
+            await Clients.All.SendAsync("JoinedServer", userId);
 
-            while (true)
-            {
-                Thread.Sleep(4000);
-                await Clients.All.SendAsync("MessageReceived", 1, 1, "Teste evento");
-            }
+            //while (true)
+            //{
+            //    Thread.Sleep(4000);
+            //    await Clients.All.SendAsync("MessageReceived", "A123HelloWorld", -1, "Teste evento");
+            //}
         }
     }
 }
