@@ -15,6 +15,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { isKeyObject } from "util/types";
 import { IChatInfo } from "../models/Chat";
 import { IContact } from "../models/Contact";
 import { IUser } from "../models/User";
@@ -24,6 +25,7 @@ interface IChatContextProps {
   Contacts: IUser[];
   Chats: IChatInfo[];
   ActualChat: IChatInfo | null;
+  SetActualChat: (chat: IChatInfo) => void;
   JoinChatHub: () => void;
 }
 
@@ -45,6 +47,24 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       Messages: [],
       Participants: [],
       Title: "Welcome to PigeonBox!",
+    },
+    {
+      Identifier: "1",
+      Messages: [],
+      Participants: [],
+      Title: "Jorge Mattaza",
+    },
+    {
+      Identifier: "2",
+      Messages: [],
+      Participants: [],
+      Title: "Débora Pianezzer",
+    },
+    {
+      Identifier: "3",
+      Messages: [],
+      Participants: [],
+      Title: "Chat Teste",
     },
   ]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
@@ -82,6 +102,22 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     setConnection(con);
   };
 
+  function SetActualChat(chat: IChatInfo) {
+    if (chat == actualChat) {
+      setActualChat(null);
+      return;
+    }
+
+    const chatExists = chats.includes(chat);
+
+    if (chatExists) {
+      setActualChat(chat);
+    } else {
+      setChats([chat, ...chats]);
+      setActualChat(chat);
+    }
+  }
+
   return (
     <ChatContext.Provider
       value={{
@@ -89,6 +125,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         Chats: chats,
         ActualChat: actualChat,
         JoinChatHub,
+        SetActualChat,
       }}
     >
       {children}

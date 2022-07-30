@@ -1,5 +1,7 @@
 .chatBoxFlexContainer {
   height: 100vh;
+  width: 100%;
+  position: absolute;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -10,8 +12,8 @@
 .chatBoxContainer {
   background-color: var(--primary-main);
   border-radius: 24px;
-  width: 100%;
-  height: 700px;
+  min-width: 1200px;
+  height: 760px;
   display: flex;
   flex-flow: column nowrap;
   box-shadow: 0 0 60px 0px #2c388e;
@@ -27,7 +29,7 @@
 }
 
 .chatBoxHeader span {
-  width: 300px;
+  width: 340px;
   padding: 15px 35px;
   display: flex;
   flex-flow: row nowrap;
@@ -35,11 +37,12 @@
   transition: all 0.2s;
 }
 
-.chatBoxHeader h2 {
+.chatBoxHeader h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-shadow: 0 0 7px rgba(255, 255, 255, 0.4);
+  font-size: 22px;
 }
 
 .chatBoxBody {
@@ -68,7 +71,7 @@
     background-color: var(--primary-400);
     border-radius: 0 0 0 24px;
     height: 100%;
-    width: 300px;
+    width: 340px;
     float: left;
   }
 
@@ -154,9 +157,12 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    padding: 13px 27px;
+    padding: 16px 30px;
+    border: none;
     border-bottom: 1px solid rgb(65, 65, 192);
     transition: all 0.2 cubic-bezier(0.075, 0.82, 0.165, 1);
+    background-color: transparent;
+    width: 100%;
   }
 
   .lateralMenuItemContainer * {
@@ -167,13 +173,32 @@
     color: var(--primary-A100);
     font-size: small;
     padding-left: 15px;
-    transition: all 0.5 cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .lateralMenuItemContainer svg {
-    transform: translateY(1px);
+    width: 15px;
+    height: 15px;
+    transform: translateY(0px);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     fill: var(--primary-200);
+  }
+
+  .statusConnectedCircleContainer {
+    width: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .statusConnectedCircle {
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: var(--secondary-main);
+    box-shadow: 0 0 5px var(--secondary-main);
+    transition: all 0.2s ease-out;
   }
 
   .lateralMenuItemContainer:hover {
@@ -188,6 +213,11 @@
   .lateralMenuItemContainer:hover svg {
     transform: translate(5px, 0px);
     fill: var(--primary-A100);
+  }
+
+  .lateralMenuItemContainer:hover .statusConnectedCircle {
+    background-color: var(--secondary-100);
+    box-shadow: 0 0 15px var(--secondary-100);
   }
 
   .lateralMenuItemName {
@@ -212,20 +242,5 @@
 
   .lateralMenuitemPanel::-webkit-scrollbar-track {
     background-color: transparent;
-  }
-
-  .statusConnectedCircleContainer {
-    width: 10px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .statusConnectedCircle {
-    width: 7px;
-    height: 7px;
-    border-radius: 5px;
-    background-color: var(--secondary-light);
   }
 }

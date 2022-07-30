@@ -31,11 +31,7 @@ const Chat: NextPage = () => {
     ValidateUser();
   }, []);
 
-  return (
-    <Container>
-      <ChatBox />
-    </Container>
-  );
+  return <ChatBox />;
 };
 
 export default memo(Chat);

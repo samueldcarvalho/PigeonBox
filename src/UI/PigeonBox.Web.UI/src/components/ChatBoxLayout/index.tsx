@@ -26,7 +26,7 @@ const ChatBox = () => {
       <div className={styles.chatBoxContainer}>
         <div className={styles.chatBoxHeader}>
           <span>
-            <h3>{User?.name}</h3>
+            <h1>{User?.name}</h1>
           </span>
         </div>
         <div className={styles.chatBoxBody}>
@@ -78,7 +78,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
       {React.Children.toArray(
         Contacts.map((c) => {
           return (
-            <motion.div
+            <motion.button
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ type: "spring", duration: 0.5, bounce: 0 }}
@@ -95,7 +95,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
               <span>
                 <HiDotsHorizontal />
               </span>
-            </motion.div>
+            </motion.button>
           );
         })
       )}
@@ -104,17 +104,20 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
 };
 
 const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
+  const { SetActualChat } = useContext(ChatContext);
+
   return (
     <>
       {React.Children.toArray(
         Chats.map((c) => {
           return (
             <>
-              <motion.div
+              <motion.button
                 initial={{ opacity: 0, x: -25 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ type: "spring", duration: 0.5, bounce: 0 }}
                 className={styles.lateralMenuItemContainer}
+                onClick={() => SetActualChat(c)}
               >
                 <div className={styles.lateralMenuItemName}>
                   <div className={styles.statusConnectedCircleContainer}></div>
@@ -123,7 +126,7 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
                 <span>
                   <BsFillChatLeftDotsFill />
                 </span>
-              </motion.div>
+              </motion.button>
             </>
           );
         })
