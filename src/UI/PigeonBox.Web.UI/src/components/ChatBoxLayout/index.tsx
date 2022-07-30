@@ -15,21 +15,7 @@ import { IUser } from "../../shared/models/User";
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, Contacts } = useContext(ChatContext);
-  const { User, GetUser } = useContext(AuthContext);
-
-  const ValidateUser = async () => {
-    if (!User) {
-      const logged = await GetUser();
-      console.log(logged);
-      if (!logged) {
-        Router.push("/authentication");
-      }
-    }
-  };
-
-  useEffect(() => {
-    ValidateUser();
-  }, [ValidateUser]);
+  const { User } = useContext(AuthContext);
 
   return (
     <motion.div

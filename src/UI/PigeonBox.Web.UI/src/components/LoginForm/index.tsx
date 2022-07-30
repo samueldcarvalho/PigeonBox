@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import styles from "./styles.module.css";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import { useForm } from "react-hook-form";
-import { duration } from "@mui/material";
 
 interface LoginFormProps {
   username: string;
@@ -14,6 +13,7 @@ interface LoginFormProps {
 
 const LoginForm = () => {
   const { Login } = useContext(AuthContext);
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -26,7 +26,7 @@ const LoginForm = () => {
 
     if (!logged) return;
 
-    Router.push("/");
+    router.push("/");
   });
 
   return (

@@ -12,6 +12,12 @@ namespace PigeonBox.API.HubConfiguration
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, "Server");
             await Clients.All.SendAsync("JoinedServer", admin);
+
+            while (true)
+            {
+                Thread.Sleep(4000);
+                await Clients.All.SendAsync("MessageReceived", 1, 1, "Teste evento");
+            }
         }
     }
 }

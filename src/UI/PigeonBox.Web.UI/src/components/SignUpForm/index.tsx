@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 interface IRegisterProps {
   firstName: string;
@@ -17,6 +17,7 @@ interface IRegisterProps {
 
 const SignUpForm = () => {
   const { Register, Login } = useContext(AuthContext);
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -42,7 +43,7 @@ const SignUpForm = () => {
 
     if (!logged) return;
 
-    Router.push("/");
+    router.push("/");
   });
 
   return (

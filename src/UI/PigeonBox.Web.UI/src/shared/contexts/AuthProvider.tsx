@@ -39,11 +39,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   async function GetUser() {
     const cookie = CookiesService.GetUserTokenCookie();
 
-    if (!cookie) return false;
+    if (!cookie) {
+      return false;
+    }
 
     const user = await UserService.SignInAsync(cookie);
 
-    if (!user) return false;
+    if (!user) {
+      CookiesService.RemoveUserTokenCookie();
+      setUser(null);
+      return false;
+    }
 
     setUser(user);
     return true;
