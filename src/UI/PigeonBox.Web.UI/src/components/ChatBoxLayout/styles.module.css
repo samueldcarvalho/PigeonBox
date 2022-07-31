@@ -230,7 +230,7 @@
   }
 
   .lateralMenuItemSelected svg {
-    fill: var(--primary-200);
+    fill: var(--primary-100);
   }
 
   .lateralMenuItemSelected:hover {

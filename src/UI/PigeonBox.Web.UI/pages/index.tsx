@@ -21,7 +21,7 @@ const Chat: NextPage = () => {
       const logged = await GetUser();
 
       if (logged == false) {
-        await router.push("/authentication", "");
+        await router.push("/login", "");
         return;
       }
     }

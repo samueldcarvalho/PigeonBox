@@ -31,93 +31,6 @@ interface IChatContextProps {
   JoinChatHub: () => void;
 }
 
-const messag = [
-  {
-    Id: "1",
-    SendedAt: new Date(),
-    SendedByMe: false,
-    Text: "Envio mensagem do visitante, teste 001",
-    UserId: -1,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "1",
-    SendedAt: new Date(),
-    SendedByMe: false,
-    Text: "Envio Visitante",
-    UserId: -1,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    UserId: 10,
-  },
-  {
-    Id: "1",
-    SendedAt: new Date(),
-    SendedByMe: false,
-    Text: "Envio Visitante",
-    UserId: -1,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "1",
-    SendedAt: new Date(),
-    SendedByMe: false,
-    Text: "Envio Visitante",
-    UserId: -1,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-  {
-    Id: "2",
-    SendedAt: new Date(),
-    SendedByMe: true,
-    Text: "Envio Meu mesmo",
-    UserId: 10,
-  },
-];
-
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
@@ -133,7 +46,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   const [chats, setChats] = useState<IChatInfo[]>([
     {
       Identifier: "A123HelloWorld",
-      Messages: [...messag],
+      Messages: [],
       Participants: [],
       Title: "#Everyone",
     },
@@ -164,8 +77,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       (chatId: string, contactId: number, message: string) => {
         const chat = chats.find((c) => c.Identifier == chatId);
 
-        console.log(chat);
-
         if (chat != null) {
           chat.Messages.push({
             Id: crypto.randomUUID(),
@@ -184,7 +95,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     );
 
     await con.start();
-    await con.invoke("JoinServerHub", User?.id);
+    await con.invoke("JoinServerHub", User);
 
     setConnection(con);
   };
