@@ -8,7 +8,7 @@ const HomeChatBoxLayout = () => {
     <div className={styles.layoutContainer}>
       <motion.div
         initial={{
-          y: 15,
+          y: 25,
           opacity: 0,
         }}
         animate={{
@@ -17,8 +17,10 @@ const HomeChatBoxLayout = () => {
         }}
         transition={{
           type: "spring",
-          bounce: 0.5,
+          duration: 0.5,
+          bounce: 0.4,
         }}
+        className={styles.layoutTexts}
       >
         <h1>Get's started!</h1>
         <p>
