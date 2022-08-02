@@ -16,10 +16,10 @@ namespace PigeonBox.API.Controllers
     [ApiController]
     public class AuthenticationController : Controller
     {
-        private readonly IUserQuery _userQuery;
+        private readonly IUserQueries _userQuery;
         private readonly IMediatorHandler _mediatorHandler;
 
-        public AuthenticationController(IUserQuery userQuery, IMediatorHandler mediatorHandler)
+        public AuthenticationController(IUserQueries userQuery, IMediatorHandler mediatorHandler)
         {
             _userQuery = userQuery;
             _mediatorHandler = mediatorHandler;

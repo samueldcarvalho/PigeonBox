@@ -18,7 +18,7 @@ namespace PigeonBox.API.Configurations
             services.AddDbContext<PigeonBoxContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserQuery, UserQuery>();
+            services.AddScoped<IUserQueries, UserQueries>();
 
             services.AddSignalR();
             services.AddMediatR(Assembly.Load("PigeonBox.Application"));

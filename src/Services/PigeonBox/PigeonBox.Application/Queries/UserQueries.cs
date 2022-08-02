@@ -1,4 +1,5 @@
-﻿using PigeonBox.Application.Models.View;
+﻿using PigeonBox.Application.Interfaces;
+using PigeonBox.Application.Models.View;
 using PigeonBox.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Application.Queries
 {
-    public class UserQuery : IUserQuery
+    public class UserQueries : IUserQueries
     {
         private readonly IUserRepository _userRepository;
 
-        public UserQuery(IUserRepository userRepository)
+        public UserQueries(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -26,10 +27,5 @@ namespace PigeonBox.Application.Queries
 
             return new UserConnectionViewModel() { Id = user.Id, Email = user.Email, Name = user.Name, Username = user.Username};
         }
-    }
-
-    public interface IUserQuery
-    {
-        Task<UserConnectionViewModel> GetUserByEmail(string email);
     }
 }
