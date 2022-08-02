@@ -1,24 +1,26 @@
-.layoutContainer{
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+.layoutContainer {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.layoutContainer *{
-    text-align: center;
+.layoutContainer * {
+  text-align: center;
 }
 
-.layoutContainer h1{
-    color: var(--primary-200);
+.layoutTexts {
 }
 
-.layoutContainer p{
-    color: var(--primary-A100);
+.layoutContainer h1 {
+  color: var(--primary-200);
 }
 
-.layoutContainer strong{
-    color: var(--primary-200)
+.layoutContainer p {
+  color: var(--primary-A100);
 }
 
+.layoutContainer strong {
+  color: var(--primary-200);
+}
