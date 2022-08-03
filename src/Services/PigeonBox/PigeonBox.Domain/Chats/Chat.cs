@@ -16,6 +16,7 @@ namespace PigeonBox.Domain.Chats
         public string Title { get; private set; }
         public string Description { get; private set; } = "";
         public int CreatorUserId { get; private set; }
+        public User CreatorUser { get; private set; }
         public ICollection<Message> Messages { get; private set; }
         public ICollection<ChatNotification> ChatNotifications { get; private set; }
         public ICollection<User> Users { get; private set; }

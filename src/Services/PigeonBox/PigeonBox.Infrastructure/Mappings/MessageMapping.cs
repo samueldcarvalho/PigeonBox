@@ -14,6 +14,12 @@ namespace PigeonBox.Infrastructure.Mappings
         public void Configure(EntityTypeBuilder<Message> builder)
         {
             builder.ToTable("message");
+
+            builder.Property(p => p.Text)
+                .HasColumnType("BLOB");
+
+            builder.HasOne(p => p.SenderUser)
+                .WithMany();
         }
     }
 }

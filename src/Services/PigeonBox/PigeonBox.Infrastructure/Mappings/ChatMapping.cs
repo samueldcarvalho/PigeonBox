@@ -16,13 +16,25 @@ namespace PigeonBox.Infrastructure.Mappings
         {
             builder.ToTable("chat");
 
+            builder.Property(p => p.Description)
+                .HasColumnType("BLOB");
+
             builder.HasMany(p => p.Messages)
                 .WithOne(p => p.Chat)
-                .HasForeignKey();
+                .HasForeignKey(p => p.ChatId);
 
             builder.HasMany(p => p.ChatNotifications)
                 .WithOne(p => p.Chat)
-                .HasForeignKey();
+                .HasForeignKey(p => p.ChatId);
+
+            builder.HasOne(p => p.CreatorUser)
+                .WithMany();
+
+            var chat = new Chat("#Everyone", 1);
+            chat.ChangeDescription("Welcome to Pigeonbox! This one a global chat, for every Pigeon in this box. Be respectful! Att.. Samuel =) ");
+            chat.Id = 1;
+
+            builder.HasData(chat);
         }
     }
 }

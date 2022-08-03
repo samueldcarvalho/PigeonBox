@@ -19,12 +19,10 @@ namespace PigeonBox.Infrastructure.Mappings
             builder.HasKey(x => x.Id);
 
             builder.HasIndex(x => x.Email)
-                .IsUnique()
-                .HasDatabaseName("ix_Unique_Email");
+                .IsUnique();
 
             builder.HasIndex(x => x.Username)
-                .IsUnique()
-                .HasDatabaseName("ix_Unique_Username");
+                .IsUnique();
 
             builder.HasMany(p => p.Chats)
                 .WithMany(p => p.Users)

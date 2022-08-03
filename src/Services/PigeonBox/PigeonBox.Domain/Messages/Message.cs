@@ -1,6 +1,7 @@
 ﻿using PigeonBox.Core.Domain;
 using PigeonBox.Core.Infrastructure.Database;
 using PigeonBox.Domain.Chats;
+using PigeonBox.Domain.Users;
 using System;
 
 namespace PigeonBox.Domain.Messages
@@ -9,6 +10,7 @@ namespace PigeonBox.Domain.Messages
     {
         public string Text { get; private set; }
         public int SenderUserId { get; private set; }
+        public User SenderUser { get; private set; }
         public int ChatId { get; private set; }
         public Chat Chat { get; private set; }
         public bool Sent { get; private set; }
