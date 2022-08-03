@@ -24,6 +24,8 @@ namespace PigeonBox.API.HubConfiguration
     {
         public async Task JoinServerHub(UserConnection userConnection)
         {
+            userConnection.IsOnline = true;
+
             await Groups.AddToGroupAsync(Context.ConnectionId, "ChatHubServer");
             await Clients.All.SendAsync("JoinedServer", userConnection);
 
