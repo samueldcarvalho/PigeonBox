@@ -51,5 +51,10 @@ namespace PigeonBox.Infrastructure.Repositories
         {
             return _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }

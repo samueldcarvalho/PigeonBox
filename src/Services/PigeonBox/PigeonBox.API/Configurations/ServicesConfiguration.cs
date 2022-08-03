@@ -21,6 +21,7 @@ namespace PigeonBox.API.Configurations
             services.AddDbContext<PigeonBoxContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IUserQueries, UserQueries>();
 
             services.AddSignalR();
