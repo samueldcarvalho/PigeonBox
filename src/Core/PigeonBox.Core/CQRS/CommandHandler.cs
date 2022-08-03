@@ -11,7 +11,7 @@ namespace PigeonBox.Core.CQRS
 {
     public abstract class CommandHandler
     {
-        public ValidationResult ValidationResult{ get; set; }
+        public ValidationResult ValidationResult { get; set; } = new ValidationResult();
 
         public void AddError(string message)
         {

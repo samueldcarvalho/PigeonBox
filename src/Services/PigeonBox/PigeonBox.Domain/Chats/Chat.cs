@@ -13,6 +13,7 @@ namespace PigeonBox.Domain.Chats
 {
     public class Chat : Entity, IAggregateRoot
     {
+        public Guid UniqueIdentifier { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; } = "";
         public int CreatorUserId { get; private set; }
@@ -22,10 +23,11 @@ namespace PigeonBox.Domain.Chats
         public ICollection<User> Users { get; private set; }
 
         protected Chat() { }
-        public Chat(string title, int creatorUserId)
+        public Chat(string title, int creatorUserId, params User[] participants)
         {
             Title = title;
             CreatorUserId = creatorUserId;
+            Users = participants;
         }
 
         public void ChangeTitle(string newTitle)

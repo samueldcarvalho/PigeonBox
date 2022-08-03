@@ -22,7 +22,6 @@ namespace PigeonBox.Infrastructure.Repositories
             UnitOfWork = _context;
         }
 
-
         public void Add(Chat entity)
         {
             _context.Chats.Add(entity);

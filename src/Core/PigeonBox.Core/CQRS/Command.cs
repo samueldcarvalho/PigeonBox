@@ -11,7 +11,7 @@ namespace PigeonBox.Core.CQRS
 {
     public abstract class Command<TResponse> : IRequest<TResponse>
     {
-        public ValidationResult ValidationResult { get; set; }
+        public ValidationResult ValidationResult { get; set; } = new ValidationResult();
         abstract public bool Validate();
     }
 }
