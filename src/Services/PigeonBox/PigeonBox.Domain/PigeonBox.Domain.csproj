@@ -12,9 +12,4 @@
     <ProjectReference Include="..\..\..\Core\PigeonBox.Core\PigeonBox.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Messages\" />
-    <Folder Include="Chats\" />
-  </ItemGroup>
-
 </Project>

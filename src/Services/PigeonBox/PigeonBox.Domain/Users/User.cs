@@ -1,5 +1,6 @@
 ﻿using PigeonBox.Core.Domain;
 using PigeonBox.Core.Infrastructure.Database;
+using PigeonBox.Domain.Chats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,9 @@ namespace PigeonBox.Domain.Users
         public string Email { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
+        public ICollection<Chat> Chats { get; private set; }
 
+        protected User() { }
         public User(string name, string email, string username, string password)
         {
             Name = name;
@@ -22,6 +25,5 @@ namespace PigeonBox.Domain.Users
             Username = username;
             Password = password;
         }
-        protected User() { }
     }
 }

@@ -23,7 +23,7 @@ namespace PigeonBox.API.Configurations
 
             services.AddControllers();
             services.AddAuthentication("Authentication")
-                .AddScheme<AuthenticationSchemeOptions, AuthenticationHandler>("Authentication", null);
+                .AddScheme<AuthenticationSchemeOptions, Domain.Users.Services.AuthenticationService>("Authentication", null);
 
         }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Infrastructure.Extensions
 {
-    public static class DefaultEfConfiguration
+    public static class DefaultEntityFrameworkConfiguration
     {
         public static void SetDefaultLengths(this ModelBuilder modelBuilder, int stringsMaxLength = 100, string decimalPrecision = "10,4", int datePrecision = 0)
         {

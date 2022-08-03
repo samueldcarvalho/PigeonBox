@@ -13,10 +13,15 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Domain.Users.Services
 {
-    public class AuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+    public class AuthenticationService : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IUserRepository _userRepository;
-        public AuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, IUserRepository userRepository) : base(options, logger, encoder, clock)
+        public AuthenticationService(
+            IOptionsMonitor<AuthenticationSchemeOptions> options, 
+            ILoggerFactory logger, 
+            ISystemClock clock, 
+            IUserRepository userRepository,
+            UrlEncoder encoder) : base(options, logger, encoder, clock)
         {
             _userRepository = userRepository;
         }
