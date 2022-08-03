@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Application.Interfaces
 {
-    interface IUserQueries
+    public interface IUserQueries
     {
         Task<UserConnectionViewModel> GetUserByEmail(string email);
     }

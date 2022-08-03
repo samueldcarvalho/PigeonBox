@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PigeonBox.Application.Commands.Users;
+using PigeonBox.Application.Interfaces;
 using PigeonBox.Application.Models.Input;
 using PigeonBox.Application.Models.View;
 using PigeonBox.Application.Queries;

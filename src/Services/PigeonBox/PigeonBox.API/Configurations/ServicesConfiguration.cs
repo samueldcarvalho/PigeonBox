@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using PigeonBox.Application.Interfaces;
 using PigeonBox.Application.Queries;
 using PigeonBox.Core.CQRS;
 using PigeonBox.Domain.Interfaces;
@@ -13,8 +14,10 @@ namespace PigeonBox.API.Configurations
 {
     public static class ServicesConfiguration
     {
-        public static void AddDependencyInjection(this IServiceCollection services)
+        public static void AddServicesConfiguration(this IServiceCollection services)
         {
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+
             services.AddDbContext<PigeonBoxContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
@@ -22,7 +25,6 @@ namespace PigeonBox.API.Configurations
 
             services.AddSignalR();
             services.AddMediatR(Assembly.Load("PigeonBox.Application"));
-            services.AddScoped<IMediatorHandler, MediatorHandler>();
         }
     }
 }

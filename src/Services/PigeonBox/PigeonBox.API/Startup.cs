@@ -17,7 +17,7 @@ namespace PigeonBox.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDependencyInjection();
+            services.AddServicesConfiguration();
             services.AddSwaggerConfiguration();
             services.AddApiConfiguration();
         }
