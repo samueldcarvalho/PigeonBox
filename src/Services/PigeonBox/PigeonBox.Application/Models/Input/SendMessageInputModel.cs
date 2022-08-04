@@ -8,6 +8,8 @@ namespace PigeonBox.Application.Models.Input
 {
     public class SendMessageInputModel
     {
+        public Guid UniqueIdentifier { get; set; }
+        public int UserId { get; set; }
         public int ChatId { get; set; }
         public string Text { get; set; }
     }

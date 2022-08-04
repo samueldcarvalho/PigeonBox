@@ -29,17 +29,26 @@ namespace PigeonBox.API.Controllers
                 .SendCommand(new StartChatCommand(input.UniqueIdentifier, input.CreatorId, input.Title, input.Participants));
 
             if (!commandResponse.Success)
-                return BadRequest(commandResponse);
+                return BadRequest(commandResponse.ValidationResult);
 
-            return Ok(commandResponse);
+            return Ok(commandResponse.ValidationResult);
         }
 
-
+        /// <summary>
+        /// Send new message passing InputModel
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost("/chat/message/send")]
         public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
         {
             var commandResponse = await _mediator
-                .SendCommand(new SendMessageCommand)
+                .SendCommand(new SendMessageCommand(input.UniqueIdentifier, input.Text, input.UserId, input.ChatId));
+
+            if (!commandResponse.Success)
+                return BadRequest(commandResponse.ValidationResult);
+
+            return Ok(commandResponse.ValidationResult);
         }
     }
 }

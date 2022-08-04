@@ -15,9 +15,18 @@ namespace PigeonBox.Application.Commands.Chats
         public int UserId { get; private set; }
         public int ChatId { get; private set; }
 
+        public SendMessageCommand(Guid uniqueIdentifier, string text, int userId, int chatId)
+        {
+            UniqueIdentifier = uniqueIdentifier;
+            Text = text;
+            UserId = userId;
+            ChatId = chatId;
+        }
+
         public override bool Validate()
         {
-            throw new NotImplementedException();
+            ValidationResult = new SendMessageCommandValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
 
         private class SendMessageCommandValidator : AbstractValidator<SendMessageCommand>
