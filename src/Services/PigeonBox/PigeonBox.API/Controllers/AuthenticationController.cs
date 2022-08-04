@@ -15,7 +15,7 @@ namespace PigeonBox.API.Controllers
 {
     [Route("/api/v1/authentication")]
     [ApiController]
-    public class AuthenticationController : Controller
+    public class AuthenticationController : ControllerBase
     {
         private readonly IUserQueries _userQuery;
         private readonly IMediatorHandler _mediatorHandler;

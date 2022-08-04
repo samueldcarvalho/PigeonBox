@@ -8,7 +8,7 @@ namespace PigeonBox.API.Controllers
 {
     [Route("/api/v1/chatting")]
     [ApiController]
-    public class ChattingController : Controller
+    public class ChattingController : ControllerBase
     {
         private readonly IMediatorHandler _mediator;
 
@@ -32,6 +32,12 @@ namespace PigeonBox.API.Controllers
                 return BadRequest(commandResponse);
 
             return Ok(commandResponse);
+        }
+
+        [HttpPost("/chat/message/send")]
+        public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
+        {
+           
         }
     }
 }

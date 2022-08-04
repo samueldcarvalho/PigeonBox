@@ -30,7 +30,10 @@ namespace PigeonBox.Infrastructure.Mappings
             builder.HasOne(p => p.CreatorUser)
                 .WithMany();
 
-            var chat = new Chat("#Everyone", 1);
+            builder.HasIndex(p => p.UniqueIdentifier)
+                .IsUnique();
+
+            var chat = new Chat(Guid.NewGuid(), "#Everyone", 1);
             chat.ChangeDescription("Welcome to Pigeonbox! This one a global chat, for every Pigeon in this box. Be respectful! Att.. Samuel =) ");
             chat.Id = 1;
 

@@ -23,11 +23,12 @@ namespace PigeonBox.Domain.Chats
         public ICollection<User> Users { get; private set; }
 
         protected Chat() { }
-        public Chat(string title, int creatorUserId, params User[] participants)
+        public Chat(Guid uniqueIdentifier, string title, int creatorUserId, params User[] participants)
         {
             Title = title;
             CreatorUserId = creatorUserId;
             Users = participants;
+            UniqueIdentifier = uniqueIdentifier;
         }
 
         public void ChangeTitle(string newTitle)
