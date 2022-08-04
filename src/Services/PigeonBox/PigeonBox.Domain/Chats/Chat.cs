@@ -16,8 +16,8 @@ namespace PigeonBox.Domain.Chats
         public Guid UniqueIdentifier { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; } = "";
-        public int CreatorUserId { get; private set; }
-        public User CreatorUser { get; private set; }
+        public int UserId { get; private set; }
+        public User User { get; private set; }
         public ICollection<Message> Messages { get; private set; }
         public ICollection<ChatNotification> ChatNotifications { get; private set; }
         public ICollection<User> Users { get; private set; }
@@ -26,7 +26,7 @@ namespace PigeonBox.Domain.Chats
         public Chat(Guid uniqueIdentifier, string title, int creatorUserId, params User[] participants)
         {
             Title = title;
-            CreatorUserId = creatorUserId;
+            UserId = creatorUserId;
             Users = participants;
             UniqueIdentifier = uniqueIdentifier;
         }

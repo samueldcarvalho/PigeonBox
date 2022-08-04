@@ -10,8 +10,8 @@ namespace PigeonBox.Domain.Messages
     {
         public Guid UniqueIdentifier { get; private set; }
         public string Text { get; private set; }
-        public int SenderUserId { get; private set; }
-        public User SenderUser { get; private set; }
+        public int UserId { get; private set; }
+        public User User { get; private set; }
         public int ChatId { get; private set; }
         public Chat Chat { get; private set; }
         public bool Sent { get; private set; }
@@ -20,7 +20,7 @@ namespace PigeonBox.Domain.Messages
         protected Message() { }
         public Message(int senderUserId, int chatId, string text, Guid uniqueIdentifier)
         {
-            SenderUserId = senderUserId;
+            UserId = senderUserId;
             ChatId = chatId;
             Text = text;
             UniqueIdentifier = uniqueIdentifier;

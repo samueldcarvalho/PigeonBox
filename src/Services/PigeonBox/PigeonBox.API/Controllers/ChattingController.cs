@@ -35,10 +35,11 @@ namespace PigeonBox.API.Controllers
         }
 
 
-        //[HttpPost("/chat/message/send")]
-        //public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
-        //{
-           
-        //}
+        [HttpPost("/chat/message/send")]
+        public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
+        {
+            var commandResponse = await _mediator
+                .SendCommand(new SendMessageCommand)
+        }
     }
 }

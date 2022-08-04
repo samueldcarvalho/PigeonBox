@@ -18,7 +18,7 @@ namespace PigeonBox.Infrastructure.Mappings
             builder.Property(p => p.Text)
                 .HasColumnType("BLOB");
 
-            builder.HasOne(p => p.SenderUser)
+            builder.HasOne(p => p.User)
                 .WithMany();
         }
     }

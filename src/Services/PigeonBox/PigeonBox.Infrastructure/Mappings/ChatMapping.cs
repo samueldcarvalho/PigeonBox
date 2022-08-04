@@ -27,7 +27,7 @@ namespace PigeonBox.Infrastructure.Mappings
                 .WithOne(p => p.Chat)
                 .HasForeignKey(p => p.ChatId);
 
-            builder.HasOne(p => p.CreatorUser)
+            builder.HasOne(p => p.User)
                 .WithMany();
 
             builder.HasIndex(p => p.UniqueIdentifier)
