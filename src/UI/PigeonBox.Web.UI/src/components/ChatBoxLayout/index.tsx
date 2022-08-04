@@ -130,8 +130,8 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
       ) : (
         <motion.div
           initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -15 }}
-          transition={{ type: "spring", duration: 0.7, bounce: 0.5 }}
+          animate={{ opacity: 1, y: -25 }}
+          transition={{ type: "spring", duration: 0.6, bounce: 0.4 }}
           className={styles.notFoundMessage}
         >
           <strong>No contact found on server</strong>
@@ -184,8 +184,8 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
       ) : (
         <motion.div
           initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -15 }}
-          transition={{ type: "spring", duration: 0.7, bounce: 0.5 }}
+          animate={{ opacity: 1, y: -25 }}
+          transition={{ type: "spring", duration: 0.6, bounce: 0.4 }}
           className={styles.notFoundMessage}
         >
           <strong>No chat was found</strong>
