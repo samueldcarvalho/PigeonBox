@@ -52,6 +52,9 @@ namespace PigeonBox.Domain.Chats
             if (message == null)
                 throw new Exception("Message cannot be null");
 
+            if (Messages == null)
+                Messages = new List<Message>();
+
             if (Messages.Any(m => m.Id == message.Id))
                 return;
 
@@ -73,6 +76,9 @@ namespace PigeonBox.Domain.Chats
         {
             if (user == null)
                 throw new Exception("User cannot be null");
+
+            if (Users == null)
+                Users = new List<User>();
 
             if (Users.Any(u => u.Id == user.Id))
                 return;

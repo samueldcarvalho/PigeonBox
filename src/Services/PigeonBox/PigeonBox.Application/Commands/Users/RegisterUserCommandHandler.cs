@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using PigeonBox.Core.CQRS;
+using PigeonBox.Domain.Chats;
 using PigeonBox.Domain.Interfaces;
 using PigeonBox.Domain.Users;
 using System;
@@ -14,10 +15,12 @@ namespace PigeonBox.Application.Commands.Users
     public class RegisterUserCommandHandler : CommandHandler, IRequestHandler<RegisterUserCommand, CommandResponse<bool>>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IChatRepository _chatRepository;
 
-        public RegisterUserCommandHandler(IUserRepository userRepository)
+        public RegisterUserCommandHandler(IUserRepository userRepository, IChatRepository chatRepository)
         {
             _userRepository = userRepository;
+            _chatRepository = chatRepository;
         }
 
         public async Task<CommandResponse<bool>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -33,10 +36,14 @@ namespace PigeonBox.Application.Commands.Users
 
             string name = $"{firstName} {lastName}";
 
-            _userRepository.Add(new User(name, request.Email, request.Username, request.Password));
+            User user = new User(name, request.Email, request.Username, request.Password);
+            Chat everyoneChat = await _chatRepository.GetById(1);
 
-            await _userRepository.UnitOfWork.Commit();
-  
+            everyoneChat.AddUser(user);
+
+            _chatRepository.Update(everyoneChat);
+            await _chatRepository.UnitOfWork.Commit();
+
             return new CommandResponse<bool>(ValidationResult, true);
         }
     }
