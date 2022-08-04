@@ -3,6 +3,7 @@ using PigeonBox.Core.CQRS;
 using PigeonBox.Domain.Chats;
 using PigeonBox.Domain.Interfaces;
 using PigeonBox.Domain.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -44,7 +45,7 @@ namespace PigeonBox.Application.Commands.Chats
                 return new CommandResponse<bool>(ValidationResult, false);
             }
 
-            var chat = new Chat(request.Title, request.CreatorUserId, users.ToArray());
+            var chat = new Chat(request.UniqueIdentifier, request.Title, request.CreatorUserId, users.ToArray());
             _chatRepository.Add(chat);
 
             await _chatRepository.UnitOfWork.Commit();

@@ -36,6 +36,7 @@ namespace PigeonBox.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    unique_identifier = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     title = table.Column<string>(type: "varchar(100)", nullable: true),
                     description = table.Column<byte[]>(type: "BLOB", nullable: true),
                     creator_user_id = table.Column<int>(type: "int", nullable: false),
@@ -109,6 +110,7 @@ namespace PigeonBox.Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    unique_identifier = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     text = table.Column<byte[]>(type: "BLOB", nullable: true),
                     sender_user_id = table.Column<int>(type: "int", nullable: false),
                     chat_id = table.Column<int>(type: "int", nullable: false),
@@ -138,17 +140,23 @@ namespace PigeonBox.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "user",
                 columns: new[] { "id", "altered_at", "created_at", "email", "name", "password", "removed", "username" },
-                values: new object[] { 1, new DateTime(2022, 8, 2, 23, 13, 5, 620, DateTimeKind.Local).AddTicks(3475), new DateTime(2022, 8, 2, 23, 13, 5, 620, DateTimeKind.Local).AddTicks(3497), "admin@admin.com.br", "Administrador", "@Asd123456789", false, "admin" });
+                values: new object[] { 1, new DateTime(2022, 8, 3, 22, 24, 38, 774, DateTimeKind.Local).AddTicks(9427), new DateTime(2022, 8, 3, 22, 24, 38, 774, DateTimeKind.Local).AddTicks(9448), "admin@admin.com.br", "Administrador", "@Asd123456789", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "chat",
-                columns: new[] { "id", "altered_at", "created_at", "creator_user_id", "description", "removed", "title" },
-                values: new object[] { 1, new DateTime(2022, 8, 2, 23, 13, 5, 557, DateTimeKind.Local).AddTicks(2921), new DateTime(2022, 8, 2, 23, 13, 5, 558, DateTimeKind.Local).AddTicks(1741), 1, new byte[] { 87, 101, 108, 99, 111, 109, 101, 32, 116, 111, 32, 80, 105, 103, 101, 111, 110, 98, 111, 120, 33, 32, 84, 104, 105, 115, 32, 111, 110, 101, 32, 97, 32, 103, 108, 111, 98, 97, 108, 32, 99, 104, 97, 116, 44, 32, 102, 111, 114, 32, 101, 118, 101, 114, 121, 32, 80, 105, 103, 101, 111, 110, 32, 105, 110, 32, 116, 104, 105, 115, 32, 98, 111, 120, 46, 32, 66, 101, 32, 114, 101, 115, 112, 101, 99, 116, 102, 117, 108, 33, 32, 65, 116, 116, 46, 46, 32, 83, 97, 109, 117, 101, 108, 32, 61, 41, 32 }, false, "#Everyone" });
+                columns: new[] { "id", "altered_at", "created_at", "creator_user_id", "description", "removed", "title", "unique_identifier" },
+                values: new object[] { 1, new DateTime(2022, 8, 3, 22, 24, 38, 700, DateTimeKind.Local).AddTicks(4052), new DateTime(2022, 8, 3, 22, 24, 38, 701, DateTimeKind.Local).AddTicks(7038), 1, new byte[] { 87, 101, 108, 99, 111, 109, 101, 32, 116, 111, 32, 80, 105, 103, 101, 111, 110, 98, 111, 120, 33, 32, 84, 104, 105, 115, 32, 111, 110, 101, 32, 97, 32, 103, 108, 111, 98, 97, 108, 32, 99, 104, 97, 116, 44, 32, 102, 111, 114, 32, 101, 118, 101, 114, 121, 32, 80, 105, 103, 101, 111, 110, 32, 105, 110, 32, 116, 104, 105, 115, 32, 98, 111, 120, 46, 32, 66, 101, 32, 114, 101, 115, 112, 101, 99, 116, 102, 117, 108, 33, 32, 65, 116, 116, 46, 46, 32, 83, 97, 109, 117, 101, 108, 32, 61, 41, 32 }, false, "#Everyone", new Guid("56b125c0-cc7b-4814-9d19-f07f1d25c7b1") });
 
             migrationBuilder.CreateIndex(
                 name: "ix_chat_creator_user_id",
                 table: "chat",
                 column: "creator_user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_chat_unique_identifier",
+                table: "chat",
+                column: "unique_identifier",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_chat_notification_chat_id",

@@ -10,15 +10,17 @@ namespace PigeonBox.Application.Commands.Chats
 {
     public class StartChatCommand : Command<CommandResponse<bool>>
     {
+        public Guid UniqueIdentifier { get; private set; }
         public int CreatorUserId { get; private set; }
         public string Title { get; private set; }
         public ICollection<int> Participants { get; private set; }
 
-        public StartChatCommand(int creatorUserId, string title, ICollection<int> participants)
+        public StartChatCommand(Guid uniqueIdentifier, int creatorUserId, string title, ICollection<int> participants)
         {
             CreatorUserId = creatorUserId;
             Title = title;
             Participants = participants;
+            UniqueIdentifier = uniqueIdentifier;
         }
 
         public override bool Validate()

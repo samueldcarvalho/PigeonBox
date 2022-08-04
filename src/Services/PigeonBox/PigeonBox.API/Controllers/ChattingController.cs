@@ -26,7 +26,7 @@ namespace PigeonBox.API.Controllers
         public async Task<ActionResult<CommandResponse<bool>>> StartNewChat([FromBody] StartChatInputModel input)
         {
             var commandResponse = await _mediator
-                .SendCommand(new StartChatCommand(input.CreatorId, input.Title, input.Participants));
+                .SendCommand(new StartChatCommand(input.UniqueIdentifier, input.CreatorId, input.Title, input.Participants));
 
             if (!commandResponse.Success)
                 return BadRequest(commandResponse);
@@ -34,10 +34,11 @@ namespace PigeonBox.API.Controllers
             return Ok(commandResponse);
         }
 
-        [HttpPost("/chat/message/send")]
-        public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
-        {
+
+        //[HttpPost("/chat/message/send")]
+        //public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
+        //{
            
-        }
+        //}
     }
 }
