@@ -34,23 +34,8 @@ interface IChatContextProps {
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
-  const [contacts, setContacts] = useState<IUser[]>([
-    {
-      id: -1,
-      email: "bot@pigeonbox.com.br",
-      isOnline: true,
-      name: "PigeonBot",
-      username: "pigeonBotuuix132400-xx#",
-    },
-  ]);
-  const [chats, setChats] = useState<IChatInfo[]>([
-    {
-      Identifier: "A123HelloWorld",
-      Messages: [],
-      Participants: [],
-      Title: "#Everyone",
-    },
-  ]);
+  const [contacts, setContacts] = useState<IUser[]>([]);
+  const [chats, setChats] = useState<IChatInfo[]>([]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const { User } = useContext(AuthContext);

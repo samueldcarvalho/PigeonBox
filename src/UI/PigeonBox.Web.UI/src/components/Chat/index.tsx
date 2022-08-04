@@ -8,7 +8,7 @@ import { memo, useContext, useState } from "react";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
 import HomeChatBoxLayout from "../HomeChatBoxLayout";
 import { IMessage } from "../../shared/models/Message";
-import Message from "../Message/Message";
+import Message from "../Message";
 
 const Chat = () => {
   const { ActualChat } = useContext(ChatContext);
