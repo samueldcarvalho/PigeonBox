@@ -29,8 +29,9 @@ namespace PigeonBox.Application.Queries
             {
                 var chatViewModel = new ChatViewModel()
                 {
-                    Title = chat.Title,
+                    Id = chat.Id,
                     UniqueIdentifier = chat.UniqueIdentifier,
+                    Title = chat.Title
                 };
 
                 IEnumerable<MessageViewModel> messages;

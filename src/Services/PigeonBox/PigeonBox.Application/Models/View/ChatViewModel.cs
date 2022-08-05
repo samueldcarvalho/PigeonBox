@@ -8,6 +8,7 @@ namespace PigeonBox.Application.Models.View
 {
     public class ChatViewModel
     {
+        public int Id { get; set; }
         public Guid UniqueIdentifier { get; set; }
         public string Title { get; set; }
         public IEnumerable<MessageViewModel> Messages { get; set; }
