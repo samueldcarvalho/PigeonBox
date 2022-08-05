@@ -162,7 +162,7 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
                     delay: i * 0.1,
                   }}
                   className={`${styles.lateralMenuItemContainer} ${
-                    ActualChat?.Identifier == c.Identifier &&
+                    ActualChat?.uniqueIdentifier == c.uniqueIdentifier &&
                     styles.lateralMenuItemSelected
                   }`}
                   onClick={() => SetActualChat(c)}
@@ -171,7 +171,7 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
                     <div
                       className={styles.statusConnectedCircleContainer}
                     ></div>
-                    <p>{c.Title}</p>
+                    <p>{c.title}</p>
                   </div>
                   <span>
                     <BsFillChatLeftDotsFill />

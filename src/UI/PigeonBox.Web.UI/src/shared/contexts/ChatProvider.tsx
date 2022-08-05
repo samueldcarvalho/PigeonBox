@@ -100,8 +100,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   async function GetAllChats(userId: number) {
     const chats = await ChatService.GetAllChatsByUserId(userId);
 
-    console.log("CHATSSSS", chats);
-
     if (chats != null) setChats(chats);
   }
 
