@@ -5,21 +5,15 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from "@microsoft/signalr";
-import { TryTwoTone } from "@mui/icons-material";
-import { randomUUID } from "crypto";
 import {
   createContext,
   memo,
   ReactElement,
-  useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
-import { isKeyObject } from "util/types";
 import { IChatInfo } from "../models/Chat";
-import { IContact } from "../models/Contact";
-import { IMessage } from "../models/Message";
 import { IUser } from "../models/User";
 import { AuthContext } from "./AuthProvider";
 
@@ -57,27 +51,27 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       console.log("CONECTANDO", userId);
     });
 
-    con.on(
-      "MessageReceived",
-      (chatId: string, contactId: number, message: string) => {
-        const chat = chats.find((c) => c.Identifier == chatId);
+    // con.on(
+    //   "MessageReceived",
+    //   (chatId: string, contactId: number, message: string) => {
+    //     const chat = chats.find((c) => c.Identifier == chatId);
 
-        if (chat != null) {
-          chat.Messages.push({
-            Id: crypto.randomUUID(),
-            SendedByMe: false,
-            Text: message,
-            SendedAt: new Date(),
-            UserId: contactId,
-          });
+    //     // if (chat != null) {
+    //     //   chat.Messages.push({
+    //     //     Id: crypto.randomUUID(),
+    //     //     SendedByMe: false,
+    //     //     Text: message,
+    //     //     SendedAt: new Date(),
+    //     //     UserId: contactId,
+    //     //   });
 
-          setChats([
-            chat,
-            ...chats.filter((c) => c.Identifier != chat.Identifier),
-          ]);
-        }
-      }
-    );
+    //       // setChats([
+    //       //   chat,
+    //       //   ...chats.filter((c) => c.Identifier != chat.Identifier),
+    //       // ]);
+    //     }
+    //   }
+    // );
 
     await con.start();
     await con.invoke("JoinServerHub", User);

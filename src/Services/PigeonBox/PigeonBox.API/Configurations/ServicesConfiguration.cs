@@ -16,15 +16,16 @@ namespace PigeonBox.API.Configurations
     {
         public static void AddServicesConfiguration(this IServiceCollection services)
         {
-            services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddSignalR();
 
             services.AddDbContext<PigeonBoxContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IUserQueries, UserQueries>();
+            services.AddScoped<IChatQueries, ChatQueries>();
 
-            services.AddSignalR();
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddMediatR(Assembly.Load("PigeonBox.Application"));
         }
     }

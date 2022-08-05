@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PigeonBox.Application.Commands.Chats;
+using PigeonBox.Application.Interfaces;
 using PigeonBox.Application.Models.Input;
+using PigeonBox.Application.Models.View;
 using PigeonBox.Core.CQRS;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PigeonBox.API.Controllers
@@ -11,10 +14,12 @@ namespace PigeonBox.API.Controllers
     public class ChattingController : ControllerBase
     {
         private readonly IMediatorHandler _mediator;
+        private readonly IChatQueries _chatQueries;
 
-        public ChattingController(IMediatorHandler mediator)
+        public ChattingController(IMediatorHandler mediator, IChatQueries chatQueries)
         {
             _mediator = mediator;
+            _chatQueries = chatQueries;
         }
 
         /// <summary>
@@ -49,6 +54,18 @@ namespace PigeonBox.API.Controllers
                 return BadRequest(commandResponse.ValidationResult);
 
             return Ok(commandResponse.ValidationResult);
+        }
+
+         /// <summary>
+        /// Get all chats by User Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("/chat/get")]
+        public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId([FromQuery] int userId)
+        {
+            var chats = await _chatQueries.GetChatsByUserId(userId);
+            return Ok(chats);
         }
     }
 }
