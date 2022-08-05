@@ -39,9 +39,9 @@ namespace PigeonBox.Infrastructure.Repositories
 
         public Task<List<Chat>> GetByUserId(int userId)
         {
-            return _context.Chats.Where(p => p.UserId == userId)
+            return _context.Chats
                 .Include(p => p.Users)
-                .Include(p => p.Messages).ToListAsync();
+                .Include(p => p.Messages).Where(p => p.Users.Any(u => u.Id == userId)).ToListAsync();
         }
 
         public void Update(Chat entity)

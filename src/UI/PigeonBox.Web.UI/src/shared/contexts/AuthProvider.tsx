@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { RegisterInputModel } from "../models/Input/RegisterInputModel";
 import { IUser } from "../models/User";
 import { CookiesService } from "../services/CookiesService";

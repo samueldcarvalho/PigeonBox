@@ -15,6 +15,7 @@ import {
 } from "react";
 import { IChatInfo } from "../models/Chat";
 import { IUser } from "../models/User";
+import { ChatService } from "../services/ChatService";
 import { AuthContext } from "./AuthProvider";
 
 interface IChatContextProps {
@@ -23,6 +24,7 @@ interface IChatContextProps {
   ActualChat: IChatInfo | null;
   SetActualChat: (chat: IChatInfo) => void;
   JoinChatHub: () => void;
+  GetAllChats: (userId: number) => void;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
@@ -95,6 +97,14 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
+  async function GetAllChats(userId: number) {
+    const chats = await ChatService.GetAllChatsByUserId(userId);
+
+    console.log("CHATSSSS", chats);
+
+    if (chats != null) setChats(chats);
+  }
+
   return (
     <ChatContext.Provider
       value={{
@@ -103,6 +113,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         ActualChat: actualChat,
         JoinChatHub,
         SetActualChat,
+        GetAllChats,
       }}
     >
       {children}

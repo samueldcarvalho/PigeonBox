@@ -8,13 +8,13 @@ import { ChatProvider } from "../src/shared/contexts/ChatProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <WrapperLayout>
+    <WrapperLayout>
+      <AuthProvider>
         <ChatProvider>
           <Component {...pageProps} />
         </ChatProvider>
-      </WrapperLayout>
-    </AuthProvider>
+      </AuthProvider>
+    </WrapperLayout>
   );
 }
 

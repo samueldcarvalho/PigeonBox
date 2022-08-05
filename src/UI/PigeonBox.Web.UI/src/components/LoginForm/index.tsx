@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import { useForm } from "react-hook-form";
+import { ChatContext } from "../../shared/contexts/ChatProvider";
 
 interface LoginFormProps {
   username: string;
