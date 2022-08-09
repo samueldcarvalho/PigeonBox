@@ -34,6 +34,11 @@ namespace PigeonBox.Application.Hubs
             });
         }
 
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var user = ChatHubHandler.UsersConnected

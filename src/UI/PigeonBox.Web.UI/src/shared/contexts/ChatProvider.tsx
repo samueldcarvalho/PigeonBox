@@ -1,5 +1,6 @@
 /** @format */
 
+import { ClassNames } from "@emotion/react";
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -46,7 +47,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     if (actualChat != null) {
-      console.log("Alterado!");
       setActualChat(chats.find((p) => p.id == actualChat?.id)!);
     }
   }, [chats]);
@@ -58,51 +58,23 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       .withAutomaticReconnect()
       .build();
 
-    con.on("JoinedServer", (userId: number) => {
-      console.log("CONECTANDO", userId);
-    });
-
-    con.on("MessageReceived", (message: IMessage) => {
-      console.log(message);
-
-      const newChats = chats.filter((p) => p.id != message.chatId);
-      const chatToModify = chats.find((p) => p.id == message.chatId);
-
-      if (chatToModify == null) return;
-
-      chatToModify.messages.push(message);
-      newChats.push(chatToModify!);
-
-      setChats(...newChats);
-    });
-
-    // con.on(
-    //   "MessageReceived",
-    //   (chatId: string, contactId: number, message: string) => {
-    //     const chat = chats.find((c) => c.Identifier == chatId);
-
-    //     // if (chat != null) {
-    //     //   chat.Messages.push({
-    //     //     Id: crypto.randomUUID(),
-    //     //     SendedByMe: false,
-    //     //     Text: message,
-    //     //     SendedAt: new Date(),
-    //     //     UserId: contactId,
-    //     //   });
-
-    //       // setChats([
-    //       //   chat,
-    //       //   ...chats.filter((c) => c.Identifier != chat.Identifier),
-    //       // ]);
-    //     }
-    //   }
-    // );
-
     await con.start();
     await con.invoke("JoinServerHub", User);
 
     setConnection(con);
   };
+
+  useEffect(() => {
+    if (connection != null) {
+      connection.on("JoinedServer", (userId: number) => {
+        console.log("CONECTANDO", userId);
+      });
+
+      connection.on("MessageReceived", (message: IMessage) => {
+        PushNewMessage(message);
+      });
+    }
+  }, [connection]);
 
   function SetActualChat(chat: IChatInfo) {
     if (chat == actualChat) {
@@ -120,14 +92,34 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
+  const PushNewMessage = (message: IMessage) => {
+    const newChats = chats.filter((c) => c.id != message.chatId);
+    const chatToModify = chats.find((c) => c.id == message.chatId);
+
+    if (chatToModify != null) {
+      if (chatToModify.messages == null) {
+        chatToModify.messages = new Array<IMessage>();
+      }
+      chatToModify.messages.push(message);
+      newChats.push(chatToModify);
+
+      setChats(newChats);
+    }
+  };
+
   async function GetAllContacts() {
     const contacts = await ChatService.GetAllContacts();
     if (contacts != null) setContacts(contacts.filter((c) => c.id != User.id));
   }
 
   async function GetAllChats(userId: number) {
-    const chats = await ChatService.GetAllChatsByUserId(userId);
-    if (chats != null) setChats(chats);
+    const newChats = await ChatService.GetAllChatsByUserId(userId);
+
+    console.log(newChats);
+
+    if (newChats != null) {
+      setChats(newChats);
+    }
   }
 
   return (
