@@ -25,6 +25,7 @@ interface IChatContextProps {
   SetActualChat: (chat: IChatInfo) => void;
   JoinChatHub: () => void;
   GetAllChats: (userId: number) => void;
+  GetAllContacts: () => void;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
@@ -97,9 +98,13 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
+  async function GetAllContacts() {
+    const contacts = await ChatService.GetAllContacts();
+    if (contacts != null) setContacts(contacts.filter((c) => c.id != User.id));
+  }
+
   async function GetAllChats(userId: number) {
     const chats = await ChatService.GetAllChatsByUserId(userId);
-
     if (chats != null) setChats(chats);
   }
 
@@ -112,6 +117,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         JoinChatHub,
         SetActualChat,
         GetAllChats,
+        GetAllContacts,
       }}
     >
       {children}

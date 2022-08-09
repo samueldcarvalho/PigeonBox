@@ -12,11 +12,10 @@ import { ChatContext } from "../src/shared/contexts/ChatProvider";
 
 const Chat: NextPage = () => {
   const { User, GetUser } = useContext(AuthContext);
-  const { GetAllChats } = useContext(ChatContext);
+  const { GetAllChats, GetAllContacts } = useContext(ChatContext);
   const router = useRouter();
 
   const ValidateUser = async () => {
-    console.log("VALIDATE USERRR");
     if (!User) {
       const logged = await GetUser();
 
@@ -34,6 +33,7 @@ const Chat: NextPage = () => {
   useEffect(() => {
     if (User != null) {
       GetAllChats(User.id);
+      GetAllContacts();
     }
   }, [User]);
 
