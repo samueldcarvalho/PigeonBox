@@ -28,7 +28,6 @@ namespace PigeonBox.API.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpPost("/chat/start")]
         public async Task<ActionResult<CommandResponse<bool>>> StartNewChat([FromBody] StartChatInputModel input)
         {
@@ -46,7 +45,6 @@ namespace PigeonBox.API.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpPost("/chat/message/send")]
         public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
         {
@@ -64,7 +62,6 @@ namespace PigeonBox.API.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpGet("/chat/get")]
         public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId([FromQuery] int userId)
         {
