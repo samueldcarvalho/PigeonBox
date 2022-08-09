@@ -33,7 +33,10 @@ namespace PigeonBox.Application.Commands.Chats
                 return new CommandResponse<bool>(ValidationResult, false);
             }
 
-            chat.AddMessage(new Message(request.UserId, request.ChatId, request.Text, request.UniqueIdentifier));
+            var message = new Message(request.UserId, request.ChatId, request.Text, request.UniqueIdentifier);
+            message.ChangeToSent();
+
+            chat.AddMessage(message);
 
             _chatRepository.Update(chat);
             await _chatRepository.UnitOfWork.Commit();

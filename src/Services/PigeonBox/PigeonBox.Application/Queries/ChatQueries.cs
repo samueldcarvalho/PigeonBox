@@ -36,6 +36,15 @@ namespace PigeonBox.Application.Queries
 
                 IEnumerable<MessageViewModel> messages;
 
+                IEnumerable<UserConnectionViewModel> users = chat.Users
+                    .Select(user => new UserConnectionViewModel()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Username = user.Username,
+                    Name = user.Name
+                });
+
                 if (chat.Messages != null && chat.Messages.Any())
                 {
                     messages = chat.Messages.Select(msg => new MessageViewModel()
@@ -44,19 +53,12 @@ namespace PigeonBox.Application.Queries
                         Text = msg.Text,
                         ChatId = msg.ChatId,
                         UserId = msg.UserId,
+                        UserName = users.FirstOrDefault(u => u.Id == msg.UserId)?.Name,
                         SentAt = msg.SentAt
                     });
 
                     chatViewModel.Messages = messages;
                 }
-
-                IEnumerable<UserConnectionViewModel> users = chat.Users.Select(user => new UserConnectionViewModel()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Username = user.Username,
-                    Name = user.Name
-                });
 
                 chatViewModel.Users = users;
                 return chatViewModel;
