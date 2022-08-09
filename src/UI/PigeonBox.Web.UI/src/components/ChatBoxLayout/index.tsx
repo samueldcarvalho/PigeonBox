@@ -108,7 +108,7 @@ const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
                   type: "spring",
                   duration: 0.5,
                   bounce: 0,
-                  delay: i * 0.1,
+                  delay: i * 0.05,
                 }}
                 className={styles.lateralMenuItemContainer}
               >
@@ -159,7 +159,7 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
                     type: "spring",
                     duration: 0.5,
                     bounce: 0,
-                    delay: i * 0.1,
+                    delay: i * 0.05,
                   }}
                   className={`${styles.lateralMenuItemContainer} ${
                     ActualChat?.uniqueIdentifier == c.uniqueIdentifier &&

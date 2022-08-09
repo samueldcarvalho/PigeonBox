@@ -1,4 +1,5 @@
 import { IChatInfo } from "../models/Chat";
+import { IUser } from "../models/User";
 import { Api } from "./Api";
 
 async function GetAllChatsByUserId(
@@ -10,11 +11,16 @@ async function GetAllChatsByUserId(
     },
   })
     .then((res) => res.data as IChatInfo[])
-    .catch(() => {
-      return null;
-    });
+    .catch(() => null);
+}
+
+async function GetAllContacts(): Promise<IUser[] | null> {
+  return await Api.get("/contacts/get/all")
+    .then((res) => res.data as IUser[])
+    .catch(() => null);
 }
 
 export const ChatService = {
   GetAllChatsByUserId,
+  GetAllContacts,
 };
