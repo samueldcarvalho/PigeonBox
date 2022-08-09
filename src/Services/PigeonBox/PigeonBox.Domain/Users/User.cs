@@ -16,6 +16,7 @@ namespace PigeonBox.Domain.Users
         public string Username { get; private set; }
         public string Password { get; private set; }
         public ICollection<Chat> Chats { get; private set; }
+        public UserConnection UserConnection { get; private set; }
 
         protected User() { }
         public User(string name, string email, string username, string password)
@@ -24,6 +25,7 @@ namespace PigeonBox.Domain.Users
             Email = email;
             Username = username;
             Password = password;
+            UserConnection = new UserConnection();
         }
     }
 }
