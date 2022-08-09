@@ -34,15 +34,15 @@ namespace PigeonBox.Application.Commands.Chats
 
             var user = await _userRepository.GetById(request.UserId);
 
-            if(user == null)
+            if (user == null)
             {
                 AddError("User cannot be finded");
                 return new CommandResponse<bool>(ValidationResult, false);
             }
 
-            var chat = await _chatRepository.GetById(request.ChatId);
+            var chat = await _chatRepository.GetByIdWithChilds(request.ChatId);
 
-            if(chat == null)
+            if (chat == null)
             {
                 AddError("The chat cannot be finded");
                 return new CommandResponse<bool>(ValidationResult, false);
@@ -56,18 +56,25 @@ namespace PigeonBox.Application.Commands.Chats
             _chatRepository.Update(chat);
             await _chatRepository.UnitOfWork.Commit();
 
-            await _hubContext.Clients.Clients(ChatHubHandler.UsersConnected
-                .Where(u => chat.Users.Any(user => user.Id == u.UserConnection.Id))
-                .Select(u => u.ConnectionId).ToList())
-                    .SendAsync("MessageReceived", new MessageViewModel
-                    {
-                        Id = message.Id,
-                        UserId = user.Id,
-                        UserName = user.Name,
-                        ChatId = message.ChatId,
-                        Text = message.Text,
-                        SentAt = message.SentAt
-                    });
+            if (ChatHubHandler.UsersConnected.Any())
+            {
+                List<string> userConnectedIds = ChatHubHandler.UsersConnected
+                    .Where(u => chat.Users.Any(user => user.Id == u.UserConnection.Id))
+                    .Select(u => u.ConnectionId).ToList();
+
+                if (userConnectedIds.Any())
+                    await _hubContext.Clients.Clients(userConnectedIds)
+                        .SendAsync("MessageReceived", new MessageViewModel
+                        {
+                            Id = message.Id,
+                            UserId = user.Id,
+                            UserName = user.Name,
+                            ChatId = message.ChatId,
+                            Text = message.Text,
+                            SentAt = message.SentAt
+                        });
+            }
+
 
             return new CommandResponse<bool>(ValidationResult, true);
         }

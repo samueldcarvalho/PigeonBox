@@ -10,6 +10,7 @@ namespace PigeonBox.Domain.Interfaces
 {
     public interface IChatRepository : IRepository<Chat>
     {
+        Task<Chat> GetByIdWithChilds(int id);
         Task<List<Chat>> GetByUserId(int userId);
     }
 }

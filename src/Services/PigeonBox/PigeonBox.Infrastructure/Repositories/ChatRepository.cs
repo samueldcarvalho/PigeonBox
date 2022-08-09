@@ -32,6 +32,12 @@ namespace PigeonBox.Infrastructure.Repositories
             return _context.Chats.ToListAsync();
         }
 
+        public Task<Chat> GetByIdWithChilds(int id)
+        {
+            return _context.Chats.Include(c => c.Users).Include(c => c.Messages)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public Task<Chat> GetById(int id)
         {
             return _context.Chats.FirstOrDefaultAsync(c => c.Id == id);
