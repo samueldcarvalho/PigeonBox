@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import { useForm } from "react-hook-form";
+import { ChatContext } from "../../shared/contexts/ChatProvider";
 
 interface LoginFormProps {
   username: string;
@@ -35,7 +36,7 @@ const LoginForm = () => {
         <motion.div
           initial={{ marginBottom: 40, height: 400, opacity: 0 }}
           animate={{ marginBottom: 0, height: 350, opacity: 1 }}
-          transition={{ type: "spring", duration: 0.7, bounce: 0.6 }}
+          transition={{ type: "spring", duration: 0.4, bounce: 0.4 }}
           className={styles.formConduce}
         >
           <span className={styles.formHeader}>

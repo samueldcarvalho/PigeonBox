@@ -1,10 +1,9 @@
-﻿using PigeonBox.Application.Interfaces;
+﻿using PigeonBox.Application.Hubs;
+using PigeonBox.Application.Interfaces;
 using PigeonBox.Application.Models.View;
 using PigeonBox.Domain.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PigeonBox.Application.Queries
@@ -16,6 +15,23 @@ namespace PigeonBox.Application.Queries
         public UserQueries(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        public async Task<IEnumerable<ContactViewModel>> GetAllContacts()
+        {
+            var users = await _userRepository.GetAll();
+
+            if (users == null)
+                return null;
+
+            return users.Select(u => new ContactViewModel
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Username = u.Username,
+                Email = u.Email,
+                IsOnline = ChatHubHandler.UsersConnected.Any(user => user.UserConnection.Id == u.Id)
+            });
         }
 
         public async Task<UserConnectionViewModel> GetUserByEmail(string email)

@@ -12,7 +12,7 @@ import { ChatContext } from "../src/shared/contexts/ChatProvider";
 
 const Chat: NextPage = () => {
   const { User, GetUser } = useContext(AuthContext);
-  const { JoinChatHub } = useContext(ChatContext);
+  const { GetAllChats } = useContext(ChatContext);
   const router = useRouter();
 
   const ValidateUser = async () => {
@@ -30,6 +30,12 @@ const Chat: NextPage = () => {
   useEffect(() => {
     ValidateUser();
   }, []);
+
+  useEffect(() => {
+    if (User != null) {
+      GetAllChats(User.id);
+    }
+  }, [User]);
 
   return <ChatBox />;
 };

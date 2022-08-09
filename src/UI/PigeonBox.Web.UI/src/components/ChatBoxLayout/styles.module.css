@@ -13,7 +13,8 @@
   background-color: var(--primary-main);
   max-width: 1200px;
   width: 100%;
-  height: 760px;
+  max-height: 760px;
+  height: 100%;
   display: flex;
   flex-flow: column nowrap;
   box-shadow: 0 0 60px 0px #2c388e;
@@ -253,4 +254,25 @@
     scroll-behavior: smooth;
     height: 508px;
   }
+}
+
+.notFoundMessage {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.notFoundMessage strong {
+  color: var(--primary-200);
+  font-size: medium;
+  margin-bottom: 5px;
+}
+
+.notFoundMessage svg {
+  height: 40px;
+  width: 40px;
+  fill: var(--primary-200);
 }

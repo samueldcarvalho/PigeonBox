@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Application.Interfaces
 {
-    public interface IUserQueries
-    {
-        Task<UserConnectionViewModel> GetUserByEmail(string email);
-        Task<IEnumerable<ContactViewModel>> GetAllContacts();
+    public interface IChatQueries
+    {   
+        Task<IEnumerable<ChatViewModel>> GetChatsByUserId (int userId);
     }
 }

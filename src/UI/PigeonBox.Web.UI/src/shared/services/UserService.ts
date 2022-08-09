@@ -12,7 +12,10 @@ async function SignInAsync(credentialToken: string): Promise<IUser | null> {
   return await Api.get("/user/get", {
     headers: { Authorization: `Basic ${credentialToken}` },
   })
-    .then((res) => res.data as IUser)
+    .then((res) => {
+      Api.defaults.headers.common["Authorization"] = `Basic ${credentialToken}`;
+      return res.data as IUser;
+    })
     .catch(() => {
       return null;
     });

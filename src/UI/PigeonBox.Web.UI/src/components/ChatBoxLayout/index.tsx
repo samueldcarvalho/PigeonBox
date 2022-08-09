@@ -1,7 +1,8 @@
 /** @format */
 import React, { memo, useContext, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { BsFillChatLeftDotsFill } from "react-icons/bs";
+import { FaSadTear } from "react-icons/fa";
+import { BsFillChatLeftDotsFill, BsPeopleFill } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Chat from "../Chat";
 import styles from "./styles.module.css";
@@ -10,6 +11,7 @@ import { ChatContext } from "../../shared/contexts/ChatProvider";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
 import { IChatInfo } from "../../shared/models/Chat";
 import { IUser } from "../../shared/models/User";
+import { duration } from "@mui/material";
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
@@ -95,34 +97,46 @@ const ChatBox = () => {
 const ContactsPanel = ({ Contacts }: { Contacts: IUser[] }) => {
   return (
     <>
-      {React.Children.toArray(
-        Contacts.map((c, i) => {
-          return (
-            <motion.button
-              initial={{ opacity: 0, x: 25 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                type: "spring",
-                duration: 0.5,
-                bounce: 0,
-                delay: i * 0.1,
-              }}
-              className={styles.lateralMenuItemContainer}
-            >
-              <div className={styles.lateralMenuItemName}>
-                <div className={styles.statusConnectedCircleContainer}>
-                  {c.isOnline && (
-                    <div className={styles.statusConnectedCircle} />
-                  )}
+      {Contacts.length > 0 ? (
+        React.Children.toArray(
+          Contacts.map((c, i) => {
+            return (
+              <motion.button
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  type: "spring",
+                  duration: 0.5,
+                  bounce: 0,
+                  delay: i * 0.1,
+                }}
+                className={styles.lateralMenuItemContainer}
+              >
+                <div className={styles.lateralMenuItemName}>
+                  <div className={styles.statusConnectedCircleContainer}>
+                    {c.isOnline && (
+                      <div className={styles.statusConnectedCircle} />
+                    )}
+                  </div>
+                  <p>{c.name}</p>
                 </div>
-                <p>{c.name}</p>
-              </div>
-              <span>
-                <HiDotsHorizontal />
-              </span>
-            </motion.button>
-          );
-        })
+                <span>
+                  <HiDotsHorizontal />
+                </span>
+              </motion.button>
+            );
+          })
+        )
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: -25 }}
+          transition={{ type: "spring", duration: 0.6, bounce: 0.4 }}
+          className={styles.notFoundMessage}
+        >
+          <strong>No contact found on server</strong>
+          <BsPeopleFill />
+        </motion.div>
       )}
     </>
   );
@@ -133,36 +147,50 @@ const ChatsPanel = ({ Chats }: { Chats: IChatInfo[] }) => {
 
   return (
     <>
-      {React.Children.toArray(
-        Chats.map((c, i) => {
-          return (
-            <>
-              <motion.button
-                initial={{ opacity: 0, x: -25 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  type: "spring",
-                  duration: 0.5,
-                  bounce: 0,
-                  delay: i * 0.1,
-                }}
-                className={`${styles.lateralMenuItemContainer} ${
-                  ActualChat?.Identifier == c.Identifier &&
-                  styles.lateralMenuItemSelected
-                }`}
-                onClick={() => SetActualChat(c)}
-              >
-                <div className={styles.lateralMenuItemName}>
-                  <div className={styles.statusConnectedCircleContainer}></div>
-                  <p>{c.Title}</p>
-                </div>
-                <span>
-                  <BsFillChatLeftDotsFill />
-                </span>
-              </motion.button>
-            </>
-          );
-        })
+      {Chats.length > 0 ? (
+        React.Children.toArray(
+          Chats.map((c, i) => {
+            return (
+              <>
+                <motion.button
+                  initial={{ opacity: 0, x: -25 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    type: "spring",
+                    duration: 0.5,
+                    bounce: 0,
+                    delay: i * 0.1,
+                  }}
+                  className={`${styles.lateralMenuItemContainer} ${
+                    ActualChat?.uniqueIdentifier == c.uniqueIdentifier &&
+                    styles.lateralMenuItemSelected
+                  }`}
+                  onClick={() => SetActualChat(c)}
+                >
+                  <div className={styles.lateralMenuItemName}>
+                    <div
+                      className={styles.statusConnectedCircleContainer}
+                    ></div>
+                    <p>{c.title}</p>
+                  </div>
+                  <span>
+                    <BsFillChatLeftDotsFill />
+                  </span>
+                </motion.button>
+              </>
+            );
+          })
+        )
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: -25 }}
+          transition={{ type: "spring", duration: 0.6, bounce: 0.4 }}
+          className={styles.notFoundMessage}
+        >
+          <strong>No chat was found</strong>
+          <FaSadTear />
+        </motion.div>
       )}
     </>
   );

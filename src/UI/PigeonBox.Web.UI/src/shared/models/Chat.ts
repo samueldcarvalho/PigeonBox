@@ -1,9 +1,10 @@
-import { IContact } from "./Contact";
 import { IMessage } from "./Message";
+import { IUser } from "./User";
 
 export interface IChatInfo {
-  Identifier: string;
-  Title: string;
-  Messages: IMessage[];
-  Participants: IContact[];
+  id: number;
+  uniqueIdentifier: string;
+  title: string;
+  messages: IMessage[];
+  users: IUser[];
 }

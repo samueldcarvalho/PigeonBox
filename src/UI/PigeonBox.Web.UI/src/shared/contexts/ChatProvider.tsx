@@ -5,22 +5,17 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from "@microsoft/signalr";
-import { TryTwoTone } from "@mui/icons-material";
-import { randomUUID } from "crypto";
 import {
   createContext,
   memo,
   ReactElement,
-  useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
-import { isKeyObject } from "util/types";
 import { IChatInfo } from "../models/Chat";
-import { IContact } from "../models/Contact";
-import { IMessage } from "../models/Message";
 import { IUser } from "../models/User";
+import { ChatService } from "../services/ChatService";
 import { AuthContext } from "./AuthProvider";
 
 interface IChatContextProps {
@@ -29,28 +24,14 @@ interface IChatContextProps {
   ActualChat: IChatInfo | null;
   SetActualChat: (chat: IChatInfo) => void;
   JoinChatHub: () => void;
+  GetAllChats: (userId: number) => void;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
 
 export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
-  const [contacts, setContacts] = useState<IUser[]>([
-    {
-      id: -1,
-      email: "bot@pigeonbox.com.br",
-      isOnline: true,
-      name: "PigeonBot",
-      username: "pigeonBotuuix132400-xx#",
-    },
-  ]);
-  const [chats, setChats] = useState<IChatInfo[]>([
-    {
-      Identifier: "A123HelloWorld",
-      Messages: [],
-      Participants: [],
-      Title: "#Everyone",
-    },
-  ]);
+  const [contacts, setContacts] = useState<IUser[]>([]);
+  const [chats, setChats] = useState<IChatInfo[]>([]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const { User } = useContext(AuthContext);
@@ -72,27 +53,27 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       console.log("CONECTANDO", userId);
     });
 
-    con.on(
-      "MessageReceived",
-      (chatId: string, contactId: number, message: string) => {
-        const chat = chats.find((c) => c.Identifier == chatId);
+    // con.on(
+    //   "MessageReceived",
+    //   (chatId: string, contactId: number, message: string) => {
+    //     const chat = chats.find((c) => c.Identifier == chatId);
 
-        if (chat != null) {
-          chat.Messages.push({
-            Id: crypto.randomUUID(),
-            SendedByMe: false,
-            Text: message,
-            SendedAt: new Date(),
-            UserId: contactId,
-          });
+    //     // if (chat != null) {
+    //     //   chat.Messages.push({
+    //     //     Id: crypto.randomUUID(),
+    //     //     SendedByMe: false,
+    //     //     Text: message,
+    //     //     SendedAt: new Date(),
+    //     //     UserId: contactId,
+    //     //   });
 
-          setChats([
-            chat,
-            ...chats.filter((c) => c.Identifier != chat.Identifier),
-          ]);
-        }
-      }
-    );
+    //       // setChats([
+    //       //   chat,
+    //       //   ...chats.filter((c) => c.Identifier != chat.Identifier),
+    //       // ]);
+    //     }
+    //   }
+    // );
 
     await con.start();
     await con.invoke("JoinServerHub", User);
@@ -116,6 +97,12 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
+  async function GetAllChats(userId: number) {
+    const chats = await ChatService.GetAllChatsByUserId(userId);
+
+    if (chats != null) setChats(chats);
+  }
+
   return (
     <ChatContext.Provider
       value={{
@@ -124,6 +111,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         ActualChat: actualChat,
         JoinChatHub,
         SetActualChat,
+        GetAllChats,
       }}
     >
       {children}

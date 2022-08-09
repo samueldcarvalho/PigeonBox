@@ -1,16 +1,20 @@
 .messageBackground {
   display: table;
   background-color: black;
-  padding: 15px;
+  padding: 12px;
   border-radius: 12px;
   max-width: 320px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
 }
 
+.messageBackground:first-child {
+  margin-top: 35px;
+}
+
 .messageBackgroundVisit {
   background-color: var(--primary-light);
-  border-radius: 0px 12px 12px 12px;
+  border-radius: 12px 12px 12px 0px;
   align-self: flex-start;
 }
 
@@ -33,6 +37,7 @@
 .messageTime {
   font-size: 11px;
   color: var(--primary-A100);
+  opacity: 70%;
   padding-right: 10px;
 }
 

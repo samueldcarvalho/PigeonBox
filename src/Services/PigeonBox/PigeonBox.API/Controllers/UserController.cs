@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using PigeonBox.Application.Commands.Users;
 using PigeonBox.Application.Interfaces;
@@ -9,21 +10,24 @@ using PigeonBox.Application.Models.Input;
 using PigeonBox.Application.Models.View;
 using PigeonBox.Application.Queries;
 using PigeonBox.Core.CQRS;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PigeonBox.API.Controllers
 {
-    [Route("/api/v1/authentication")]
+    [Route("/api/v1/user")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IUserQueries _userQuery;
+        private readonly IUserQueries _userQueries;
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly ILogger<UserController> _logger;
 
-        public AuthenticationController(IUserQueries userQuery, IMediatorHandler mediatorHandler)
+        public UserController(IUserQueries userQuery, IMediatorHandler mediatorHandler, ILogger<UserController> logger)
         {
-            _userQuery = userQuery;
+            _userQueries = userQuery;
             _mediatorHandler = mediatorHandler;
+            _logger = logger;
         }
 
         /// <summary>
@@ -56,12 +60,30 @@ namespace PigeonBox.API.Controllers
             if (string.IsNullOrWhiteSpace(email))
                 return StatusCode(StatusCodes.Status500InternalServerError, null);
 
-            var user = await _userQuery.GetUserByEmail(email);
+            var user = await _userQueries.GetUserByEmail(email);
 
             if(user == null)
                 return StatusCode(StatusCodes.Status400BadRequest, null);
 
             return Ok(user);
+        }
+
+        /// <summary>
+        /// Obtém todos os contatos do servidor, flagando os onlines e offlines
+        /// </summary>
+        /// <returns></returns
+        [HttpGet("/contacts/get/all")]
+        public async Task<ActionResult<IEnumerable<ContactViewModel>>> GetAllContacts()
+        {
+            var contacts = await _userQueries.GetAllContacts();
+
+            if(contacts == null)
+            {
+                _logger.LogInformation("No contacts in the server");
+                return Ok(null);
+            }
+
+            return Ok(contacts);
         }
     }
 }

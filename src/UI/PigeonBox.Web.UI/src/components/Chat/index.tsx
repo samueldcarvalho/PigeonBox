@@ -4,14 +4,16 @@ import { IoMdSend } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 
 import styles from "./styles.module.css";
-import { memo, useContext, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import { ChatContext } from "../../shared/contexts/ChatProvider";
 import HomeChatBoxLayout from "../HomeChatBoxLayout";
 import { IMessage } from "../../shared/models/Message";
-import Message from "../Message/Message";
+import Message from "../Message";
+import { AuthContext } from "../../shared/contexts/AuthProvider";
 
 const Chat = () => {
   const { ActualChat } = useContext(ChatContext);
+  const { User } = useContext(AuthContext);
   const [inFocus, setInFocus] = useState<boolean>(false);
 
   return (
@@ -21,7 +23,7 @@ const Chat = () => {
       ) : (
         <>
           <motion.span
-            key={ActualChat.Title}
+            key={ActualChat.title}
             initial={{
               opacity: 0,
               y: -15,
@@ -37,41 +39,35 @@ const Chat = () => {
             }}
             className={styles.chatHeader}
           >
-            <p>{ActualChat.Title}</p>
+            <p>{ActualChat.title}</p>
           </motion.span>
           <motion.div className={styles.chatBody}>
-            {ActualChat.Messages.map((m, i) => {
-              return (
-                <motion.div
-                  initial={{
-                    x: m.SendedByMe ? 25 : -25,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    x: 0,
-                    opacity: 1,
-                  }}
-                  transition={{
-                    type: "spring",
-                    bounce: 0.5,
-                    delay: i * 0.03,
-                  }}
-                  style={{
-                    display: "flex",
-                    flexFlow: "column nowrap",
-                    width: "100%",
-                  }}
-                >
-                  <Message
-                    UserId={m.UserId}
-                    Id={m.Id}
-                    Text={m.Text}
-                    SendedAt={m.SendedAt}
-                    SendedByMe={m.SendedByMe}
-                  />
-                </motion.div>
-              );
-            })}
+            {React.Children.toArray(
+              ActualChat.messages.map((m, i) => {
+                return (
+                  <motion.div
+                    initial={{
+                      x: m.id == User.id ? -25 : 25,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      x: 0,
+                      opacity: 1,
+                    }}
+                    transition={{
+                      delay: i * 0.03,
+                    }}
+                    style={{
+                      display: "flex",
+                      flexFlow: "column nowrap",
+                      width: "100%",
+                    }}
+                  >
+                    <Message message={m} sendedByMe={m.userId == User.id} />
+                  </motion.div>
+                );
+              })
+            )}
           </motion.div>
           <div className={styles.chatFooter}>
             <motion.div
