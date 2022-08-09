@@ -14,6 +14,7 @@ import {
   useState,
 } from "react";
 import { IChatInfo } from "../models/Chat";
+import { IMessage } from "../models/Message";
 import { IUser } from "../models/User";
 import { ChatService } from "../services/ChatService";
 import { AuthContext } from "./AuthProvider";
@@ -43,6 +44,13 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }, [User]);
 
+  useEffect(() => {
+    if (actualChat != null) {
+      console.log("Alterado!");
+      setActualChat(chats.find((p) => p.id == actualChat?.id)!);
+    }
+  }, [chats]);
+
   const JoinChatHub = async () => {
     const con = new HubConnectionBuilder()
       .withUrl(`${process.env.BASEURL_API}/chat`)
@@ -52,6 +60,20 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
     con.on("JoinedServer", (userId: number) => {
       console.log("CONECTANDO", userId);
+    });
+
+    con.on("MessageReceived", (message: IMessage) => {
+      console.log(message);
+
+      const newChats = chats.filter((p) => p.id != message.chatId);
+      const chatToModify = chats.find((p) => p.id == message.chatId);
+
+      if (chatToModify == null) return;
+
+      chatToModify.messages.push(message);
+      newChats.push(chatToModify!);
+
+      setChats(...newChats);
     });
 
     // con.on(
