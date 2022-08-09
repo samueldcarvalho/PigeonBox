@@ -19,9 +19,7 @@ namespace PigeonBox.Infrastructure.Mappings
                 .WithOne(p => p.UserConnection)
                 .HasForeignKey<UserConnection>(p => p.UserId);
 
-            builder.HasIndex(p => p.ConnectionId)
-                .IsUnique();
-
+            builder.HasIndex(p => p.ConnectionId);
             builder.HasIndex(p => p.IsConnected);
 
             var userConnection = new UserConnection();

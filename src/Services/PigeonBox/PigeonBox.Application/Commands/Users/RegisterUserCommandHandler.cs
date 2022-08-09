@@ -37,11 +37,14 @@ namespace PigeonBox.Application.Commands.Users
             string name = $"{firstName} {lastName}";
 
             User user = new User(name, request.Email, request.Username, request.Password);
+            user.AddUserConnection();
+
             Chat everyoneChat = await _chatRepository.GetById(1);
 
             everyoneChat.AddUser(user);
 
             _chatRepository.Update(everyoneChat);
+
             await _chatRepository.UnitOfWork.Commit();
 
             return new CommandResponse<bool>(ValidationResult, true);

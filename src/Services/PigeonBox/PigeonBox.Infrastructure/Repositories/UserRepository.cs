@@ -37,6 +37,12 @@ namespace PigeonBox.Infrastructure.Repositories
             return _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public Task<User> GetByConnectionId(string connectionId)
+        {
+            return _context.Users.Include(p => p.UserConnection)
+                .FirstOrDefaultAsync(p => p.UserConnection.ConnectionId == connectionId);
+        }
+
         public void Update(User entity)
         {
             _context.Users.Update(entity);

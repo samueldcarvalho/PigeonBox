@@ -12,5 +12,6 @@ namespace PigeonBox.Domain.Interfaces
     {
         Task<User> GetByUsernameAndPassword(string username, string password);
         Task<User> GetByEmail(string email);
+        Task<User> GetByConnectionId(string connectionId);
     }
 }
