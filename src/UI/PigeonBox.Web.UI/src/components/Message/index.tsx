@@ -33,10 +33,19 @@ const Message = ({
       }`}
     >
       <div className={styles.messageHeader}>
-        <span>{message.userId}</span>
+        <span>{message.userName}</span>
       </div>
       <div className={styles.messageBody}>
-        <span className={styles.messageTime}>{message.sentAt.toString()}</span>
+        <span className={styles.messageTime}>
+          {new Date(message.sentAt).toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          })}
+        </span>
         <span className={styles.messageText}>{message.text}</span>
       </div>
     </motion.div>
