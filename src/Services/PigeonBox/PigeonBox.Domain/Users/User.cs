@@ -25,6 +25,13 @@ namespace PigeonBox.Domain.Users
             Email = email;
             Username = username;
             Password = password;
+        }
+
+        public void AddUserConnection()
+        {
+            if (UserConnection != null)
+                return;
+
             UserConnection = new UserConnection();
         }
     }

@@ -10,7 +10,7 @@ namespace PigeonBox.Domain.Users
 {
     public class UserConnection : Entity
     {
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
         public User User { get; private set; }
         public bool IsConnected { get; private set; }
         public DateTime LastConnectionAt { get; private set; }
