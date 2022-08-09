@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using PigeonBox.API.HubConfiguration;
+using PigeonBox.Application.Hubs;
 
 namespace PigeonBox.API.Configurations
 {

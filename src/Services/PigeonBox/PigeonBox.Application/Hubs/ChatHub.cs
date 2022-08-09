@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using PigeonBox.Application.Models.Input;
-using PigeonBox.Application.Models.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace PigeonBox.API.HubConfiguration
+namespace PigeonBox.Application.Hubs
 {
     public static class ChatHubHandler
     {
@@ -29,7 +27,8 @@ namespace PigeonBox.API.HubConfiguration
             await Groups.AddToGroupAsync(Context.ConnectionId, "ChatHubServer");
             await Clients.All.SendAsync("JoinedServer", userConnection);
 
-            ChatHubHandler.UsersConnected.Add(new ChatHubHandler.UserHubConnection { 
+            ChatHubHandler.UsersConnected.Add(new ChatHubHandler.UserHubConnection
+            {
                 ConnectionId = Context.ConnectionId,
                 UserConnection = userConnection
             });
