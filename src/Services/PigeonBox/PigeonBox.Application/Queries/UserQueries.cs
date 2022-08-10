@@ -19,7 +19,7 @@ namespace PigeonBox.Application.Queries
 
         public async Task<IEnumerable<ContactViewModel>> GetAllContacts()
         {
-            var users = await _userRepository.GetAll();
+            var users = await _userRepository.GetAllWithUserConnection();
 
             if (users == null)
                 return null;
@@ -30,7 +30,7 @@ namespace PigeonBox.Application.Queries
                 Name = u.Name,
                 Username = u.Username,
                 Email = u.Email,
-                IsOnline = ChatHubHandler.UsersConnected.Any(user => user.UserConnection.Id == u.Id)
+                IsOnline = u.UserConnection.IsConnected
             });
         }
 

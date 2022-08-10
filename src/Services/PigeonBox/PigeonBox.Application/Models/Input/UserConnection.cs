@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.Application.Models.Input
 {
-    public class UserConnection
+    public class UserConnectionInputModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
