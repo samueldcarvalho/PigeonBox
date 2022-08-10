@@ -28,7 +28,7 @@ interface IChatContextProps {
   JoinChatHub: () => void;
   GetAllChats: (userId: number) => void;
   GetAllContacts: () => void;
-  SendMessage: (textMessage: string) => void;
+  SendMessage: (textMessage: string) => Promise<boolean>;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
@@ -133,12 +133,14 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
-  async function SendMessage(textMessage: string) {
+  async function SendMessage(textMessage: string): Promise<boolean> {
     const success = await ChatService.SendMessage(
       User.id,
       actualChat!.id,
       textMessage
     );
+
+    return success;
   }
 
   return (

@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { IChatInfo } from "../models/Chat";
 import { IUser } from "../models/User";
 import { Api } from "./Api";
+import { v4 } from "uuid";
 
 async function GetAllChatsByUserId(
   userId: number
@@ -21,7 +22,7 @@ async function SendMessage(
   text: string
 ): Promise<boolean> {
   const sendMessageInput = {
-    uniqueIdentifier: randomUUID(),
+    uniqueIdentifier: v4(),
     userId,
     chatId,
     text,
