@@ -28,6 +28,7 @@ interface IChatContextProps {
   JoinChatHub: () => void;
   GetAllChats: (userId: number) => void;
   GetAllContacts: () => void;
+  SendMessage: (textMessage: string) => void;
 }
 
 export const ChatContext = createContext({} as IChatContextProps);
@@ -132,6 +133,14 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     }
   }
 
+  async function SendMessage(textMessage: string) {
+    const success = await ChatService.SendMessage(
+      User.id,
+      actualChat!.id,
+      textMessage
+    );
+  }
+
   return (
     <ChatContext.Provider
       value={{
@@ -142,6 +151,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         SetActualChat,
         GetAllChats,
         GetAllContacts,
+        SendMessage,
       }}
     >
       {children}
