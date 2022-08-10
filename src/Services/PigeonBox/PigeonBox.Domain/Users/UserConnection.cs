@@ -29,14 +29,17 @@ namespace PigeonBox.Domain.Users
             if (ConnectionId == connectionId)
                 return;
 
+            LastConnectionAt = DateTime.Now;
             ConnectionId = connectionId;
+        }
+
+        public void ChangeLastConnectionDate()
+        {
+            LastConnectionAt = DateTime.Now;
         }
 
         public void ChangeIsConnected(bool isConnected)
         {
-            if (IsConnected == isConnected)
-                return;
-
             if(isConnected == true)
             {
                 LastConnectionAt = DateTime.Now;
