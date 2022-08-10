@@ -4,15 +4,17 @@ import { IoMdSend } from "react-icons/io";
 import { motion } from "framer-motion";
 import styles from "./styles.module.css";
 import React, { memo, useContext, useState } from "react";
-import { ChatContext } from "../../shared/contexts/ChatProvider";
 import HomeChatBoxLayout from "../HomeChatBoxLayout";
 import Message from "../Message";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
+import { ChatContext } from "../../shared/contexts/ChatProvider";
+import { sendMessage } from "@microsoft/signalr/dist/esm/Utils";
 
 const Chat = () => {
-  const { ActualChat } = useContext(ChatContext);
-  const { User } = useContext(AuthContext);
   const [inFocus, setInFocus] = useState<boolean>(false);
+  const [messageText, setMessageText] = useState<string>("");
+  const { ActualChat, SendMessage } = useContext(ChatContext);
+  const { User } = useContext(AuthContext);
 
   return (
     <div className={styles.chatContainer}>
@@ -79,7 +81,6 @@ const Chat = () => {
               <motion.label
                 initial={{
                   opacity: 0,
-                  scaleX: 0.93,
                 }}
                 animate={
                   !inFocus
@@ -88,9 +89,8 @@ const Chat = () => {
                         scaleX: 1,
                       }
                     : {
-                        scaleX: 0.97,
                         opacity: 1,
-                        boxShadow: "inset 0 0 2px 2px rgba(0, 255, 115, 0.5)",
+                        boxShadow: "inset 0 0 2px 2px rgba(0, 255, 115, 1)",
                       }
                 }
                 transition={{ type: "spring", bounce: 0.5 }}
@@ -102,8 +102,29 @@ const Chat = () => {
                   onBlur={() => setInFocus(false)}
                   type="text"
                   placeholder="   Type your message here..."
+                  onChange={(e) => setMessageText(e.target.value)}
+                  value={messageText}
+                  onKeyDown={async (e) => {
+                    if (e.key == "Enter") {
+                      const sended = await SendMessage(messageText);
+
+                      if (sended) {
+                        setMessageText("");
+                      }
+                    }
+                  }}
                 />
-                <button>
+                <button
+                  onClick={async () => {
+                    if (messageText.length <= 0) return;
+
+                    const sended = await SendMessage(messageText);
+
+                    if (sended) {
+                      setMessageText("");
+                    }
+                  }}
+                >
                   <IoMdSend fill="#FFF" />
                 </button>
               </motion.label>
