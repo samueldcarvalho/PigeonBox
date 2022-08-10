@@ -9,7 +9,7 @@ using PigeonBox.Infrastructure.DataContexts;
 namespace PigeonBox.Infrastructure.Migrations
 {
     [DbContext(typeof(PigeonBoxContext))]
-    [Migration("20220804014113_initial")]
+    [Migration("20220809233034_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,12 +73,12 @@ namespace PigeonBox.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AlteredAt = new DateTime(2022, 8, 3, 22, 41, 13, 267, DateTimeKind.Local).AddTicks(6593),
-                            CreatedAt = new DateTime(2022, 8, 3, 22, 41, 13, 268, DateTimeKind.Local).AddTicks(9946),
+                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 94, DateTimeKind.Local).AddTicks(3304),
+                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 95, DateTimeKind.Local).AddTicks(3486),
                             Description = new byte[] { 87, 101, 108, 99, 111, 109, 101, 32, 116, 111, 32, 80, 105, 103, 101, 111, 110, 98, 111, 120, 33, 32, 84, 104, 105, 115, 32, 111, 110, 101, 32, 97, 32, 103, 108, 111, 98, 97, 108, 32, 99, 104, 97, 116, 44, 32, 102, 111, 114, 32, 101, 118, 101, 114, 121, 32, 80, 105, 103, 101, 111, 110, 32, 105, 110, 32, 116, 104, 105, 115, 32, 98, 111, 120, 46, 32, 66, 101, 32, 114, 101, 115, 112, 101, 99, 116, 102, 117, 108, 33, 32, 65, 116, 116, 46, 46, 32, 83, 97, 109, 117, 101, 108, 32, 61, 41, 32 },
                             Removed = false,
                             Title = "#Everyone",
-                            UniqueIdentifier = new Guid("b406a7d5-3034-4e07-b9ed-5da33d6ac09f"),
+                            UniqueIdentifier = new Guid("caba697b-b17f-459c-a81a-2d29cde5af45"),
                             UserId = 1
                         });
                 });
@@ -242,13 +242,85 @@ namespace PigeonBox.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AlteredAt = new DateTime(2022, 8, 3, 22, 41, 13, 321, DateTimeKind.Local).AddTicks(2448),
-                            CreatedAt = new DateTime(2022, 8, 3, 22, 41, 13, 321, DateTimeKind.Local).AddTicks(2465),
-                            Email = "admin@admin.com.br",
+                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 181, DateTimeKind.Local).AddTicks(4796),
+                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 181, DateTimeKind.Local).AddTicks(4818),
+                            Email = "admin@admin.com",
                             Name = "Administrador",
-                            Password = "@Asd123456789",
+                            Password = "asd123",
                             Removed = false,
                             Username = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("PigeonBox.Domain.Users.UserConnection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("AlteredAt")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime(0)")
+                        .HasColumnName("altered_at");
+
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("connection_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime(0)")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsConnected")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_connected");
+
+                    b.Property<DateTime>("LastConnectionAt")
+                        .HasPrecision(0)
+                        .HasColumnType("datetime(0)")
+                        .HasColumnName("last_connection_at");
+
+                    b.Property<bool>("Removed")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("removed");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_connection");
+
+                    b.HasIndex("ConnectionId")
+                        .HasDatabaseName("ix_user_connection_connection_id");
+
+                    b.HasIndex("IsConnected")
+                        .HasDatabaseName("ix_user_connection_is_connected");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_user_connection_user_id");
+
+                    b.ToTable("user_connection");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 102, DateTimeKind.Local).AddTicks(8415),
+                            ConnectionId = "",
+                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 102, DateTimeKind.Local).AddTicks(8439),
+                            IsConnected = false,
+                            LastConnectionAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Removed = false,
+                            Status = 1,
+                            UserId = 1
                         });
                 });
 
@@ -316,6 +388,18 @@ namespace PigeonBox.Infrastructure.Migrations
                     b.Navigation("Chat");
                 });
 
+            modelBuilder.Entity("PigeonBox.Domain.Users.UserConnection", b =>
+                {
+                    b.HasOne("PigeonBox.Domain.Users.User", "User")
+                        .WithOne("UserConnection")
+                        .HasForeignKey("PigeonBox.Domain.Users.UserConnection", "UserId")
+                        .HasConstraintName("fk_user_connection_users_user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("join_chats_users", b =>
                 {
                     b.HasOne("PigeonBox.Domain.Chats.Chat", null)
@@ -338,6 +422,11 @@ namespace PigeonBox.Infrastructure.Migrations
                     b.Navigation("ChatNotifications");
 
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("PigeonBox.Domain.Users.User", b =>
+                {
+                    b.Navigation("UserConnection");
                 });
 #pragma warning restore 612, 618
         }

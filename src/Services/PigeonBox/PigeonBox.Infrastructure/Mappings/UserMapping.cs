@@ -30,7 +30,7 @@ namespace PigeonBox.Infrastructure.Mappings
                     j => j.HasOne<Chat>().WithMany().HasForeignKey("ChatId"),
                     j => j.HasOne<User>().WithMany().HasForeignKey("UserId"));
 
-            var user = new User("Administrador", "admin@admin.com.br", "admin", "@Asd123456789");
+            var user = new User("Administrador", "admin@admin.com", "admin", "asd123");
             user.Id = 1;
 
             builder.HasData(user);

@@ -15,6 +15,7 @@ namespace PigeonBox.Infrastructure.DataContexts
     public class PigeonBoxContext : DbContext, IUnitOfWork
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserConnection> UserConnections { get; set;}
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChatNotification> Notifications { get; set; }

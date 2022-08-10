@@ -31,10 +31,32 @@ namespace PigeonBox.Infrastructure.Repositories
         {
             return _context.Users.ToListAsync();
         }
+        public Task<List<User>> GetAllWithUserConnection()
+        {
+            return _context.Users.Include(p => p.UserConnection).ToListAsync();
+        }
+
+        public Task<List<User>> GetAllOnlineByUserId(params int[] usersIds)
+        {
+            return _context.Users.Include(p => p.UserConnection)
+                .Where(p => usersIds.Any(id => id == p.Id) && p.UserConnection.IsConnected == true).ToListAsync();
+        }
 
         public Task<User> GetById(int id)
         {
             return _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public Task<User> GetByIdWithChilds(int id)
+        {
+            return _context.Users.Include(p => p.UserConnection)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public Task<User> GetByConnectionId(string connectionId)
+        {
+            return _context.Users.Include(p => p.UserConnection)
+                .FirstOrDefaultAsync(p => p.UserConnection.ConnectionId == connectionId);
         }
 
         public void Update(User entity)

@@ -71,7 +71,7 @@ namespace PigeonBox.API.Controllers
         /// <summary>
         /// Obtém todos os contatos do servidor, flagando os onlines e offlines
         /// </summary>
-        /// <returns></returns
+        /// <returns></returns>
         [HttpGet("/contacts/get/all")]
         public async Task<ActionResult<IEnumerable<ContactViewModel>>> GetAllContacts()
         {

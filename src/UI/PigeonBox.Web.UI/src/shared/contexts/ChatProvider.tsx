@@ -41,6 +41,8 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     if (User != null && connection == null) {
+      GetAllChats(User.id);
+      GetAllContacts();
       JoinChatHub();
     }
   }, [User]);
@@ -50,6 +52,23 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       setActualChat(chats.find((p) => p.id == actualChat?.id)!);
     }
   }, [chats]);
+
+  useEffect(() => {
+    console.log(connection?.connectionId);
+
+    connection?.on("JoinedServer", () => {
+      console.log("CONECTANDO", connection.connectionId);
+    });
+
+    connection?.on("MessageReceived", (message: IMessage) => {
+      console.log(message.id);
+      PushNewMessage(message);
+    });
+
+    connection?.onreconnected(() => {
+      connection.invoke("ReconnectedServerHub", User);
+    });
+  }, [connection]);
 
   const JoinChatHub = async () => {
     const con = new HubConnectionBuilder()
@@ -63,18 +82,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
     setConnection(con);
   };
-
-  useEffect(() => {
-    if (connection != null) {
-      connection.on("JoinedServer", (userId: number) => {
-        console.log("CONECTANDO", userId);
-      });
-
-      connection.on("MessageReceived", (message: IMessage) => {
-        PushNewMessage(message);
-      });
-    }
-  }, [connection]);
 
   function SetActualChat(chat: IChatInfo) {
     if (chat == actualChat) {
@@ -96,10 +103,15 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     const newChats = chats.filter((c) => c.id != message.chatId);
     const chatToModify = chats.find((c) => c.id == message.chatId);
 
+    console.log(chatToModify);
+
     if (chatToModify != null) {
       if (chatToModify.messages == null) {
         chatToModify.messages = new Array<IMessage>();
       }
+
+      console.log(chatToModify);
+
       chatToModify.messages.push(message);
       newChats.push(chatToModify);
 
@@ -114,8 +126,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
   async function GetAllChats(userId: number) {
     const newChats = await ChatService.GetAllChatsByUserId(userId);
-
-    console.log(newChats);
 
     if (newChats != null) {
       setChats(newChats);

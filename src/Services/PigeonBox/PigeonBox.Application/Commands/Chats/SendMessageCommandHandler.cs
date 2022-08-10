@@ -5,6 +5,7 @@ using PigeonBox.Application.Models.View;
 using PigeonBox.Core.CQRS;
 using PigeonBox.Domain.Interfaces;
 using PigeonBox.Domain.Messages;
+using PigeonBox.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,14 +57,13 @@ namespace PigeonBox.Application.Commands.Chats
             _chatRepository.Update(chat);
             await _chatRepository.UnitOfWork.Commit();
 
-            if (ChatHubHandler.UsersConnected.Any())
+            if (chat.Users.Any())
             {
-                List<string> userConnectedIds = ChatHubHandler.UsersConnected
-                    .Where(u => chat.Users.Any(user => user.Id == u.UserConnection.Id))
-                    .Select(u => u.ConnectionId).ToList();
+                List<User> connectedUsers = await _userRepository
+                    .GetAllOnlineByUserId(chat.Users.Select(p => p.Id).ToArray());
 
-                if (userConnectedIds.Any())
-                    await _hubContext.Clients.Clients(userConnectedIds)
+                if (connectedUsers.Any())
+                    await _hubContext.Clients.Clients(connectedUsers.Select(p => p.UserConnection.ConnectionId).ToList())
                         .SendAsync("MessageReceived", new MessageViewModel
                         {
                             Id = message.Id,
@@ -74,7 +74,6 @@ namespace PigeonBox.Application.Commands.Chats
                             SentAt = message.SentAt
                         });
             }
-
 
             return new CommandResponse<bool>(ValidationResult, true);
         }
