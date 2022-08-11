@@ -54,7 +54,7 @@ namespace PigeonBox.Application.Hubs
             if (user == null)
                 return;
 
-            await Clients.All.SendAsync("DisconnectedServer", user.Id);
+            await Clients.All.SendAsync("DisconnectedServer", JsonConvert.SerializeObject(new {user.Id}));
 
             user.UserConnection.ChangeIsConnected(false);
             await _userRepository.UnitOfWork.Commit();
