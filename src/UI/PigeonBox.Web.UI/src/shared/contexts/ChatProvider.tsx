@@ -81,6 +81,22 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
       }
     });
 
+    connection?.on("DisconnectedServer", (json) => {
+      console.log(json);
+      const data = JSON.parse(json);
+
+      if (contacts.find((p) => p.id == data.Id) != null) {
+        const contactAtt = contacts.find((p) => p.id == data.Id);
+        const contactsToUpdate = contacts.filter((p) => p.id !== data.Id);
+
+        if (contactAtt == null) return;
+
+        contactAtt.isOnline = false;
+
+        setContacts([...contactsToUpdate, contactAtt]);
+      }
+    });
+
     connection?.on("MessageReceived", (message: IMessage) => {
       console.log(message.id);
       PushNewMessage(message);
