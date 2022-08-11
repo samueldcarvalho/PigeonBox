@@ -16,7 +16,7 @@ namespace PigeonBox.API.Configurations
                 {
                     options.AllowAnyHeader();
                     options.AllowAnyMethod();
-                    options.WithOrigins("http://localhost:3000", "http://localhost:8080", "https://4e16-2804-1b3-6f00-5364-1549-1a0-f10b-c4b7.sa.ngrok.io");
+                    options.WithOrigins("http://localhost:3000", "http://localhost:8080");
                     options.AllowCredentials();
                 });
             });

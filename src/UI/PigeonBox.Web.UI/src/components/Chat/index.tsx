@@ -26,12 +26,12 @@ const Chat = () => {
             key={ActualChat.title}
             initial={{
               opacity: 0,
-              y: -15,
+              scaleY: 0.95,
             }}
             animate={{
               opacity: 1,
-              y: 0,
-              boxShadow: "0 5px 15px rgba(0,0,0,0.2)",
+              boxShadow: "0 15px 25px 5px rgba(0,0,0,0.2)",
+              scaleY: 1,
             }}
             transition={{
               type: "spring",

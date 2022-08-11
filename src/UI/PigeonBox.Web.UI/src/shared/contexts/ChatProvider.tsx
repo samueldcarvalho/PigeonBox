@@ -42,8 +42,8 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
   useEffect(() => {
     if (User != null && connection == null) {
-      GetAllChats(User.id);
       GetAllContacts();
+      GetAllChats(User.id);
       JoinChatHub();
     }
   }, [User]);
@@ -55,10 +55,30 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   }, [chats]);
 
   useEffect(() => {
-    console.log(connection?.connectionId);
+    connection?.on("JoinedServer", (json) => {
+      const user = JSON.parse(json);
 
-    connection?.on("JoinedServer", () => {
-      console.log("CONECTANDO", connection.connectionId);
+      if (contacts.find((p) => p.id == user.Id) == null) {
+        setContacts([
+          {
+            id: user.Id,
+            email: user.Email,
+            name: user.Name,
+            username: user.Username,
+            isOnline: true,
+          },
+          ...contacts,
+        ]);
+      } else {
+        const contactAtt = contacts.find((p) => p.id == user.Id);
+        const contactsToUpdate = contacts.filter((p) => p.id !== user.Id);
+
+        if (contactAtt == null) return;
+
+        contactAtt.isOnline = true;
+
+        setContacts([contactAtt, ...contactsToUpdate]);
+      }
     });
 
     connection?.on("MessageReceived", (message: IMessage) => {
