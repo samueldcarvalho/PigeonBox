@@ -16,7 +16,7 @@ import { duration } from "@mui/material";
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, Contacts } = useContext(ChatContext);
-  const { User } = useContext(AuthContext);
+  const { User, Logout } = useContext(AuthContext);
 
   return (
     <motion.div className={styles.chatBoxFlexContainer}>
@@ -86,6 +86,14 @@ const ChatBox = () => {
                 <ContactsPanel Contacts={Contacts} />
               )}
             </div>
+            <footer className={styles.lateralMenuFooter}>
+              <button
+                onClick={() => Logout()}
+                className={styles.lateralMenuLogoutButton}
+              >
+                Logout
+              </button>
+            </footer>
           </div>
           <Chat />
         </div>

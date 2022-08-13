@@ -11,15 +11,7 @@ const Message = ({
 }) => {
   return (
     <motion.div
-      initial={{}}
-      animate={{}}
-      transition={{
-        type: "spring",
-        duration: 0.4,
-        bounce: 0.4,
-      }}
       whileHover={{
-        scale: 1.02,
         filter: "brightness(1.2)",
         transition: {
           type: "spring",

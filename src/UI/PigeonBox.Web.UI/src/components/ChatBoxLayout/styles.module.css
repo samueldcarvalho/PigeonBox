@@ -70,10 +70,29 @@
 @media (min-width: 800px) {
   .chatBoxBodyLateralMenu {
     background-color: var(--primary-400);
-    border-radius: 0 0 0 24px;
     height: 100%;
     width: 340px;
     float: left;
+  }
+
+  .lateralMenuFooter {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    height: 72px;
+  }
+
+  .lateralMenuFooter button {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding-block: 15px;
+  }
+
+  .lateralMenuFooter .lateralMenuLogoutButton {
+    background-color: var(--primary-700);
   }
 
   .tabButton {
