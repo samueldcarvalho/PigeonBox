@@ -9,7 +9,7 @@ using PigeonBox.Infrastructure.DataContexts;
 namespace PigeonBox.Infrastructure.Migrations
 {
     [DbContext(typeof(PigeonBoxContext))]
-    [Migration("20220809233034_initial")]
+    [Migration("20220813160130_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,12 +73,12 @@ namespace PigeonBox.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 94, DateTimeKind.Local).AddTicks(3304),
-                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 95, DateTimeKind.Local).AddTicks(3486),
+                            AlteredAt = new DateTime(2022, 8, 13, 13, 1, 29, 354, DateTimeKind.Local).AddTicks(6671),
+                            CreatedAt = new DateTime(2022, 8, 13, 13, 1, 29, 355, DateTimeKind.Local).AddTicks(7034),
                             Description = new byte[] { 87, 101, 108, 99, 111, 109, 101, 32, 116, 111, 32, 80, 105, 103, 101, 111, 110, 98, 111, 120, 33, 32, 84, 104, 105, 115, 32, 111, 110, 101, 32, 97, 32, 103, 108, 111, 98, 97, 108, 32, 99, 104, 97, 116, 44, 32, 102, 111, 114, 32, 101, 118, 101, 114, 121, 32, 80, 105, 103, 101, 111, 110, 32, 105, 110, 32, 116, 104, 105, 115, 32, 98, 111, 120, 46, 32, 66, 101, 32, 114, 101, 115, 112, 101, 99, 116, 102, 117, 108, 33, 32, 65, 116, 116, 46, 46, 32, 83, 97, 109, 117, 101, 108, 32, 61, 41, 32 },
                             Removed = false,
                             Title = "#Everyone",
-                            UniqueIdentifier = new Guid("caba697b-b17f-459c-a81a-2d29cde5af45"),
+                            UniqueIdentifier = new Guid("1f4157ee-fb5e-4e49-b441-a92fe9528722"),
                             UserId = 1
                         });
                 });
@@ -242,8 +242,8 @@ namespace PigeonBox.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 181, DateTimeKind.Local).AddTicks(4796),
-                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 181, DateTimeKind.Local).AddTicks(4818),
+                            AlteredAt = new DateTime(2022, 8, 13, 13, 1, 29, 428, DateTimeKind.Local).AddTicks(8178),
+                            CreatedAt = new DateTime(2022, 8, 13, 13, 1, 29, 428, DateTimeKind.Local).AddTicks(8198),
                             Email = "admin@admin.com",
                             Name = "Administrador",
                             Password = "asd123",
@@ -313,9 +313,9 @@ namespace PigeonBox.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AlteredAt = new DateTime(2022, 8, 9, 20, 30, 34, 102, DateTimeKind.Local).AddTicks(8415),
+                            AlteredAt = new DateTime(2022, 8, 13, 13, 1, 29, 362, DateTimeKind.Local).AddTicks(1700),
                             ConnectionId = "",
-                            CreatedAt = new DateTime(2022, 8, 9, 20, 30, 34, 102, DateTimeKind.Local).AddTicks(8439),
+                            CreatedAt = new DateTime(2022, 8, 13, 13, 1, 29, 362, DateTimeKind.Local).AddTicks(1725),
                             IsConnected = false,
                             LastConnectionAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Removed = false,
