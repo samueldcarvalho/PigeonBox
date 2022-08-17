@@ -49,7 +49,7 @@ const Chat = () => {
                   return (
                     <motion.div
                       initial={{
-                        x: m.id == User.id ? -25 : 25,
+                        x: m.userId == User.id ? -10 : 10,
                         opacity: 0,
                       }}
                       animate={{
@@ -58,6 +58,9 @@ const Chat = () => {
                       }}
                       transition={{
                         delay: i * 0.03,
+                        type: "spring",
+                        duration: 0.7,
+                        bounce: 0.5,
                       }}
                       style={{
                         display: "flex",
@@ -90,7 +93,7 @@ const Chat = () => {
                       }
                     : {
                         opacity: 1,
-                        boxShadow: "inset 0 0 2px 2px rgba(0, 255, 115, 1)",
+                        boxShadow: "inset 0 0 2px 2px rgba(0, 235, 102, 1)",
                       }
                 }
                 transition={{ type: "spring", bounce: 0.5 }}

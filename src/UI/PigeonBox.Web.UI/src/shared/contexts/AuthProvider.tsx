@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { RegisterInputModel } from "../models/Input/RegisterInputModel";
 import { IUser } from "../models/User";
@@ -7,6 +8,7 @@ import { UserService } from "../services/UserService";
 interface IAuthContextProps {
   User: IUser;
   Login: (username: string, password: string) => Promise<boolean>;
+  Logout: () => void;
   Register: (input: RegisterInputModel) => Promise<boolean>;
   GetUser: () => Promise<boolean>;
 }
@@ -15,6 +17,7 @@ export const AuthContext = createContext({} as IAuthContextProps);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
+  const Router = useRouter();
 
   async function Login(username: string, password: string): Promise<boolean> {
     const credentials = Buffer.from(
@@ -55,6 +58,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true;
   }
 
+  function Logout() {
+    CookiesService.RemoveUserTokenCookie();
+    Router.push("/login");
+    setUser(null);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -62,6 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         Login,
         Register,
         GetUser,
+        Logout,
       }}
     >
       {children}

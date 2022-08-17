@@ -16,7 +16,7 @@ import { duration } from "@mui/material";
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, Contacts } = useContext(ChatContext);
-  const { User } = useContext(AuthContext);
+  const { User, Logout } = useContext(AuthContext);
 
   return (
     <motion.div className={styles.chatBoxFlexContainer}>
