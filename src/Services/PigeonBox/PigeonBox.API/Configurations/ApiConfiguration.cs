@@ -16,7 +16,7 @@ namespace PigeonBox.API.Configurations
                 {
                     options.AllowAnyHeader();
                     options.AllowAnyMethod();
-                    options.WithOrigins("http://localhost:3000", "http://localhost:8080");
+                    options.WithOrigins("http://localhost:3000", "http://localhost:8080", "https://pigeon-box.vercel.app");
                     options.AllowCredentials();
                 });
             });
