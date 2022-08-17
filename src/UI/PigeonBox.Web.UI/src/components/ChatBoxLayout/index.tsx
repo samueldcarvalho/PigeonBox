@@ -86,14 +86,6 @@ const ChatBox = () => {
                 <ContactsPanel Contacts={Contacts} />
               )}
             </div>
-            <footer className={styles.lateralMenuFooter}>
-              <button
-                onClick={() => Logout()}
-                className={styles.lateralMenuLogoutButton}
-              >
-                Logout
-              </button>
-            </footer>
           </div>
           <Chat />
         </div>
