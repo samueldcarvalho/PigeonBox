@@ -56,7 +56,7 @@ namespace PigeonBox.Domain.Users.Services
             }
             catch (Exception ex)
             {
-                return AuthenticateResult.Fail("Error: " + ex.Message);
+                throw new Exception(ex.Message);
             }
         }
     }
