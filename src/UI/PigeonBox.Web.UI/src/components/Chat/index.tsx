@@ -40,7 +40,7 @@ const Chat = () => {
             }}
             animate={{
               opacity: 1,
-              boxShadow: "0 15px 25px 5px rgba(0,0,0,0.2)",
+              boxShadow: "0 5px 15px 3px rgba(0,0,0,0.1)",
               scaleY: 1,
             }}
             transition={{
