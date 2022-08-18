@@ -38,6 +38,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   const [chats, setChats] = useState<IChatInfo[]>([]);
   const [actualChat, setActualChat] = useState<IChatInfo | null>(null);
   const [connection, setConnection] = useState<HubConnection | null>(null);
+
   const { User } = useContext(AuthContext);
 
   useEffect(() => {
@@ -82,7 +83,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     });
 
     connection?.on("DisconnectedServer", (json) => {
-      console.log(json);
       const data = JSON.parse(json);
 
       if (contacts.find((p) => p.id == data.Id) != null) {
@@ -98,7 +98,6 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     });
 
     connection?.on("MessageReceived", (message: IMessage) => {
-      console.log(message.id);
       PushNewMessage(message);
     });
 
@@ -140,14 +139,10 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
     const newChats = chats.filter((c) => c.id != message.chatId);
     const chatToModify = chats.find((c) => c.id == message.chatId);
 
-    console.log(chatToModify);
-
     if (chatToModify != null) {
       if (chatToModify.messages == null) {
         chatToModify.messages = new Array<IMessage>();
       }
-
-      console.log(chatToModify);
 
       chatToModify.messages.push(message);
       newChats.push(chatToModify);

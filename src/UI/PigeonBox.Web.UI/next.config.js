@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     BASEURL_API: "https://pigeon-box-api.herokuapp.com",
+    // BASEURL_API: "https://localhost:44387",
   },
 };
 

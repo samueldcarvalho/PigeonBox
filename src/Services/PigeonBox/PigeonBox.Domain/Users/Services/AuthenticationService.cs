@@ -16,6 +16,7 @@ namespace PigeonBox.Domain.Users.Services
     public class AuthenticationService : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IUserRepository _userRepository;
+
         public AuthenticationService(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
             ILoggerFactory logger, 
