@@ -59,7 +59,7 @@ const Chat = () => {
                   return (
                     <motion.div
                       initial={{
-                        x: m.userId == User.id ? -10 : 10,
+                        x: m.userId == User?.id ? -10 : 10,
                         opacity: 0,
                       }}
                       animate={{
@@ -77,7 +77,7 @@ const Chat = () => {
                         width: "100%",
                       }}
                     >
-                      <Message message={m} sendedByMe={m.userId == User.id} />
+                      <Message message={m} sendedByMe={m.userId == User?.id} />
                     </motion.div>
                   );
                 })

@@ -2,6 +2,7 @@
 import React, { memo, useContext, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FaSadTear } from "react-icons/fa";
+import { RiShutDownLine } from "react-icons/ri";
 import { BsFillChatLeftDotsFill, BsPeopleFill } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Chat from "../Chat";
@@ -49,6 +50,11 @@ const ChatBox = () => {
         <div className={styles.chatBoxHeader}>
           <span>
             <h1>{User?.name}</h1>
+          </span>
+          <span className={styles.chatBoxHeaderLogoutContainer}>
+            <button onClick={() => Logout()}>
+              <RiShutDownLine />
+            </button>
           </span>
         </div>
         <div className={styles.chatBoxBody}>
