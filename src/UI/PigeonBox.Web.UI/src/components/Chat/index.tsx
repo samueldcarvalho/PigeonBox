@@ -3,7 +3,7 @@
 import { IoMdSend } from "react-icons/io";
 import { motion } from "framer-motion";
 import styles from "./styles.module.css";
-import React, { memo, useContext, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import HomeChatBoxLayout from "../HomeChatBoxLayout";
 import Message from "../Message";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
@@ -15,6 +15,16 @@ const Chat = () => {
   const [messageText, setMessageText] = useState<string>("");
   const { ActualChat, SendMessage } = useContext(ChatContext);
   const { User } = useContext(AuthContext);
+
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [ActualChat?.messages.length]);
 
   return (
     <div className={styles.chatContainer}>
@@ -57,9 +67,8 @@ const Chat = () => {
                         opacity: 1,
                       }}
                       transition={{
-                        delay: i * 0.03,
                         type: "spring",
-                        duration: 0.7,
+                        duration: 0.8,
                         bounce: 0.5,
                       }}
                       style={{
@@ -73,6 +82,8 @@ const Chat = () => {
                   );
                 })
               )}
+
+            <div style={{ marginBottom: 25 }} ref={messageEndRef} />
           </motion.div>
           <div className={styles.chatFooter}>
             <motion.div
