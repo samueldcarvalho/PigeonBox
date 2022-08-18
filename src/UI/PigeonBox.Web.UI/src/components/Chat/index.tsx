@@ -24,7 +24,7 @@ const Chat = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [ActualChat?.messages.length]);
+  }, [ActualChat?.messages?.length]);
 
   return (
     <div className={styles.chatContainer}>
