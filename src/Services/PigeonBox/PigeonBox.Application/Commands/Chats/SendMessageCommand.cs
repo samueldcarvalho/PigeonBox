@@ -39,7 +39,7 @@ namespace PigeonBox.Application.Commands.Chats
                 RuleFor(p => p.Text)
                     .NotNull()
                     .NotEmpty()
-                    .MaxLength(300);
+                    .MaximumLength(300);
 
                 RuleFor(p => p.UserId)
                     .NotNull()

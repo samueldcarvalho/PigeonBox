@@ -31,7 +31,7 @@ namespace PigeonBox.API.Controllers
         }
 
         /// <summary>
-        /// Registra o usuário a partir dos dados de input
+        /// Register a new user
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace PigeonBox.API.Controllers
         }
 
         /// <summary>
-        /// Obtém o usuário a partir do e-mail extraído do HttpContext, que por sua vez, é obtido no middleware de Autenticação
+        /// Get logged User
         /// </summary>
         /// <returns></returns>
         [Authorize]
@@ -69,7 +69,7 @@ namespace PigeonBox.API.Controllers
         }
 
         /// <summary>
-        /// Obtém todos os contatos do servidor, flagando os onlines e offlines
+        /// Get all contacts
         /// </summary>
         /// <returns></returns>
         [HttpGet("/contacts/get/all")]
