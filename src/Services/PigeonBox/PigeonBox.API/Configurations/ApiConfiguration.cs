@@ -10,21 +10,17 @@ namespace PigeonBox.API.Configurations
     {
         public static void AddApiConfiguration(this IServiceCollection services)
         {
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowAllOrigins", options =>
-                {
-                    options.AllowAnyHeader();
-                    options.AllowAnyMethod();
-                    options.WithOrigins("http://localhost:3000", "http://localhost:8080", "https://pigeon-box.vercel.app");
-                    options.AllowCredentials();
-                });
-            });
-
             services.AddControllers();
             services.AddAuthentication("Authentication")
                 .AddScheme<AuthenticationSchemeOptions, Domain.Users.Services.AuthenticationService>("Authentication", null);
 
+            services.AddCors(c =>
+                c.AddDefaultPolicy(options => options
+                    .SetIsOriginAllowed(_ => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    ));
         }
     }
 }
