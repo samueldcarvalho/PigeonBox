@@ -26,7 +26,8 @@ namespace PigeonBox.API.Configurations
             services.AddScoped<IChatQueries, ChatQueries>();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
-            services.AddMediatR(Assembly.Load("PigeonBox.Application"));
+            services.AddMediatR(config =>
+                config.RegisterServicesFromAssemblies(Assembly.Load("PigeonBox.Application")));
         }
     }
 }
