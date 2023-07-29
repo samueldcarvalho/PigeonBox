@@ -114,6 +114,7 @@ const Chat = () => {
                   autoFocus
                   onFocus={() => setInFocus(true)}
                   onBlur={() => setInFocus(false)}
+                  max={254}
                   type="text"
                   placeholder="   Type your message here..."
                   onChange={(e) => setMessageText(e.target.value)}
