@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <UserSecretsId>209744ba-6865-4c85-9b18-3aaa08e76856</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
