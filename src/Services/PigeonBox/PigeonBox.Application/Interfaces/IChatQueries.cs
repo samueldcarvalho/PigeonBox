@@ -9,6 +9,6 @@ namespace PigeonBox.Application.Interfaces
 {
     public interface IChatQueries
     {   
-        Task<IEnumerable<ChatViewModel>> GetChatsByUserId (int userId);
+        Task<IEnumerable<ChatViewModel>> GetChatsByUserId ();
     }
 }

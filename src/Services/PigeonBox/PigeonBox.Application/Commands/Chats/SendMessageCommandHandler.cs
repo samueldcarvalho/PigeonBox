@@ -59,20 +59,21 @@ namespace PigeonBox.Application.Commands.Chats
 
             if (chat.Users.Any())
             {
-                List<User> connectedUsers = await _userRepository
-                    .GetAllOnlineByUserId(chat.Users.Select(p => p.Id).ToArray());
+                List<User> connectedUsers = chat.Users.Where(x => ChatHub.UserIsOnline(x.Id)).ToList();
 
                 if (connectedUsers.Any())
-                    await _hubContext.Clients.Clients(connectedUsers.Select(p => p.UserConnection.ConnectionId).ToList())
-                        .SendAsync("MessageReceived", new MessageViewModel
-                        {
-                            Id = message.Id,
-                            UserId = user.Id,
-                            UserName = user.Name,
-                            ChatId = message.ChatId,
-                            Text = message.Text,
-                            SentAt = message.SentAt
-                        });
+                {
+                    IReadOnlyList<string> userIds = connectedUsers.Select(x => x.Id.ToString()).ToList(); 
+                    await _hubContext.Clients.Groups(userIds).SendAsync("MessageReceived", new MessageViewModel
+                    {
+                        Id = message.Id,
+                        UserId = user.Id,
+                        UserName = user.Name,
+                        ChatId = message.ChatId,
+                        Text = message.Text,
+                        SentAt = message.SentAt
+                    });
+                }
             }
 
             return new CommandResponse<bool>(ValidationResult, true);

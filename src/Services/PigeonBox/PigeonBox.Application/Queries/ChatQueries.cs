@@ -1,9 +1,12 @@
-﻿using PigeonBox.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Http;
+using PigeonBox.Application.Interfaces;
 using PigeonBox.Application.Models.View;
 using PigeonBox.Domain.Interfaces;
+using PigeonBox.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,17 +15,25 @@ namespace PigeonBox.Application.Queries
     public class ChatQueries : IChatQueries
     {
         private readonly IChatRepository _chatRepository;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public ChatQueries(IChatRepository chatRepository)
+        public ChatQueries(IChatRepository chatRepository, IHttpContextAccessor httpContext)
         {
             _chatRepository = chatRepository;
+            _httpContext = httpContext;
         }
 
-        public async Task<IEnumerable<ChatViewModel>> GetChatsByUserId(int userId)
+        public async Task<IEnumerable<ChatViewModel>> GetChatsByUserId()
         {
-            var chats = await _chatRepository.GetByUserId(userId);
+            var userId = _httpContext.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (chats == null)
+            if (userId == null)
+                throw new Exception("UserId cannot be found");
+
+
+            var chats = await _chatRepository.GetByUserId(int.Parse(userId));
+
+            if (!chats.Any())
                 return new List<ChatViewModel>();
 
             return chats.Select(chat =>

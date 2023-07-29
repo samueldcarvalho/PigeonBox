@@ -10,6 +10,7 @@ namespace PigeonBox.Application.Interfaces
     public interface IUserQueries
     {
         Task<UserConnectionViewModel> GetUserByEmail(string email);
+        Task<UserConnectionViewModel> GetUserById(int id);
         Task<IEnumerable<ContactViewModel>> GetAllContacts();
     }
 }
