@@ -11,6 +11,8 @@ using PigeonBox.Application.Models.View;
 using PigeonBox.Application.Queries;
 using PigeonBox.Core.CQRS;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PigeonBox.API.Controllers
@@ -55,12 +57,12 @@ namespace PigeonBox.API.Controllers
         [HttpGet("get")]
         public async Task<ActionResult<UserConnectionViewModel>> GetUser()
         {
-            var email = HttpContext.User.Identity.Name;
+            var userIdClaim = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrWhiteSpace(email))
-                return StatusCode(StatusCodes.Status500InternalServerError, null);
+            if (userIdClaim == null)
+                return StatusCode(StatusCodes.Status400BadRequest, null);
 
-            var user = await _userQueries.GetUserByEmail(email);
+            var user = await _userQueries.GetUserById(int.Parse(userIdClaim.Value));
 
             if(user == null)
                 return StatusCode(StatusCodes.Status400BadRequest, null);
@@ -72,7 +74,7 @@ namespace PigeonBox.API.Controllers
         /// Get all contacts
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/contact/get/all")]
+        [HttpGet("contacts")]
         public async Task<ActionResult<IEnumerable<ContactViewModel>>> GetAllContacts()
         {
             var contacts = await _userQueries.GetAllContacts();

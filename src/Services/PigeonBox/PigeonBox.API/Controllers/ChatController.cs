@@ -46,9 +46,9 @@ namespace PigeonBox.API.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet("get")]
-        public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId([FromQuery] int userId)
+        public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId()
         {
-            var chats = await _chatQueries.GetChatsByUserId(userId);
+            var chats = await _chatQueries.GetChatsByUserId();
             return Ok(chats);
         }
 

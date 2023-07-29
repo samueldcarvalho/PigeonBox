@@ -12,9 +12,10 @@ namespace PigeonBox.API.Configurations
         {
             services.AddCors(c =>
                 c.AddDefaultPolicy(options => options
-                    .AllowAnyOrigin()
+                    .SetIsOriginAllowed(_ => true)
                     .AllowAnyMethod()
-                    .AllowAnyHeader()));
+                    .AllowAnyHeader()
+                    .AllowCredentials()));
 
             services.AddControllers();
             services.AddAuthentication("Authentication")

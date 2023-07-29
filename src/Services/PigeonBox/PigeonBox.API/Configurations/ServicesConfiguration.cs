@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -24,6 +25,7 @@ namespace PigeonBox.API.Configurations
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IUserQueries, UserQueries>();
             services.AddScoped<IChatQueries, ChatQueries>();
+            services.AddHttpContextAccessor();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddMediatR(config =>
