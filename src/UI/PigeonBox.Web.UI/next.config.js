@@ -3,8 +3,8 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   env: {
-    BASEURL_API: "https://pigeon-box-api.herokuapp.com",
-    // BASEURL_API: "https://localhost:44387",
+    BASEURL_API: "https://pigeon-box-api.azurewebsites.net/api/v1/",
+    // BASEURL_API: "http://localhost:5000/api/v1/",
   },
 };
 

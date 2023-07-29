@@ -33,7 +33,7 @@ async function SendMessage(
 }
 
 async function GetAllContacts(): Promise<IUser[] | null> {
-  return await Api.get("/contacts/get/all")
+  return await Api.get("/contact/get/all")
     .then((res) => res.data as IUser[])
     .catch(() => null);
 }
