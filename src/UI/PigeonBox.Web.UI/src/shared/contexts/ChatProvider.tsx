@@ -18,7 +18,9 @@ import { IChatInfo } from "../models/Chat";
 import { IMessage } from "../models/Message";
 import { IUser } from "../models/User";
 import { ChatService } from "../services/ChatService";
-import { AuthContext } from "./AuthProvider";
+import { AuthContext, AuthProvider } from "./AuthProvider";
+import { CookiesService } from "../services/CookiesService";
+import { UserService } from "../services/UserService";
 
 interface IChatContextProps {
   Contacts: IUser[];
@@ -26,6 +28,7 @@ interface IChatContextProps {
   ActualChat: IChatInfo | null;
   SetActualChat: (chat: IChatInfo) => void;
   JoinChatHub: () => void;
+  StopChatHub: () => void;
   GetAllChats: (userId: number) => void;
   GetAllContacts: () => void;
   SendMessage: (textMessage: string) => Promise<boolean>;
@@ -44,7 +47,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   useEffect(() => {
     if (User != null && connection == null) {
       GetAllContacts();
-      GetAllChats(User.id);
+      GetAllChats();
       JoinChatHub();
     }
   }, [User]);
@@ -56,68 +59,66 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
   }, [chats]);
 
   useEffect(() => {
-    connection?.on("JoinedServer", (json) => {
-      const user = JSON.parse(json);
+    connection?.on("JoinedServer", async (userId: number) => {
+      let contactJoined = contacts.find((p) => p.id == userId);
 
-      if (contacts.find((p) => p.id == user.Id) == null) {
-        setContacts([
-          {
-            id: user.Id,
-            email: user.Email,
-            name: user.Name,
-            username: user.Username,
-            isOnline: true,
-          },
-          ...contacts,
-        ]);
-      } else {
-        const contactAtt = contacts.find((p) => p.id == user.Id);
-        const contactsToUpdate = contacts.filter((p) => p.id !== user.Id);
-
-        if (contactAtt == null) return;
-
-        contactAtt.isOnline = true;
-
-        setContacts([contactAtt, ...contactsToUpdate]);
+      if(contactJoined == null){
+          await GetAllContacts();
+          contactJoined = contacts.find((p) => p.id == userId);
       }
+
+      if (contactJoined == null) {
+        return;
+      } 
+
+      contactJoined.isOnline = true;
+
+      setContacts([contactJoined, ...contacts.filter(x => x.id != contactJoined!.id)]);
     });
 
-    connection?.on("DisconnectedServer", (json) => {
-      const data = JSON.parse(json);
+    connection?.on("DisconnectedServer", (userId: number) => {
+      const contactDisconnected = contacts.find((p) => p.id == userId);
 
-      if (contacts.find((p) => p.id == data.Id) != null) {
-        const contactAtt = contacts.find((p) => p.id == data.Id);
-        const contactsToUpdate = contacts.filter((p) => p.id !== data.Id);
+      if(contactDisconnected == null)
+        return;
 
-        if (contactAtt == null) return;
+      contactDisconnected.isOnline = false;
 
-        contactAtt.isOnline = false;
-
-        setContacts([...contactsToUpdate, contactAtt]);
-      }
+      setContacts(contacts);
     });
 
     connection?.on("MessageReceived", (message: IMessage) => {
       PushNewMessage(message);
     });
-
-    connection?.onreconnected(() => {
-      connection.invoke("ReconnectedServerHub", User);
-    });
   }, [connection]);
 
   const JoinChatHub = async () => {
+    if(CookiesService.GetUserTokenCookie() == null){
+      console.log("Não autenticado")
+      return;
+    }
+    
     const con = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASEURL_API}/chat`)
+      .withUrl(`${process.env.BASEURL_API}chat`, {
+        accessTokenFactory: () => CookiesService.GetUserTokenCookie()
+      })
       .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
       .build();
 
     await con.start();
-    await con.invoke("JoinServerHub", User);
+
+    ChatService.connection = con;
 
     setConnection(con);
   };
+
+  const StopChatHub = () => {
+    if(connection == null)
+      return;
+
+    connection.stop();
+  }
 
   function SetActualChat(chat: IChatInfo) {
     if (chat == actualChat) {
@@ -153,11 +154,13 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
 
   async function GetAllContacts() {
     const contacts = await ChatService.GetAllContacts();
-    if (contacts != null) setContacts(contacts.filter((c) => c.id != User.id));
+    if (contacts != null) {
+      setContacts(contacts);
+    }
   }
 
-  async function GetAllChats(userId: number) {
-    const newChats = await ChatService.GetAllChatsByUserId(userId);
+  async function GetAllChats() {
+    const newChats = await ChatService.GetAllChatsByUserId();
 
     if (newChats != null) {
       setChats(newChats);
@@ -185,6 +188,7 @@ export const ChatProvider = memo(({ children }: { children: ReactElement }) => {
         GetAllChats,
         GetAllContacts,
         SendMessage,
+        StopChatHub
       }}
     >
       {children}

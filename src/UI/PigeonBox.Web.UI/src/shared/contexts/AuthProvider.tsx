@@ -4,6 +4,8 @@ import { RegisterInputModel } from "../models/Input/RegisterInputModel";
 import { IUser } from "../models/User";
 import { CookiesService } from "../services/CookiesService";
 import { UserService } from "../services/UserService";
+import { ChatContext, ChatProvider } from "./ChatProvider";
+import { ChatService } from "../services/ChatService";
 
 interface IAuthContextProps {
   User: IUser;
@@ -58,10 +60,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true;
   }
 
-  function Logout() {
+  async function Logout() {
+    setUser(null);
+    
+    if(ChatService.connection != null)
+      await ChatService.connection.stop();
+
     CookiesService.RemoveUserTokenCookie();
     Router.push("/login");
-    setUser(null);
   }
 
   return (

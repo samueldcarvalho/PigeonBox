@@ -13,11 +13,22 @@ import { AuthContext } from "../../shared/contexts/AuthProvider";
 import { IChatInfo } from "../../shared/models/Chat";
 import { IUser } from "../../shared/models/User";
 import { duration } from "@mui/material";
+import { ChatService } from "../../shared/services/ChatService";
 
 const ChatBox = () => {
   const [tabActive, setTabActive] = useState<"chats" | "contacts">("chats");
   const { Chats, Contacts } = useContext(ChatContext);
   const { User, Logout } = useContext(AuthContext);
+
+
+  if(typeof window != "undefined") {
+    window.onbeforeunload = () => {
+      if(ChatService.connection == null)
+        return;
+  
+      ChatService.connection.stop();
+    }
+  }
 
   return (
     <motion.div className={styles.chatBoxFlexContainer}>

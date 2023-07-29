@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./styles.module.css";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../shared/contexts/AuthProvider";
@@ -14,6 +15,7 @@ interface LoginFormProps {
 
 const LoginForm = () => {
   const { Login } = useContext(AuthContext);
+  const { JoinChatHub } = useContext(ChatContext);
   const router = useRouter();
 
   const {
@@ -26,7 +28,9 @@ const LoginForm = () => {
     const logged = await Login(data.username, data.password);
 
     if (!logged) return;
-
+    
+    await JoinChatHub();
+    
     router.push("/");
   });
 

@@ -3,15 +3,12 @@ import { IChatInfo } from "../models/Chat";
 import { IUser } from "../models/User";
 import { Api } from "./Api";
 import { v4 } from "uuid";
+import { HubConnection } from "@microsoft/signalr";
 
-async function GetAllChatsByUserId(
-  userId: number
-): Promise<IChatInfo[] | null> {
-  return await Api.get("/chat/get", {
-    params: {
-      userId: userId,
-    },
-  })
+let connection: HubConnection;
+
+async function GetAllChatsByUserId(): Promise<IChatInfo[] | null> {
+  return await Api.get("/chat/get")
     .then((res) => res.data as IChatInfo[])
     .catch(() => null);
 }
@@ -33,7 +30,7 @@ async function SendMessage(
 }
 
 async function GetAllContacts(): Promise<IUser[] | null> {
-  return await Api.get("/contact/get/all")
+  return await Api.get("/user/contacts")
     .then((res) => res.data as IUser[])
     .catch(() => null);
 }
@@ -42,4 +39,5 @@ export const ChatService = {
   GetAllChatsByUserId,
   GetAllContacts,
   SendMessage,
+  connection: connection!
 };
