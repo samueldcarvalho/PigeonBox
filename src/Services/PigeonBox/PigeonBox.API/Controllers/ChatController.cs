@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace PigeonBox.API.Controllers
 {
-    [Route("/api/v1/chatting")]
+    [Route("/api/v1/chat")]
     [ApiController]
-    public class ChattingController : ControllerBase
+    public class ChatController : ControllerBase
     {
         private readonly IMediatorHandler _mediator;
         private readonly IChatQueries _chatQueries;
 
-        public ChattingController(IMediatorHandler mediator, IChatQueries chatQueries)
+        public ChatController(IMediatorHandler mediator, IChatQueries chatQueries)
         {
             _mediator = mediator;
             _chatQueries = chatQueries;
@@ -28,7 +28,7 @@ namespace PigeonBox.API.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("/chat/start")]
+        [HttpPost("start")]
         public async Task<ActionResult<CommandResponse<bool>>> StartNewChat([FromBody] StartChatInputModel input)
         {
             var commandResponse = await _mediator
@@ -41,11 +41,23 @@ namespace PigeonBox.API.Controllers
         }
 
         /// <summary>
+        /// Get all chats by User Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("get")]
+        public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId([FromQuery] int userId)
+        {
+            var chats = await _chatQueries.GetChatsByUserId(userId);
+            return Ok(chats);
+        }
+
+        /// <summary>
         /// Send new message passing InputModel
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("/chat/message/send")]
+        [HttpPost("message/send")]
         public async Task<ActionResult<CommandResponse<bool>>> SendMessage([FromBody] SendMessageInputModel input)
         {
             var commandResponse = await _mediator
@@ -55,18 +67,6 @@ namespace PigeonBox.API.Controllers
                 return BadRequest(commandResponse.ValidationResult);
 
             return Ok(commandResponse.ValidationResult);
-        }
-
-        /// <summary>
-        /// Get all chats by User Id
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [HttpGet("/chat/get")]
-        public async Task<ActionResult<IEnumerable<ChatViewModel>>> GetChatsByUserId([FromQuery] int userId)
-        {
-            var chats = await _chatQueries.GetChatsByUserId(userId);
-            return Ok(chats);
         }
     }
 }
