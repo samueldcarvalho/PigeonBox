@@ -47,7 +47,11 @@ namespace PigeonBox.Domain.Users.Services
                     return AuthenticateResult.Fail("Invalid username or password");
                 else
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, user.Email) };
+                    var claims = new[] { 
+                        new Claim(ClaimTypes.Name, user.Name),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    };
                     var identity = new ClaimsIdentity(claims, Scheme.Name);
                     var principal = new ClaimsPrincipal(identity);
                     var ticket = new AuthenticationTicket(principal, Scheme.Name);
